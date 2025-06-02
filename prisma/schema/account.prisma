@@ -1,0 +1,24 @@
+model Account {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  name              String
+  email             String  @unique
+  password          String?
+  role              Roles
+  isActive          Boolean @default(true) @map("is_active")
+  isPasswordCreated Boolean @default(false) @map("is_password_created")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  favoriteCategories UserFavoriteCategory[]
+  favoriteSentences  UserFavoriteSentence[]
+
+  @@map("accounts")
+}
+
+enum Roles {
+  USER
+  ADMIN
+  SENTENCE_ADMIN
+}

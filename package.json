@@ -1,0 +1,72 @@
+{
+  "name": "project-name-backend",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "main": "dist/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:generate": "prisma generate --schema prisma/schema",
+    "db:migrate:dev": "pnpm prisma migrate dev --schema prisma/schema",
+    "db:studio": "pnpm prisma studio --schema prisma/schema",
+    "dev": "concurrently \"pnpm build:dev\" \"pnpm start:dev\" --names \"build,server\" --prefix-colors \"blue,green\"",
+    "prod": "pnpm build:prod && pnpm start:prod",
+    "build:dev": "tsc --watch",
+    "start:dev": "node --watch dist/src/index.js",
+    "build:prod": "tsc",
+    "start:prod": "node dist/src/index.js",
+    "db:up": "docker-compose up -d",
+    "db:down": "docker-compose down",
+    "db:logs": "docker-compose logs -f",
+    "db:down:clean": "docker-compose down --rmi=local",
+    "db:rebuild": "docker-compose down --rmi=local && docker-compose up -d",
+    "db:health": "docker-compose ps",
+    "lint": "eslint . --fix --ignore-pattern **/generated/** --ignore-pattern **/dist/**",
+    "format": "prettier --write .",
+    "commitlint": "commitlint --edit",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.8.0",
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@eslint/js": "^9.28.0",
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.15.29",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.28.0",
+    "globals": "^16.2.0",
+    "husky": "^9.1.7",
+    "prisma": "^6.8.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.33.0"
+  },
+  "dependencies": {
+    "@anatine/zod-openapi": "^2.2.8",
+    "@prisma/client": "6.8.2",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "prettier": "^3.5.3",
+    "reflect-metadata": "^0.2.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^11.1.0",
+    "zod": "^3.25.43"
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma"
+  }
+}

@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: project-name-db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: project-name-postgres
+      POSTGRES_PASSWORD: project-name-postgres
+      POSTGRES_DB: project-name-db
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U project-name-postgres -d project-name-db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

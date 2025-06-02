@@ -1,0 +1,33 @@
+model Sentence {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  content   String
+  video_url String  @map("video_url")
+  isActive  Boolean @default(true) @map("is_active")
+
+  categoryId String   @map("category_id") @db.Uuid
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  createdAt             DateTime               @default(now()) @map("created_at")
+  updatedAt             DateTime               @default(now()) @updatedAt @map("updated_at")
+  userFavoriteSentences UserFavoriteSentence[]
+
+  @@index(categoryId, name: "sentences_category_id_idx")
+  @@map("sentences")
+}
+
+model UserFavoriteSentence {
+  id String @id @default(uuid(7)) @db.Uuid
+
+  accountId  String @map("account_id") @db.Uuid
+  sentenceId String @map("sentence_id") @db.Uuid
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  account  Account  @relation(fields: [accountId], references: [id])
+  sentence Sentence @relation(fields: [sentenceId], references: [id])
+
+  @@index([accountId], name: "user_favorite_sentences_account_id_idx")
+  @@map("user_favorite_sentences")
+}

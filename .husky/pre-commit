@@ -1,0 +1,2 @@
+pnpm run db:generate
+npx eslint src --fix

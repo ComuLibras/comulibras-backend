@@ -2,7 +2,7 @@ import { Entity, IEntityProps } from '../../../shared/entities/entity';
 
 interface ICategoryProps extends IEntityProps {
   name: string;
-  sentenceCount: number;
+  sentenceCount?: number;
   color: string;
   icon: string;
   isActive: boolean;
@@ -21,7 +21,7 @@ export class Category extends Entity {
   }
 
   public get sentenceCount(): number {
-    return this.props.sentenceCount;
+    return this.props.sentenceCount ?? 0;
   }
 
   public get color(): string {

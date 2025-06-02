@@ -6,6 +6,8 @@ interface IAccountProps extends IEntityProps {
   email: string;
   password?: string | null;
   role: Roles;
+  isActive: boolean;
+  isPasswordCreated: boolean;
 }
 
 export class Account extends Entity {
@@ -30,5 +32,13 @@ export class Account extends Entity {
 
   public get role(): Roles {
     return this.props.role;
+  }
+
+  public get isActive(): boolean {
+    return this.props.isActive;
+  }
+
+  public get isPasswordCreated(): boolean {
+    return this.props.isPasswordCreated;
   }
 }

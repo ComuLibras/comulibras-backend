@@ -1,5 +1,5 @@
-import { generateSchema } from "@anatine/zod-openapi";
-import { z } from "zod";
+import { generateSchema } from '@anatine/zod-openapi';
+import { z } from 'zod';
 
 export const signInBody = z.object({
   email: z.string().email().min(1),

@@ -1,27 +1,27 @@
-import { Inject } from "../../../../kernel/decorators/inject";
-import { Injectable } from "../../../../kernel/decorators/injectable";
-import { ConflictHTTPError } from "../../../../shared/http/errors/conflict-http-error";
-import { IService } from "../../../../shared/http/interfaces/service";
-import { IHashProvider } from "../../../../shared/providers/hash-provider/hash-provider";
-import { ITokenProvider } from "../../../../shared/providers/token-provider/token-provider";
-import { Account } from "../../../accounts/entities/account";
-import { Roles } from "../../../accounts/entities/role";
-import { IAccountRepository } from "../../../accounts/repositories/account-repository";
+import { Inject } from '../../../../kernel/decorators/inject';
+import { Injectable } from '../../../../kernel/decorators/injectable';
+import { ConflictHTTPError } from '../../../../shared/http/errors/conflict-http-error';
+import { IService } from '../../../../shared/http/interfaces/service';
+import { IHashProvider } from '../../../../shared/providers/hash-provider/hash-provider';
+import { ITokenProvider } from '../../../../shared/providers/token-provider/token-provider';
+import { Account } from '../../../accounts/entities/account';
+import { Roles } from '../../../accounts/entities/role';
+import { IAccountRepository } from '../../../accounts/repositories/account-repository';
 import {
   ACCOUNT_ALREADY_EXISTS_ERROR,
   SignUpSchema,
-} from "../../docs/sign-up-swagger";
-import { SignUpBody } from "./sign-up-dto";
+} from '../../docs/sign-up-swagger';
+import { SignUpBody } from './sign-up-dto';
 
 @Injectable()
 export class SignUpService
   implements IService<SignUpService.Input, SignUpService.Output>
 {
   constructor(
-    @Inject("AccountRepository")
+    @Inject('AccountRepository')
     private readonly accountRepo: IAccountRepository,
-    @Inject("HashProvider") private readonly hashProvider: IHashProvider,
-    @Inject("TokenProvider") private readonly tokenProvider: ITokenProvider,
+    @Inject('HashProvider') private readonly hashProvider: IHashProvider,
+    @Inject('TokenProvider') private readonly tokenProvider: ITokenProvider,
   ) {}
 
   async execute({
@@ -49,7 +49,7 @@ export class SignUpService
     const accessToken = this.tokenProvider.generateToken({
       sub: account.id,
       role: account.role,
-      expiresIn: "1d",
+      expiresIn: '1d',
     });
 
     return {

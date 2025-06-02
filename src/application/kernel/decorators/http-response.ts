@@ -1,4 +1,4 @@
-const HTTP_RESPONSE_METADATA_KEY = "http-response";
+const HTTP_RESPONSE_METADATA_KEY = 'http-response';
 
 export function HttpResponse(statusCode: Http.StatusCode) {
   return (target: object) => {

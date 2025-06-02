@@ -1,4 +1,4 @@
 export enum Tags {
-  AUTH = "Autenticação",
-  ACCOUNTS = "Usuários",
+  AUTH = 'Autenticação',
+  ACCOUNTS = 'Usuários',
 }

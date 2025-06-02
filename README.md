@@ -54,7 +54,7 @@ Click "Use this template" on GitHub or clone the repository:
 
 ```bash
 git clone <your-repo-url>
-cd your-project-name
+cd your-sinaliza
 ```
 
 ### 2. Install dependencies

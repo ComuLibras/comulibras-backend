@@ -1,5 +1,5 @@
-import { generateSchema } from "@anatine/zod-openapi";
-import { z } from "zod";
+import { generateSchema } from '@anatine/zod-openapi';
+import { z } from 'zod';
 
 export const signUpBody = z
   .object({
@@ -9,8 +9,8 @@ export const signUpBody = z
     confirmPassword: z.string().min(8),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "As senhas não coincidem",
-    path: ["confirmPassword"],
+    message: 'As senhas não coincidem',
+    path: ['confirmPassword'],
   });
 
 export const signUpOpenAPIBody = generateSchema(signUpBody);

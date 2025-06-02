@@ -1,4 +1,4 @@
-import { type ZodSchema } from "zod";
+import { type ZodSchema } from 'zod';
 
 export type Schemas = {
   body?: ZodSchema;

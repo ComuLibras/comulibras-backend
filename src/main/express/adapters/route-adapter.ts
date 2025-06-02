@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from "express";
-import { Controller } from "../../../application/shared/http/interfaces/controller";
+import { NextFunction, Request, Response } from 'express';
+import { Controller } from '../../../application/shared/http/interfaces/controller';
 
 export function routeAdapter(controller: Controller) {
-  return async (request: Request, response: Response, next: NextFunction) => {
+  return async(request: Request, response: Response, next: NextFunction) => {
     try {
       const { statusCode, body } = await controller.execute({
         body: request.body,

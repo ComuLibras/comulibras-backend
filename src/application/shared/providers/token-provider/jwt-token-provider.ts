@@ -1,11 +1,11 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
-import { env } from "../../../config/env";
+import { env } from '../../../config/env';
 import {
   IDecodedAccount,
   ITokenOptions,
   ITokenProvider,
-} from "./token-provider";
+} from './token-provider';
 
 export class JWTTokenProvider implements ITokenProvider {
   constructor(private readonly jwtSecret: string = env.jwtSecret) {}
@@ -17,7 +17,7 @@ export class JWTTokenProvider implements ITokenProvider {
         role: options.role,
       },
       this.jwtSecret,
-      { expiresIn: (options.expiresIn ?? "1d") as unknown as number },
+      { expiresIn: (options.expiresIn ?? '1d') as unknown as number },
     );
 
     return accessToken;

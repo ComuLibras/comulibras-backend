@@ -1,9 +1,9 @@
-import cors from "cors";
-import express from "express";
-import { makeHandleApplicationErrorMiddleware } from "../../application/shared/http/middlewares/factories/make-handle-application-error-middleware";
-import { errorMiddlewareAdapter } from "./adapters/error-middleware-adapter";
-import { appRouter } from "./routes/app-router";
-import { setupSwagger } from "./swagger";
+import cors from 'cors';
+import express from 'express';
+import { makeHandleApplicationErrorMiddleware } from '../../application/shared/http/middlewares/factories/make-handle-application-error-middleware';
+import { errorMiddlewareAdapter } from './adapters/error-middleware-adapter';
+import { appRouter } from './routes/app-router';
+import { setupSwagger } from './swagger';
 
 const app = express();
 

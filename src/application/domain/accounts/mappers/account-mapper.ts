@@ -1,11 +1,11 @@
-import { generateSchema } from "@anatine/zod-openapi";
-import { z } from "zod";
+import { generateSchema } from '@anatine/zod-openapi';
+import { z } from 'zod';
 import {
   Prisma,
   Account as RawAccount,
-} from "../../../../../prisma/generated/prisma";
-import { Account } from "../entities/account";
-import { Roles } from "../entities/role";
+} from '../../../../../prisma/generated/prisma';
+import { Account } from '../entities/account';
+import { Roles } from '../entities/role';
 
 export class AccountMapper {
   static toPersistence(domain: Account): Prisma.AccountCreateInput {

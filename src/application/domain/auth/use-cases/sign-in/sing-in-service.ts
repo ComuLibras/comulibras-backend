@@ -1,25 +1,25 @@
-import { Inject } from "../../../../kernel/decorators/inject";
-import { Injectable } from "../../../../kernel/decorators/injectable";
-import { UnauthorizedHTTPError } from "../../../../shared/http/errors/unauthorized-http-error";
-import { IService } from "../../../../shared/http/interfaces/service";
-import { IHashProvider } from "../../../../shared/providers/hash-provider/hash-provider";
-import { ITokenProvider } from "../../../../shared/providers/token-provider/token-provider";
-import { IAccountRepository } from "../../../accounts/repositories/account-repository";
+import { Inject } from '../../../../kernel/decorators/inject';
+import { Injectable } from '../../../../kernel/decorators/injectable';
+import { UnauthorizedHTTPError } from '../../../../shared/http/errors/unauthorized-http-error';
+import { IService } from '../../../../shared/http/interfaces/service';
+import { IHashProvider } from '../../../../shared/providers/hash-provider/hash-provider';
+import { ITokenProvider } from '../../../../shared/providers/token-provider/token-provider';
+import { IAccountRepository } from '../../../accounts/repositories/account-repository';
 import {
   INVALID_CREDENTIALS_ERROR,
   SignInSchema,
-} from "../../docs/sign-in-swagger";
-import { SignInBody } from "./sign-in-dto";
+} from '../../docs/sign-in-swagger';
+import { SignInBody } from './sign-in-dto';
 
 @Injectable()
 export class SignInService
   implements IService<SignInService.Input, SignInService.Output>
 {
   constructor(
-    @Inject("AccountRepository")
+    @Inject('AccountRepository')
     private readonly accountRepo: IAccountRepository,
-    @Inject("HashProvider") private readonly hashProvider: IHashProvider,
-    @Inject("TokenProvider") private readonly tokenProvider: ITokenProvider,
+    @Inject('HashProvider') private readonly hashProvider: IHashProvider,
+    @Inject('TokenProvider') private readonly tokenProvider: ITokenProvider,
   ) {}
 
   async execute({
@@ -44,7 +44,7 @@ export class SignInService
     const accessToken = this.tokenProvider.generateToken({
       sub: account.id,
       role: account.role,
-      expiresIn: "1d",
+      expiresIn: '1d',
     });
 
     return {

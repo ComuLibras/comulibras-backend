@@ -1,19 +1,19 @@
-import { HttpResponse } from "../../../../kernel/decorators/http-response";
-import { Inject } from "../../../../kernel/decorators/inject";
-import { Injectable } from "../../../../kernel/decorators/injectable";
-import { Schema } from "../../../../kernel/decorators/schema";
-import { Controller } from "../../../../shared/http/interfaces/controller";
-import { StatusCode } from "../../../../shared/http/status-code";
-import { SignInSchema } from "../../docs/sign-in-swagger";
-import { SignInBody, signInBody } from "./sign-in-dto";
-import { SignInService } from "./sing-in-service";
+import { HttpResponse } from '../../../../kernel/decorators/http-response';
+import { Inject } from '../../../../kernel/decorators/inject';
+import { Injectable } from '../../../../kernel/decorators/injectable';
+import { Schema } from '../../../../kernel/decorators/schema';
+import { Controller } from '../../../../shared/http/interfaces/controller';
+import { StatusCode } from '../../../../shared/http/status-code';
+import { SignInSchema } from '../../docs/sign-in-swagger';
+import { SignInBody, signInBody } from './sign-in-dto';
+import { SignInService } from './sing-in-service';
 
 @Injectable()
 @HttpResponse(StatusCode.OK)
 @Schema({ body: signInBody })
 export class SignInController extends Controller<SignInSchema> {
   constructor(
-    @Inject("SignInService") private readonly signInService: SignInService,
+    @Inject('SignInService') private readonly signInService: SignInService,
   ) {
     super();
   }

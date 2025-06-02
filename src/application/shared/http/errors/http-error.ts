@@ -7,6 +7,6 @@ export class HttpError extends Error {
   ) {
     super(message);
 
-    this.name = "HttpError";
+    this.name = 'HttpError';
   }
 }

@@ -1,5 +1,5 @@
-import { getHttpResponse } from "../../../kernel/decorators/http-response";
-import { Schemas, getSchema } from "../../../kernel/decorators/schema";
+import { getHttpResponse } from '../../../kernel/decorators/http-response';
+import { Schemas, getSchema } from '../../../kernel/decorators/schema';
 
 export abstract class Controller<TBody = unknown> {
   protected abstract handle(
@@ -7,9 +7,9 @@ export abstract class Controller<TBody = unknown> {
   ): Controller.HandleResponse<TBody>;
 
   public async execute(request: Http.Request): Promise<Http.Response<TBody>> {
-    const body = this.validateRequest(request, "body");
-    const query = this.validateRequest(request, "query");
-    const params = this.validateRequest(request, "params");
+    const body = this.validateRequest(request, 'body');
+    const query = this.validateRequest(request, 'query');
+    const params = this.validateRequest(request, 'params');
 
     const response = await this.handle({
       ...request,
@@ -36,6 +36,6 @@ export abstract class Controller<TBody = unknown> {
 
 export namespace Controller {
   export type HandleResponse<TBody = unknown> = Promise<
-    Http.Response<TBody>["body"]
+    Http.Response<TBody>['body']
   >;
 }

@@ -1,9 +1,9 @@
-import { ZodError } from "zod";
+import { ZodError } from 'zod';
 
-import { HttpError } from "../errors/http-error";
-import { INTERNAL_SERVER_HTTP_ERROR_DEFAULT_MESSAGE } from "../errors/internal-server-http-error";
-import { IErrorMiddleware } from "../interfaces/error-middleware";
-import { StatusCode } from "../status-code";
+import { HttpError } from '../errors/http-error';
+import { INTERNAL_SERVER_HTTP_ERROR_DEFAULT_MESSAGE } from '../errors/internal-server-http-error';
+import { IErrorMiddleware } from '../interfaces/error-middleware';
+import { StatusCode } from '../status-code';
 
 export class HandleApplicationErrorMiddleware implements IErrorMiddleware {
   handle(
@@ -11,13 +11,13 @@ export class HandleApplicationErrorMiddleware implements IErrorMiddleware {
   ): Http.Response<{
     messages: ({ field: string; message: string } | string)[];
   }> {
-    console.log(error, "error");
+    console.log(error, 'error');
     if (error instanceof ZodError) {
       return {
         statusCode: StatusCode.BAD_REQUEST,
         body: {
           messages: error.issues.map((issue) => ({
-            field: issue.path.join("."),
+            field: issue.path.join('.'),
             message: issue.message,
           })),
         },

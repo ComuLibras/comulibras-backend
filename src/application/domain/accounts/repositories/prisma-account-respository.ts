@@ -1,11 +1,11 @@
-import { prismaClient } from "../../../shared/clients/prisma-client";
-import { Account } from "../entities/account";
-import { AccountMapper } from "../mappers/account-mapper";
+import { prismaClient } from '../../../shared/clients/prisma-client';
+import { Account } from '../entities/account';
+import { AccountMapper } from '../mappers/account-mapper';
 import {
   IAccountRepository,
   IAccountsParams,
   IGetAccountsResponse,
-} from "./account-repository";
+} from './account-repository';
 
 export class PrismaAccountRepository implements IAccountRepository {
   async updateAccount(account: Account): Promise<void> {

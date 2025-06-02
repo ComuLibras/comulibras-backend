@@ -37,7 +37,7 @@ export class Registry {
     }
 
     const paramTypes: object[] =
-      Reflect.getMetadata("design:paramtypes", implementation) ?? [];
+      Reflect.getMetadata('design:paramtypes', implementation) ?? [];
     const deps = paramTypes.filter(Boolean).map((_, index) => {
       const dependencyToken = Reflect.getMetadata(
         `inject:${index}`,

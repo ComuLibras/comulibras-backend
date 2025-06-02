@@ -1,9 +1,9 @@
-import { Roles } from "../../../domain/accounts/entities/role";
-import { ForbiddenHTTPError } from "../errors/forbidden-http-error";
-import { IData, IMiddleware } from "../interfaces/middleware";
+import { Roles } from '../../../domain/accounts/entities/role';
+import { ForbiddenHTTPError } from '../errors/forbidden-http-error';
+import { IData, IMiddleware } from '../interfaces/middleware';
 
 export const ACCESS_FORBIDDEN_ERROR =
-  "Acesso negado. Seu perfil não possui as permissões necessárias para esta ação.";
+  'Acesso negado. Seu perfil não possui as permissões necessárias para esta ação.';
 
 export class AuthorizationMiddleware implements IMiddleware {
   constructor(private readonly allowedRoles: Exclude<Roles, Roles.ADMIN>[]) {}

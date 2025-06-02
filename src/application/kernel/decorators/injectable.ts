@@ -1,4 +1,4 @@
-import { Registry } from "../di/registry";
+import { Registry } from '../di/registry';
 
 export function Injectable(): ClassDecorator {
   return (target) => {

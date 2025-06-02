@@ -1,55 +1,55 @@
-import { Express } from "express";
+import { Express } from 'express';
 
-import swaggerJsdoc from "swagger-jsdoc";
-import swaggerUi from "swagger-ui-express";
-import { env } from "../../application/config/env";
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import { env } from '../../application/config/env';
 import {
-    authPathSignIn,
-    authPathSignUp,
-} from "../../application/domain/auth/docs/auth-path";
-import { signInHttpSchema } from "../../application/domain/auth/docs/sign-in-swagger";
-import { signUpHttpSchema } from "../../application/domain/auth/docs/sign-up-swagger";
-import { signInOpenAPIBody } from "../../application/domain/auth/use-cases/sign-in/sign-in-dto";
-import { signUpOpenAPIBody } from "../../application/domain/auth/use-cases/sign-up/sign-up-dto";
-import { Tags } from "../../application/shared/docs/tags";
-import { INTERNAL_SERVER_HTTP_ERROR_DEFAULT_MESSAGE } from "../../application/shared/http/errors/internal-server-http-error";
-import { INVALID_TOKEN_ERROR } from "../../application/shared/http/middlewares/authentication-middleware";
-import { ACCESS_FORBIDDEN_ERROR } from "../../application/shared/http/middlewares/authorization-middleware";
+  authPathSignIn,
+  authPathSignUp,
+} from '../../application/domain/auth/docs/auth-path';
+import { signInHttpSchema } from '../../application/domain/auth/docs/sign-in-swagger';
+import { signUpHttpSchema } from '../../application/domain/auth/docs/sign-up-swagger';
+import { signInOpenAPIBody } from '../../application/domain/auth/use-cases/sign-in/sign-in-dto';
+import { signUpOpenAPIBody } from '../../application/domain/auth/use-cases/sign-up/sign-up-dto';
+import { Tags } from '../../application/shared/docs/tags';
+import { INTERNAL_SERVER_HTTP_ERROR_DEFAULT_MESSAGE } from '../../application/shared/http/errors/internal-server-http-error';
+import { INVALID_TOKEN_ERROR } from '../../application/shared/http/middlewares/authentication-middleware';
+import { ACCESS_FORBIDDEN_ERROR } from '../../application/shared/http/middlewares/authorization-middleware';
 
 const options: swaggerJsdoc.Options = {
   definition: {
-    openapi: "3.1.0",
+    openapi: '3.1.0',
     tags: [
       {
         name: Tags.AUTH,
-        description: "Endpoints relacionados a autenticação",
+        description: 'Endpoints relacionados a autenticação',
       },
       {
         name: Tags.ACCOUNTS,
-        description: "Endpoints relacionados a contas de usuários",
+        description: 'Endpoints relacionados a contas de usuários',
       },
     ],
     components: {
       securitySchemes: {
         BearerAuth: {
-          type: "http",
-          scheme: "bearer",
-          bearerFormat: "JWT",
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
         },
       },
       responses: {
         ValidationError: {
-          description: "Erro de validação",
+          description: 'Erro de validação',
           content: {
-            "application/json": {
-              schema: { $ref: "#/components/schemas/ErrorsResponse" },
+            'application/json': {
+              schema: { $ref: '#/components/schemas/ErrorsResponse' },
             },
           },
         },
         UnauthorizedError: {
-          description: "Token inválido ou não fornecido",
+          description: 'Token inválido ou não fornecido',
           content: {
-            "application/json": {
+            'application/json': {
               example: {
                 messages: [INVALID_TOKEN_ERROR],
               },
@@ -57,9 +57,9 @@ const options: swaggerJsdoc.Options = {
           },
         },
         ForbiddenError: {
-          description: "Acesso negado à funcionalidade.",
+          description: 'Acesso negado à funcionalidade.',
           content: {
-            "application/json": {
+            'application/json': {
               example: {
                 messages: [ACCESS_FORBIDDEN_ERROR],
               },
@@ -67,9 +67,9 @@ const options: swaggerJsdoc.Options = {
           },
         },
         InternalServerError: {
-          description: "Erro interno do servidor.",
+          description: 'Erro interno do servidor.',
           content: {
-            "application/json": {
+            'application/json': {
               example: {
                 messages: [INTERNAL_SERVER_HTTP_ERROR_DEFAULT_MESSAGE],
               },
@@ -83,27 +83,27 @@ const options: swaggerJsdoc.Options = {
         SignUp: signUpOpenAPIBody,
         SignUpResponse: signUpHttpSchema,
         ErrorsResponse: {
-          type: "object",
+          type: 'object',
           properties: {
             messages: {
-              type: "array",
+              type: 'array',
               items: {
-                type: "string",
+                type: 'string',
               },
-              description: "Mensagens de erro",
+              description: 'Mensagens de erro',
             },
           },
         },
         MultipleErrorsResponse: {
-          oneOf: [{ $ref: "#/components/schemas/ErrorsResponse" }],
-          description: "Possíveis mensagens de erro",
+          oneOf: [{ $ref: '#/components/schemas/ErrorsResponse' }],
+          description: 'Possíveis mensagens de erro',
         },
       },
     },
     info: {
-      title: "project-name",
-      version: "1.0.0",
-      description: "Documentação da API utilizando Swagger",
+      title: 'sinaliza',
+      version: '1.0.0',
+      description: 'Documentação da API utilizando Swagger',
     },
     security: [
       {
@@ -113,12 +113,12 @@ const options: swaggerJsdoc.Options = {
     servers: [
       {
         url: `http://localhost:${env.port}`,
-        description: "Servidor Local",
+        description: 'Servidor Local',
       },
     ],
     paths: {
-      "/auth/sign-up": authPathSignUp,
-      "/auth/sign-in": authPathSignIn,
+      '/auth/sign-up': authPathSignUp,
+      '/auth/sign-in': authPathSignIn,
     },
   },
   apis: [],
@@ -127,7 +127,7 @@ const options: swaggerJsdoc.Options = {
 const swaggerSpec = swaggerJsdoc(options);
 
 export const setupSwagger = (app: Express) => {
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   console.log(
     `📖 Swagger docs available at http://localhost:${env.port}/api-docs`,
   );

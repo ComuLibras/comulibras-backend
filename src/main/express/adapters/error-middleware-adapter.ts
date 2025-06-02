@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import { IErrorMiddleware } from "../../../application/shared/http/interfaces/error-middleware";
+import { NextFunction, Request, Response } from 'express';
+import { IErrorMiddleware } from '../../../application/shared/http/interfaces/error-middleware';
 
 export function errorMiddlewareAdapter(middleware: IErrorMiddleware) {
   return (
@@ -10,7 +10,7 @@ export function errorMiddlewareAdapter(middleware: IErrorMiddleware) {
   ) => {
     const result = middleware.handle(error);
 
-    if ("statusCode" in result) {
+    if ('statusCode' in result) {
       response.status(result.statusCode).json(result.body);
     }
   };

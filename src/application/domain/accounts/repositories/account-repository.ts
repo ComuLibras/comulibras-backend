@@ -1,4 +1,4 @@
-import { Account } from "../entities/account";
+import { Account } from '../entities/account';
 
 export interface IAccountsParams {
   page?: number;

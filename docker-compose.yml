@@ -1,17 +1,16 @@
 services:
   db:
     image: postgres:15-alpine
-    container_name: project-name-db
+    container_name: sinaliza-db
     restart: always
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: project-name-postgres
-      POSTGRES_PASSWORD: project-name-postgres
-      POSTGRES_DB: project-name-db
+      POSTGRES_USER: sinaliza-postgres
+      POSTGRES_PASSWORD: sinaliza-postgres
+      POSTGRES_DB: sinaliza-db
     healthcheck:
-      test:
-        ["CMD-SHELL", "pg_isready -U project-name-postgres -d project-name-db"]
+      test: ["CMD-SHELL", "pg_isready -U sinaliza-postgres -d sinaliza-db"]
       interval: 10s
       timeout: 5s
       retries: 5

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { authRouter } from './auth-router';
+import { categoriesRouter } from './categories-router';
 
 export const appRouter = Router();
 
@@ -12,3 +13,4 @@ appRouter.get('/health', (req, res) => {
 });
 
 appRouter.use('/auth', authRouter);
+appRouter.use('/categories', categoriesRouter);

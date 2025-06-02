@@ -6,6 +6,13 @@ import { ICategoryRepository } from './category-repository';
 export class PrismaCategoryRepository implements ICategoryRepository {
   constructor(private readonly prisma = prismaClient) {}
 
+  async findByName(name: string): Promise<Category | null> {
+    const category = await this.prisma.category.findUnique({
+      where: { name },
+    });
+    return category ? CategoryMapper.toDomain(category) : null;
+  }
+
   async create(category: Category): Promise<void> {
     await this.prisma.category.create({
       data: CategoryMapper.toPersistence(category),

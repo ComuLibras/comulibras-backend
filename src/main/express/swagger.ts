@@ -11,6 +11,9 @@ import { signInHttpSchema } from '../../application/domain/auth/docs/sign-in-swa
 import { signUpHttpSchema } from '../../application/domain/auth/docs/sign-up-swagger';
 import { signInOpenAPIBody } from '../../application/domain/auth/use-cases/sign-in/sign-in-dto';
 import { signUpOpenAPIBody } from '../../application/domain/auth/use-cases/sign-up/sign-up-dto';
+import { categoriesPathCreate } from '../../application/domain/categories/docs/categories-path';
+import { createCategoryHttpSchema } from '../../application/domain/categories/docs/create-category-swagger';
+import { createCategoryOpenAPIBody } from '../../application/domain/categories/use-cases/create-category/create-category-schema';
 import { Tags } from '../../application/shared/docs/tags';
 import { INTERNAL_SERVER_HTTP_ERROR_DEFAULT_MESSAGE } from '../../application/shared/http/errors/internal-server-http-error';
 import { INVALID_TOKEN_ERROR } from '../../application/shared/http/middlewares/authentication-middleware';
@@ -27,6 +30,14 @@ const options: swaggerJsdoc.Options = {
       {
         name: Tags.ACCOUNTS,
         description: 'Endpoints relacionados a contas de usuários',
+      },
+      {
+        name: Tags.CATEGORIES,
+        description: 'Endpoints relacionados a categorias',
+      },
+      {
+        name: Tags.SENTENCES,
+        description: 'Endpoints relacionados a frases',
       },
     ],
     components: {
@@ -82,6 +93,8 @@ const options: swaggerJsdoc.Options = {
         SignInResponse: signInHttpSchema,
         SignUp: signUpOpenAPIBody,
         SignUpResponse: signUpHttpSchema,
+        CreateCategory: createCategoryOpenAPIBody,
+        CreateCategoryResponse: createCategoryHttpSchema,
         ErrorsResponse: {
           type: 'object',
           properties: {
@@ -119,6 +132,7 @@ const options: swaggerJsdoc.Options = {
     paths: {
       '/auth/sign-up': authPathSignUp,
       '/auth/sign-in': authPathSignIn,
+      '/categories': categoriesPathCreate,
     },
   },
   apis: [],

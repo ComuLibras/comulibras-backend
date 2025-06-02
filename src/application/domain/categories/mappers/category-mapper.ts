@@ -23,6 +23,8 @@ export class CategoryMapper {
       color: domain.color,
       icon: domain.icon,
       isActive: domain.isActive,
+      createdAt: domain.createdAt,
+      updatedAt: domain.updatedAt,
     };
   }
 

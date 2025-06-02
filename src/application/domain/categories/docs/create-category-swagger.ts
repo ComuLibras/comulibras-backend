@@ -1,7 +1,7 @@
-import { generateSchema } from "@anatine/zod-openapi";
-import { Operation } from "swagger-jsdoc";
-import { z } from "zod";
-import { Tags } from "../../../shared/docs/tags";
+import { generateSchema } from '@anatine/zod-openapi';
+import { Operation } from 'swagger-jsdoc';
+import { z } from 'zod';
+import { Tags } from '../../../shared/docs/tags';
 
 export const CATEGORY_ALREADY_EXISTS_ERROR = 'Categoria já existe';
 

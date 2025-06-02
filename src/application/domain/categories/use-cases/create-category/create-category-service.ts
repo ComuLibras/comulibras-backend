@@ -10,7 +10,7 @@ import { CreateCategoryBody } from './create-category-schema';
 @Injectable()
 export class CreateCategoryService implements IService<CreateCategoryService.Input, CreateCategoryService.Output> {
   constructor(
-    @Inject('CategoryRepository') private readonly categoryRepository: ICategoryRepository
+    @Inject('CategoryRepository') private readonly categoryRepository: ICategoryRepository,
   ) {}
 
   async execute(input: CreateCategoryService.Input): Promise<CreateCategoryService.Output> {

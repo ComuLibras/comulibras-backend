@@ -1,12 +1,12 @@
-import { HttpResponse } from "../../../../kernel/decorators/http-response";
-import { Inject } from "../../../../kernel/decorators/inject";
-import { Injectable } from "../../../../kernel/decorators/injectable";
-import { Schema } from "../../../../kernel/decorators/schema";
-import { Controller } from "../../../../shared/http/interfaces/controller";
-import { StatusCode } from "../../../../shared/http/status-code";
-import { CreateCategorySchema } from "../../docs/create-category-swagger";
-import { CreateCategoryBody, createCategoryBody } from "./create-category-schema";
-import { CreateCategoryService } from "./create-category-service";
+import { HttpResponse } from '../../../../kernel/decorators/http-response';
+import { Inject } from '../../../../kernel/decorators/inject';
+import { Injectable } from '../../../../kernel/decorators/injectable';
+import { Schema } from '../../../../kernel/decorators/schema';
+import { Controller } from '../../../../shared/http/interfaces/controller';
+import { StatusCode } from '../../../../shared/http/status-code';
+import { CreateCategorySchema } from '../../docs/create-category-swagger';
+import { CreateCategoryBody, createCategoryBody } from './create-category-schema';
+import { CreateCategoryService } from './create-category-service';
 
 @Injectable()
 @HttpResponse(StatusCode.CREATED)
@@ -17,7 +17,7 @@ export class CreateCategoryController extends Controller {
     @Inject('CreateCategoryService')
     private readonly createCategoryService: CreateCategoryService,
   ) {
-    super()
+    super();
   }
 
   protected override async handle(request: Http.Request<CreateCategoryBody>): Promise<Controller.HandleResponse<CreateCategorySchema>> {

@@ -3,9 +3,10 @@ import { Express } from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { env } from '../../application/config/env';
-import { accountsPath, accountsPathWithId } from '../../application/domain/accounts/docs/accounts-path';
+import { accountsPath, accountsPathRole, accountsPathStatus, accountsPathWithId } from '../../application/domain/accounts/docs/accounts-path';
 import { accountHttpSchemaOpenAPI } from '../../application/domain/accounts/mappers/account-mapper';
 import { createAccountOpenAPIBody } from '../../application/domain/accounts/use-cases/create-account/create-account-dto';
+import { updateAccountRoleOpenAPIBody } from '../../application/domain/accounts/use-cases/update-account-role/update-account-role-dto';
 import { updateAccountStatusOpenAPIBody } from '../../application/domain/accounts/use-cases/update-account-status/update-account-status-dto';
 import {
   authPathSignIn,
@@ -117,6 +118,7 @@ const options: swaggerJsdoc.Options = {
         Account: accountHttpSchemaOpenAPI,
         CreateAccount: createAccountOpenAPIBody,
         UpdateAccountStatus: updateAccountStatusOpenAPIBody,
+        UpdateAccountRole: updateAccountRoleOpenAPIBody,
         Category: categoryHttpSchemaOpenAPI,
         Sentence: sentenceHttpSchemaOpenAPI,
         ErrorsResponse: {
@@ -162,6 +164,8 @@ const options: swaggerJsdoc.Options = {
       '/sentences/:sentenceId': sentencesPathWithId,
       '/accounts': accountsPath,
       '/accounts/:accountId': accountsPathWithId,
+      '/accounts/:accountId/status': accountsPathStatus,
+      '/accounts/:accountId/role': accountsPathRole,
     },
   },
   apis: [],

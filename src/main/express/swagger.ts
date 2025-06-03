@@ -3,6 +3,8 @@ import { Express } from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { env } from '../../application/config/env';
+import { accountsPath, accountsPathWithId } from '../../application/domain/accounts/docs/accounts-path';
+import { accountHttpSchemaOpenAPI } from '../../application/domain/accounts/mappers/account-mapper';
 import {
   authPathSignIn,
   authPathSignUp,
@@ -110,6 +112,7 @@ const options: swaggerJsdoc.Options = {
         UpdateSentenceStatus: updateSentenceStatusOpenAPIBody,
         UpdateSentencesCategory: updateSentencesCategoryOpenAPIBody,
         DeleteSentences: deleteSentencesOpenAPIBody,
+        Account: accountHttpSchemaOpenAPI,
         Category: categoryHttpSchemaOpenAPI,
         Sentence: sentenceHttpSchemaOpenAPI,
         ErrorsResponse: {
@@ -153,6 +156,8 @@ const options: swaggerJsdoc.Options = {
       '/categories/:categoryId': categoriesPathWithId,
       '/sentences': sentencesPath,
       '/sentences/:sentenceId': sentencesPathWithId,
+      '/accounts': accountsPath,
+      '/accounts/:accountId': accountsPathWithId,
     },
   },
   apis: [],

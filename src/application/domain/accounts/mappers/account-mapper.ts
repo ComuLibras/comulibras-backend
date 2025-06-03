@@ -29,10 +29,12 @@ export class AccountMapper {
       password: data.password,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
+      isActive: data.isActive,
+      isPasswordCreated: data.isPasswordCreated,
     });
   }
 
-  static toHttp(domain: Account) {
+  static toHttp(domain: Account): AccountHttpSchema {
     return {
       id: domain.id,
       name: domain.name,
@@ -40,17 +42,23 @@ export class AccountMapper {
       role: domain.role,
       createdAt: domain.createdAt,
       updatedAt: domain.updatedAt,
+      isActive: domain.isActive,
+      isPasswordCreated: domain.isPasswordCreated,
     };
   }
 }
 
-export const accountHttpSchema = generateSchema(
-  z.object({
-    id: z.string().uuid(),
-    name: z.string(),
-    email: z.string().email(),
-    role: z.nativeEnum(Roles),
-    createdAt: z.string().datetime(),
-    updatedAt: z.string().datetime(),
-  }),
-);
+export const accountHttpSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string(),
+  email: z.string().email(),
+  role: z.nativeEnum(Roles),
+  isActive: z.boolean(),
+  isPasswordCreated: z.boolean(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export const accountHttpSchemaOpenAPI = generateSchema(accountHttpSchema);
+
+export type AccountHttpSchema = z.infer<typeof accountHttpSchema>;

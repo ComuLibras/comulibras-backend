@@ -2,6 +2,7 @@ import { Operation } from 'swagger-jsdoc';
 import { Tags } from '../../../shared/docs/tags';
 
 export const CATEGORY_NOT_FOUND_ERROR = 'Categoria não encontrada';
+export const CATEGORY_NAME_ALREADY_EXISTS_ERROR = 'Já existe uma categoria com este nome';
 
 export const updateCategorySwagger: Operation = {
   tags: [Tags.CATEGORIES],
@@ -38,6 +39,15 @@ export const updateCategorySwagger: Operation = {
         'application/json': {
           schema: { $ref: '#/components/schemas/ErrorsResponse' },
           example: { messages: [CATEGORY_NOT_FOUND_ERROR] },
+        },
+      },
+    },
+    '409': {
+      description: 'Já existe uma categoria com este nome',
+      content: {
+        'application/json': {
+          schema: { $ref: '#/components/schemas/ErrorsResponse' },
+          example: { messages: [CATEGORY_NAME_ALREADY_EXISTS_ERROR] },
         },
       },
     },

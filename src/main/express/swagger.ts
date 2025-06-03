@@ -19,6 +19,7 @@ import { updateCategoryOpenAPIBody } from '../../application/domain/categories/u
 import { sentencesPath, sentencesPathWithId } from '../../application/domain/sentences/docs/sentences-path';
 import { sentenceHttpSchemaOpenAPI } from '../../application/domain/sentences/mapper/sentence-mapper';
 import { createSentenceOpenAPIBody } from '../../application/domain/sentences/use-cases/create-sentence/create-sentence-dto';
+import { deleteSentencesOpenAPIBody } from '../../application/domain/sentences/use-cases/delete-sentences/delete-sentences-dto';
 import { updateSentenceStatusOpenAPIBody } from '../../application/domain/sentences/use-cases/update-sentence-status/update-sentence-status-dto';
 import { updateSentenceOpenAPIBody } from '../../application/domain/sentences/use-cases/update-sentence/update-sentence-dto';
 import { updateSentencesCategoryOpenAPIBody } from '../../application/domain/sentences/use-cases/update-sentences-category/update-sentences-category-dto';
@@ -108,6 +109,7 @@ const options: swaggerJsdoc.Options = {
         UpdateSentence: updateSentenceOpenAPIBody,
         UpdateSentenceStatus: updateSentenceStatusOpenAPIBody,
         UpdateSentencesCategory: updateSentencesCategoryOpenAPIBody,
+        DeleteSentences: deleteSentencesOpenAPIBody,
         Category: categoryHttpSchemaOpenAPI,
         Sentence: sentenceHttpSchemaOpenAPI,
         ErrorsResponse: {

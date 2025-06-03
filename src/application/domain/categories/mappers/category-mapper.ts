@@ -1,6 +1,24 @@
+import { generateSchema } from '@anatine/zod-openapi';
+import z from 'zod';
 import { Prisma, Category as RawCategory } from '../../../../../prisma/generated/prisma';
-import { CreateCategorySchema } from '../docs/create-category-swagger';
 import { Category } from '../entities/category';
+
+
+export const categoryHttpSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1),
+  sentenceCount: z.number().min(0),
+  color: z.string().min(1),
+  icon: z.string().min(1),
+  isActive: z.boolean(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export type CategoryHttpSchema = z.infer<typeof categoryHttpSchema>;
+
+export const categoryHttpSchemaOpenAPI = generateSchema(categoryHttpSchema);
+
 
 export class CategoryMapper {
   static toDomain(raw: RawCategory): Category {
@@ -29,7 +47,7 @@ export class CategoryMapper {
     };
   }
 
-  static toHttp(domain: Category): CreateCategorySchema {
+  static toHttp(domain: Category): CategoryHttpSchema {
     return {
       id: domain.id,
       name: domain.name,

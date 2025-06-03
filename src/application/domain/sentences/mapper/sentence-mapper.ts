@@ -1,5 +1,21 @@
+import { generateSchema } from '@anatine/zod-openapi';
+import z from 'zod';
 import { Prisma, Sentence as RawSentence } from '../../../../../prisma/generated/prisma';
 import { Sentence } from '../entities/sentence';
+
+export const sentenceHttpSchema = z.object({
+  id: z.string().uuid(),
+  content: z.string(),
+  videoUrl: z.string().url(),
+  categoryId: z.string().uuid(),
+  isActive: z.boolean(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export type SentenceHttpSchema = z.infer<typeof sentenceHttpSchema>;
+
+export const sentenceHttpSchemaOpenAPI = generateSchema(sentenceHttpSchema);
 
 export class SentenceMapper {
   static toDomain(raw: RawSentence): Sentence {

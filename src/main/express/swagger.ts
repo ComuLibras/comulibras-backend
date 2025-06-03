@@ -16,6 +16,8 @@ import { categoryHttpSchemaOpenAPI } from '../../application/domain/categories/m
 import { createCategoryOpenAPIBody } from '../../application/domain/categories/use-cases/create-category/create-category-dto';
 import { updateCategoryStatusOpenAPIBody } from '../../application/domain/categories/use-cases/update-category-status/update-category-status-dto';
 import { updateCategoryOpenAPIBody } from '../../application/domain/categories/use-cases/update-category/update-category-dto';
+import { sentencesPath, sentencesPathWithId } from '../../application/domain/sentences/docs/sentences-path';
+import { sentenceHttpSchemaOpenAPI } from '../../application/domain/sentences/mapper/sentence-mapper';
 import { Tags } from '../../application/shared/docs/tags';
 import { INTERNAL_SERVER_HTTP_ERROR_DEFAULT_MESSAGE } from '../../application/shared/http/errors/internal-server-http-error';
 import { INVALID_TOKEN_ERROR } from '../../application/shared/http/middlewares/authentication-middleware';
@@ -99,6 +101,7 @@ const options: swaggerJsdoc.Options = {
         UpdateCategory: updateCategoryOpenAPIBody,
         UpdateCategoryStatus: updateCategoryStatusOpenAPIBody,
         Category: categoryHttpSchemaOpenAPI,
+        Sentence: sentenceHttpSchemaOpenAPI,
         ErrorsResponse: {
           type: 'object',
           properties: {
@@ -138,6 +141,8 @@ const options: swaggerJsdoc.Options = {
       '/auth/sign-in': authPathSignIn,
       '/categories': categoriesPathCreate,
       '/categories/:categoryId': categoriesPathWithId,
+      '/sentences': sentencesPath,
+      '/sentences/:sentenceId': sentencesPathWithId,
     },
   },
   apis: [],

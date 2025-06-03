@@ -5,6 +5,7 @@ import swaggerUi from 'swagger-ui-express';
 import { env } from '../../application/config/env';
 import { accountsPath, accountsPathWithId } from '../../application/domain/accounts/docs/accounts-path';
 import { accountHttpSchemaOpenAPI } from '../../application/domain/accounts/mappers/account-mapper';
+import { createAccountOpenAPIBody } from '../../application/domain/accounts/use-cases/create-account/create-account-dto';
 import {
   authPathSignIn,
   authPathSignUp,
@@ -113,6 +114,7 @@ const options: swaggerJsdoc.Options = {
         UpdateSentencesCategory: updateSentencesCategoryOpenAPIBody,
         DeleteSentences: deleteSentencesOpenAPIBody,
         Account: accountHttpSchemaOpenAPI,
+        CreateAccount: createAccountOpenAPIBody,
         Category: categoryHttpSchemaOpenAPI,
         Sentence: sentenceHttpSchemaOpenAPI,
         ErrorsResponse: {

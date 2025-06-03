@@ -1,6 +1,7 @@
 import { PathItem } from 'swagger-jsdoc';
 import { addDefaultResponsesSwagger } from '../../../shared/docs/add-default-responses-swagger';
 import { createCategorySwagger } from './create-category-swagger';
+import { deleteCategorySwagger } from './delete-categort-swager';
 import { getCategoriesSwagger } from './get-categories-swagger';
 import { updateCategorySwagger } from './update-category-swagger';
 
@@ -11,4 +12,5 @@ export const categoriesPathCreate: PathItem = {
 
 export const categoriesPathWithId: PathItem = {
   put: addDefaultResponsesSwagger(updateCategorySwagger),
+  delete: addDefaultResponsesSwagger(deleteCategorySwagger),
 };

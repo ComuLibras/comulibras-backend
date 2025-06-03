@@ -3,6 +3,7 @@ import { addDefaultResponsesSwagger } from '../../../shared/docs/add-default-res
 import { createAccountSwagger } from './create-account';
 import { deleteAccountSwagger } from './delete-account';
 import { getAccountsSwagger } from './get-accounts';
+import { updateAccountStatusSwagger } from './update-account-status';
 
 export const accountsPath: PathItem = {
   get: addDefaultResponsesSwagger(getAccountsSwagger),
@@ -11,4 +12,5 @@ export const accountsPath: PathItem = {
 
 export const accountsPathWithId: PathItem = {
   delete: addDefaultResponsesSwagger(deleteAccountSwagger),
+  patch: addDefaultResponsesSwagger(updateAccountStatusSwagger),
 };

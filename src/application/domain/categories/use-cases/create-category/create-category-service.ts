@@ -5,7 +5,7 @@ import { IService } from '../../../../shared/http/interfaces/service';
 import { CATEGORY_ALREADY_EXISTS_ERROR } from '../../docs/create-category-swagger';
 import { Category } from '../../entities/category';
 import { ICategoryRepository } from '../../repositories/category-repository';
-import { CreateCategoryBody } from './create-category-schema';
+import { CreateCategoryBody } from './create-category-dto';
 
 @Injectable()
 export class CreateCategoryService implements IService<CreateCategoryService.Input, CreateCategoryService.Output> {

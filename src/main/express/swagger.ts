@@ -13,7 +13,7 @@ import { signInOpenAPIBody } from '../../application/domain/auth/use-cases/sign-
 import { signUpOpenAPIBody } from '../../application/domain/auth/use-cases/sign-up/sign-up-dto';
 import { categoriesPathCreate } from '../../application/domain/categories/docs/categories-path';
 import { createCategoryHttpSchema } from '../../application/domain/categories/docs/create-category-swagger';
-import { createCategoryOpenAPIBody } from '../../application/domain/categories/use-cases/create-category/create-category-schema';
+import { createCategoryOpenAPIBody } from '../../application/domain/categories/use-cases/create-category/create-category-dto';
 import { Tags } from '../../application/shared/docs/tags';
 import { INTERNAL_SERVER_HTTP_ERROR_DEFAULT_MESSAGE } from '../../application/shared/http/errors/internal-server-http-error';
 import { INVALID_TOKEN_ERROR } from '../../application/shared/http/middlewares/authentication-middleware';

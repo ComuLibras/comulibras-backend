@@ -5,7 +5,8 @@ import { Schema } from '../../../../kernel/decorators/schema';
 import { Controller } from '../../../../shared/http/interfaces/controller';
 import { StatusCode } from '../../../../shared/http/status-code';
 import { CreateCategorySchema } from '../../docs/create-category-swagger';
-import { CreateCategoryBody, createCategoryBody } from './create-category-schema';
+import { CategoryMapper } from '../../mappers/category-mapper';
+import { CreateCategoryBody, createCategoryBody } from './create-category-dto';
 import { CreateCategoryService } from './create-category-service';
 
 @Injectable()
@@ -23,10 +24,6 @@ export class CreateCategoryController extends Controller {
   protected override async handle(request: Http.Request<CreateCategoryBody>): Promise<Controller.HandleResponse<CreateCategorySchema>> {
     const category = await this.createCategoryService.execute(request.body);
 
-    return {
-      name: category.name,
-      color: category.color,
-      icon: category.icon,
-    };
+    return CategoryMapper.toHttp(category);
   }
 }

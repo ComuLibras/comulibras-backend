@@ -1,4 +1,5 @@
 import { Prisma, Category as RawCategory } from '../../../../../prisma/generated/prisma';
+import { CreateCategorySchema } from '../docs/create-category-swagger';
 import { Category } from '../entities/category';
 
 export class CategoryMapper {
@@ -28,7 +29,7 @@ export class CategoryMapper {
     };
   }
 
-  static toHttp(domain: Category) {
+  static toHttp(domain: Category): CreateCategorySchema {
     return {
       id: domain.id,
       name: domain.name,

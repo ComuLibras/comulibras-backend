@@ -3,5 +3,5 @@ import { addDefaultResponsesSwagger } from '../../../shared/docs/add-default-res
 import { createCategorySwagger } from './create-category-swagger';
 
 export const categoriesPathCreate: PathItem = {
-  post: addDefaultResponsesSwagger(createCategorySwagger),
+  post: addDefaultResponsesSwagger(createCategorySwagger, { omitResponses: ['403'] }),
 };

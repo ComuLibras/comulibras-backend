@@ -9,10 +9,10 @@ import { updateCategorySwagger } from './update-category-swagger';
 export const categoriesPathCreate: PathItem = {
   post: addDefaultResponsesSwagger(createCategorySwagger),
   get: addDefaultResponsesSwagger(getCategoriesSwagger, { omitResponses: ['400', '401', '403'] }),
-  patch: addDefaultResponsesSwagger(updateCategoryStatusSwagger),
 };
 
 export const categoriesPathWithId: PathItem = {
   put: addDefaultResponsesSwagger(updateCategorySwagger),
   delete: addDefaultResponsesSwagger(deleteCategorySwagger),
+  patch: addDefaultResponsesSwagger(updateCategoryStatusSwagger),
 };

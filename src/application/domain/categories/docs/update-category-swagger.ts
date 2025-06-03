@@ -14,6 +14,10 @@ export const updateCategorySwagger: Operation = {
       name: 'categoryId',
       in: 'path',
       required: true,
+      schema: {
+        type: 'string',
+        format: 'uuid',
+      },
     },
   ],
   requestBody: {

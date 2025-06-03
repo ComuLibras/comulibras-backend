@@ -12,6 +12,10 @@ export const deleteCategorySwagger: Operation = {
       name: 'categoryId',
       in: 'path',
       required: true,
+      schema: {
+        type: 'string',
+        format: 'uuid',
+      },
     },
   ],
   responses: {

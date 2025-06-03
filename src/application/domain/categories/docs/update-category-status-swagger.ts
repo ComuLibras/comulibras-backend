@@ -20,6 +20,10 @@ export const updateCategoryStatusSwagger: Operation = {
       name: 'categoryId',
       in: 'path',
       required: true,
+      schema: {
+        type: 'string',
+        format: 'uuid',
+      },
     },
   ],
   responses: {

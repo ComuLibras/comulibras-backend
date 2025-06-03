@@ -1,5 +1,6 @@
 import { Operation } from 'swagger-jsdoc';
 import { Tags } from '../../../shared/docs/tags';
+import { SENTENCE_NOT_FOUND_ERROR } from './constants';
 
 export const updateSentenceStatusSwagger: Operation = {
   tags: [Tags.SENTENCES],
@@ -39,6 +40,7 @@ export const updateSentenceStatusSwagger: Operation = {
       content: {
         'application/json': {
           schema: { $ref: '#/components/schemas/ErrorsResponse' },
+          example: { messages: [SENTENCE_NOT_FOUND_ERROR] },
         },
       },
     },

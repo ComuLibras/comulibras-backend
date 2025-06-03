@@ -46,7 +46,10 @@ export const getSentencesSwagger: Operation = {
       description: 'Frases listadas com sucesso',
       content: {
         'application/json': {
-          schema: { $ref: '#/components/schemas/Sentence' },
+          schema: {
+            type: 'array',
+            items: { $ref: '#/components/schemas/Sentence' },
+          },
         },
       },
     },

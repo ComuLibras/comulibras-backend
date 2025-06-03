@@ -5,10 +5,12 @@ import { deleteSentenceSwagger } from './delete-sentence-swagger';
 import { getSentencesSwagger } from './get-sentences-swagger';
 import { updateSentenceStatusSwagger } from './update-sentence-status';
 import { updateSentenceSwagger } from './update-sentence-swagger';
+import { updateSentencesCategorySwagger } from './update-sentences-category';
 
 export const sentencesPath: PathItem = {
   get: addDefaultResponsesSwagger(getSentencesSwagger, { omitResponses: ['401', '403'] }),
   post: addDefaultResponsesSwagger(createSentenceSwagger),
+  patch: addDefaultResponsesSwagger(updateSentencesCategorySwagger),
 };
 
 export const sentencesPathWithId: PathItem = {

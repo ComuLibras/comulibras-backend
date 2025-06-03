@@ -21,6 +21,7 @@ import { sentenceHttpSchemaOpenAPI } from '../../application/domain/sentences/ma
 import { createSentenceOpenAPIBody } from '../../application/domain/sentences/use-cases/create-sentence/create-sentence-dto';
 import { updateSentenceStatusOpenAPIBody } from '../../application/domain/sentences/use-cases/update-sentence-status/update-sentence-status-dto';
 import { updateSentenceOpenAPIBody } from '../../application/domain/sentences/use-cases/update-sentence/update-sentence-dto';
+import { updateSentencesCategoryOpenAPIBody } from '../../application/domain/sentences/use-cases/update-sentences-category/update-sentences-category-dto';
 import { Tags } from '../../application/shared/docs/tags';
 import { INTERNAL_SERVER_HTTP_ERROR_DEFAULT_MESSAGE } from '../../application/shared/http/errors/internal-server-http-error';
 import { INVALID_TOKEN_ERROR } from '../../application/shared/http/middlewares/authentication-middleware';
@@ -106,6 +107,7 @@ const options: swaggerJsdoc.Options = {
         CreateSentence: createSentenceOpenAPIBody,
         UpdateSentence: updateSentenceOpenAPIBody,
         UpdateSentenceStatus: updateSentenceStatusOpenAPIBody,
+        UpdateSentencesCategory: updateSentencesCategoryOpenAPIBody,
         Category: categoryHttpSchemaOpenAPI,
         Sentence: sentenceHttpSchemaOpenAPI,
         ErrorsResponse: {

@@ -3,7 +3,6 @@ import z from 'zod';
 import { Prisma, Category as RawCategory } from '../../../../../prisma/generated/prisma';
 import { Category } from '../entities/category';
 
-
 export const categoryHttpSchema = z.object({
   id: z.string().uuid(),
   name: z.string().min(1),
@@ -18,7 +17,6 @@ export const categoryHttpSchema = z.object({
 export type CategoryHttpSchema = z.infer<typeof categoryHttpSchema>;
 
 export const categoryHttpSchemaOpenAPI = generateSchema(categoryHttpSchema);
-
 
 export class CategoryMapper {
   static toDomain(raw: RawCategory): Category {

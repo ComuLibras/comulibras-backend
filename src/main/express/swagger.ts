@@ -14,6 +14,7 @@ import { signUpOpenAPIBody } from '../../application/domain/auth/use-cases/sign-
 import { categoriesPathCreate, categoriesPathWithId } from '../../application/domain/categories/docs/categories-path';
 import { categoryHttpSchemaOpenAPI } from '../../application/domain/categories/mappers/category-mapper';
 import { createCategoryOpenAPIBody } from '../../application/domain/categories/use-cases/create-category/create-category-dto';
+import { updateCategoryOpenAPIBody } from '../../application/domain/categories/use-cases/update-category/update-category-dto';
 import { Tags } from '../../application/shared/docs/tags';
 import { INTERNAL_SERVER_HTTP_ERROR_DEFAULT_MESSAGE } from '../../application/shared/http/errors/internal-server-http-error';
 import { INVALID_TOKEN_ERROR } from '../../application/shared/http/middlewares/authentication-middleware';
@@ -94,6 +95,7 @@ const options: swaggerJsdoc.Options = {
         SignUp: signUpOpenAPIBody,
         SignUpResponse: signUpHttpSchema,
         CreateCategory: createCategoryOpenAPIBody,
+        UpdateCategory: updateCategoryOpenAPIBody,
         Category: categoryHttpSchemaOpenAPI,
         ErrorsResponse: {
           type: 'object',

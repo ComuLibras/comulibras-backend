@@ -1,5 +1,5 @@
-import { Operation } from "swagger-jsdoc";
-import { Tags } from "../../../shared/docs/tags";
+import { Operation } from 'swagger-jsdoc';
+import { Tags } from '../../../shared/docs/tags';
 
 export const updateSentenceStatusSwagger: Operation = {
   tags: [Tags.SENTENCES],

@@ -3,6 +3,7 @@ import { addDefaultResponsesSwagger } from '../../../shared/docs/add-default-res
 import { createSentenceSwagger } from './create-sentence-swagger';
 import { deleteSentenceSwagger } from './delete-sentence-swagger';
 import { getSentencesSwagger } from './get-sentences-swagger';
+import { updateSentenceStatusSwagger } from './update-sentence-status';
 import { updateSentenceSwagger } from './update-sentence-swagger';
 
 export const sentencesPath: PathItem = {
@@ -13,4 +14,5 @@ export const sentencesPath: PathItem = {
 export const sentencesPathWithId: PathItem = {
   put: addDefaultResponsesSwagger(updateSentenceSwagger),
   delete: addDefaultResponsesSwagger(deleteSentenceSwagger),
+  patch: addDefaultResponsesSwagger(updateSentenceStatusSwagger),
 };

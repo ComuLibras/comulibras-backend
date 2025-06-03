@@ -1,7 +1,7 @@
 import { Operation } from 'swagger-jsdoc';
 import { Tags } from '../../../shared/docs/tags';
+import { CATEGORY_NOT_FOUND_ERROR } from './contants';
 
-export const CATEGORY_NOT_FOUND_ERROR = 'Categoria não encontrada';
 export const CATEGORY_NAME_ALREADY_EXISTS_ERROR = 'Já existe uma categoria com este nome';
 
 export const updateCategorySwagger: Operation = {

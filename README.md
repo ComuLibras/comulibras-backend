@@ -10,6 +10,7 @@ This template provides a solid foundation for building scalable backend applicat
 
 - **Node.js** (v20+)
 - **TypeScript** - Static typing
+- **SWC** - Fast TypeScript/JavaScript compiler
 - **Express.js** - Web framework
 - **PostgreSQL** - Relational database
 - **Prisma** - Database ORM
@@ -113,29 +114,17 @@ Your API will be available at `http://localhost:3000`
 # Start database (run once)
 pnpm db:up
 
-# Start development (TypeScript compilation + server with hot reload)
+# Start development (SWC compilation + server with hot reload)
 pnpm dev
-```
-
-### Separate Commands
-
-```bash
-# Terminal 1: TypeScript compilation in watch mode
-pnpm build:dev
-
-# Terminal 2: Server with hot reload
-pnpm start:dev
 ```
 
 ## 📦 Available Scripts
 
 ### Development
 
-| Script           | Description                       |
-| ---------------- | --------------------------------- |
-| `pnpm dev`       | Start development with hot reload |
-| `pnpm build:dev` | Compile TypeScript in watch mode  |
-| `pnpm start:dev` | Start server with hot reload      |
+| Script     | Description                                            |
+| ---------- | ------------------------------------------------------ |
+| `pnpm dev` | Start development (build + server) with hot reload    |
 
 ### Production
 
@@ -192,6 +181,8 @@ This template follows **Clean Architecture** principles:
 
 ### Key Features
 
+- ✅ **Fast Compilation** - SWC for blazing fast TypeScript compilation
+- ✅ **Path Mappings** - Clean imports with `@/` aliases instead of long relative paths
 - ✅ **Dependency Injection** - Custom DI container with decorators
 - ✅ **Input Validation** - Zod schemas with automatic validation
 - ✅ **Error Handling** - Centralized error handling middleware
@@ -217,6 +208,29 @@ The template includes a PostgreSQL database in Docker for development. For produ
 ### Environment Configuration
 
 Modify `src/application/config/env.ts` to add new environment variables.
+
+### Path Mappings
+
+The project now supports clean import paths using `@/` aliases:
+
+```typescript
+// Instead of long relative imports:
+import { Injectable } from '../../../../kernel/decorators/injectable';
+import { Controller } from '../../../../shared/http/interfaces/controller';
+
+// Use clean aliases:
+import { Injectable } from '@kernel/decorators/injectable';
+import { Controller } from '@shared/http/interfaces/controller';
+```
+
+Available path mappings:
+- `@/*` → `src/*`
+- `@kernel/*` → `src/application/kernel/*`
+- `@shared/*` → `src/application/shared/*`
+- `@domain/*` → `src/application/domain/*`
+- `@main/*` → `src/main/*`
+- `@types/*` → `src/@types/*`
+- `@prisma/*` → `prisma/*`
 
 ### Database Schema
 

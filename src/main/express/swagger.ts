@@ -140,7 +140,7 @@ const options: swaggerJsdoc.Options = {
       },
     },
     info: {
-      title: 'sinaliza',
+      title: 'ComuLibras',
       version: '1.0.0',
       description: 'Documentação da API utilizando Swagger',
     },

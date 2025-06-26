@@ -1,72 +1,72 @@
 # ComuLibras Backend
 
-Backend da plataforma ComuLibras - Sistema de comunicação e aprendizado de Libras (Língua Brasileira de Sinais).
+Backend for the ComuLibras platform - Communication and learning system for Libras (Brazilian Sign Language).
 
-## 📋 Sobre o Projeto
+## 📋 About the Project
 
-O ComuLibras Backend é uma API RESTful moderna construída com Node.js e TypeScript, seguindo os princípios da Clean Architecture. O sistema oferece funcionalidades para gerenciamento de usuários, categorias e frases em Libras, com autenticação JWT e documentação automática via Swagger.
+ComuLibras Backend is a modern RESTful API built with Node.js and TypeScript, following Clean Architecture principles. The system provides functionalities for user management, categories, and phrases in Libras, with JWT authentication and automatic documentation via Swagger.
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Technologies Used
 
-- **Node.js** (v20+) - Runtime JavaScript
-- **TypeScript** - Tipagem estática
-- **SWC** - Compilador rápido para TypeScript/JavaScript
-- **Express.js** - Framework web
-- **PostgreSQL** - Banco de dados relacional
-- **Prisma** - ORM moderno para TypeScript
-- **Docker** - Containerização
-- **Swagger** - Documentação automática da API
-- **JWT** - Autenticação baseada em tokens
-- **Zod** - Validação de schemas
-- **Bcrypt** - Hash de senhas
-- **ESLint** - Linting de código
-- **Prettier** - Formatação de código
+- **Node.js** (v20+) - JavaScript Runtime
+- **TypeScript** - Static typing
+- **SWC** - Fast compiler for TypeScript/JavaScript
+- **Express.js** - Web framework
+- **PostgreSQL** - Relational database
+- **Prisma** - Modern ORM for TypeScript
+- **Docker** - Containerization
+- **Swagger** - Automatic API documentation
+- **JWT** - Token-based authentication
+- **Zod** - Schema validation
+- **Bcrypt** - Password hashing
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
 
-## 📁 Arquitetura do Projeto
+## 📁 Project Architecture
 
-O projeto segue os princípios da **Clean Architecture** organizando o código em camadas bem definidas:
+The project follows **Clean Architecture** principles organizing code into well-defined layers:
 
 ```
 src/
-├── @types/                    # Definições de tipos personalizados
-├── application/               # Camada de aplicação
-│   ├── config/               # Configurações da aplicação
-│   ├── domain/               # Camada de domínio
-│   │   ├── accounts/         # Módulo de contas/usuários
-│   │   │   ├── docs/         # Documentação Swagger
-│   │   │   ├── entities/     # Entidades de domínio
-│   │   │   ├── mappers/      # Mapeadores de dados
-│   │   │   ├── repositories/ # Interfaces e implementações de repositórios
-│   │   │   └── use-cases/    # Casos de uso
-│   │   ├── auth/             # Módulo de autenticação
-│   │   ├── categories/       # Módulo de categorias
-│   │   └── sentences/        # Módulo de frases
-│   ├── kernel/               # Núcleo do framework
-│   │   ├── decorators/       # Decorators personalizados
-│   │   └── di/               # Injeção de dependência
-│   └── shared/               # Recursos compartilhados
-│       ├── clients/          # Clientes externos (Prisma)
-│       ├── entities/         # Entidades base
-│       ├── http/             # Utilitários HTTP
-│       └── providers/        # Provedores de serviços
-├── main/                     # Camada principal
-│   └── express/              # Configuração do Express
-│       ├── adapters/         # Adaptadores
-│       ├── routes/           # Rotas da aplicação
-│       └── swagger.ts        # Configuração do Swagger
-└── index.ts                  # Ponto de entrada
+├── @types/                    # Custom type definitions
+├── application/               # Application layer
+│   ├── config/               # Application configurations
+│   ├── domain/               # Domain layer
+│   │   ├── accounts/         # Accounts/users module
+│   │   │   ├── docs/         # Swagger documentation
+│   │   │   ├── entities/     # Domain entities
+│   │   │   ├── mappers/      # Data mappers
+│   │   │   ├── repositories/ # Repository interfaces and implementations
+│   │   │   └── use-cases/    # Use cases
+│   │   ├── auth/             # Authentication module
+│   │   ├── categories/       # Categories module
+│   │   └── sentences/        # Sentences module
+│   ├── kernel/               # Framework core
+│   │   ├── decorators/       # Custom decorators
+│   │   └── di/               # Dependency injection
+│   └── shared/               # Shared resources
+│       ├── clients/          # External clients (Prisma)
+│       ├── entities/         # Base entities
+│       ├── http/             # HTTP utilities
+│       └── providers/        # Service providers
+├── main/                     # Main layer
+│   └── express/              # Express configuration
+│       ├── adapters/         # Adapters
+│       ├── routes/           # Application routes
+│       └── swagger.ts        # Swagger configuration
+└── index.ts                  # Entry point
 ```
 
-### Padrões de Arquitetura Implementados
+### Implemented Architecture Patterns
 
 #### 1. **Clean Architecture**
-- **Entities**: Objetos de domínio com regras de negócio
-- **Use Cases**: Lógica de aplicação específica
-- **Interface Adapters**: Controllers, mappers e gateways
+- **Entities**: Domain objects with business rules
+- **Use Cases**: Application-specific logic
+- **Interface Adapters**: Controllers, mappers, and gateways
 - **Frameworks & Drivers**: Express, Prisma, PostgreSQL
 
 #### 2. **Dependency Injection (DI)**
-Sistema customizado com decorators para inversão de controle:
+Custom system with decorators for inversion of control:
 
 ```typescript
 @Injectable()
@@ -80,7 +80,7 @@ export class SignInController extends Controller {
 ```
 
 #### 3. **Repository Pattern**
-Abstração da camada de dados:
+Data layer abstraction:
 
 ```typescript
 export interface AccountRepository {
@@ -91,7 +91,7 @@ export interface AccountRepository {
 ```
 
 #### 4. **Factory Pattern**
-Para criação de middlewares e serviços:
+For creating middlewares and services:
 
 ```typescript
 export const makeAuthenticationMiddleware = (): AuthenticationMiddleware => {
@@ -100,16 +100,16 @@ export const makeAuthenticationMiddleware = (): AuthenticationMiddleware => {
 };
 ```
 
-## 🛠️ Pré-requisitos
+## 🛠️ Prerequisites
 
-Antes de começar, certifique-se de ter instalado:
+Before starting, make sure you have installed:
 
-- **Node.js** v20.0.0 ou superior
-- **PNPM** (gerenciador de pacotes)
-- **Docker** e **Docker Compose**
+- **Node.js** v20.0.0 or higher
+- **PNPM** (package manager)
+- **Docker** and **Docker Compose**
 - **Git**
 
-### Verificando as versões:
+### Checking versions:
 
 ```bash
 node --version  # >= v20.0.0
@@ -118,183 +118,183 @@ docker --version
 docker-compose --version
 ```
 
-## ⚙️ Instalação e Configuração
+## ⚙️ Installation and Setup
 
-### 1. Clone o repositório
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/seu-usuario/comulibras-backend.git
+git clone https://github.com/your-username/comulibras-backend.git
 cd comulibras-backend
 ```
 
-### 2. Instale as dependências
+### 2. Install dependencies
 
 ```bash
 pnpm install
 ```
 
-### 3. Configure as variáveis de ambiente
+### 3. Configure environment variables
 
-Crie um arquivo `.env` na raiz do projeto:
+Create a `.env` file in the project root:
 
 ```env
-# Configuração do banco de dados
+# Database configuration
 DATABASE_URL="postgresql://comulibras-postgres:comulibras-postgres@localhost:5432/comulibras-db"
 
-# Configuração do servidor
+# Server configuration
 PORT=3000
 NODE_ENV=development
 
-# Chave secreta do JWT (gere uma chave segura)
-JWT_SECRET=sua-chave-secreta-super-segura-aqui-com-pelo-menos-256-bits
+# JWT secret key (generate a secure key)
+JWT_SECRET=your-super-secure-secret-key-here-with-at-least-256-bits
 ```
 
-> **Importante**: Para produção, gere uma chave JWT segura usando: `openssl rand -base64 64`
+> **Important**: For production, generate a secure JWT key using: `openssl rand -base64 64`
 
-### 4. Inicie o banco de dados
+### 4. Start the database
 
 ```bash
 pnpm db:up
 ```
 
-### 5. Execute as migrações do banco
+### 5. Run database migrations
 
 ```bash
 pnpm db:migrate:dev
 ```
 
-### 6. Gere o cliente Prisma
+### 6. Generate Prisma client
 
 ```bash
 pnpm db:generate
 ```
 
-### 7. Inicie o servidor de desenvolvimento
+### 7. Start the development server
 
 ```bash
 pnpm dev
 ```
 
-🎉 **Pronto!** Sua API estará rodando em `http://localhost:3000`
+🎉 **Ready!** Your API will be running at `http://localhost:3000`
 
-## 📦 Scripts Disponíveis
+## 📦 Available Scripts
 
-### 🔧 Desenvolvimento
+### 🔧 Development
 
-| Script | Descrição |
-|--------|-----------|
-| `pnpm dev` | Inicia o servidor de desenvolvimento com hot reload |
-| `pnpm dev:clean` | Inicia apenas o build e servidor (sem gerar Prisma) |
-| `pnpm dev:db` | Gera Prisma client e inicia desenvolvimento |
+| Script | Description |
+|--------|-------------|
+| `pnpm dev` | Start development server with hot reload |
+| `pnpm dev:clean` | Start only build and server (without generating Prisma) |
+| `pnpm dev:db` | Generate Prisma client and start development |
 
-### 🚀 Produção
+### 🚀 Production
 
-| Script | Descrição |
-|--------|-----------|
-| `pnpm build:prod` | Build para produção |
-| `pnpm start:prod` | Inicia servidor de produção |
-| `pnpm prod` | Build + start para produção |
+| Script | Description |
+|--------|-------------|
+| `pnpm build:prod` | Build for production |
+| `pnpm start:prod` | Start production server |
+| `pnpm prod` | Build + start for production |
 
-### 🗄️ Banco de Dados
+### 🗄️ Database
 
-| Script | Descrição |
-|--------|-----------|
-| `pnpm db:up` | Inicia container do PostgreSQL |
-| `pnpm db:down` | Para container do banco |
-| `pnpm db:logs` | Visualiza logs do banco |
-| `pnpm db:health` | Verifica status do container |
-| `pnpm db:rebuild` | Reconstrói container do banco |
-| `pnpm db:migrate:dev` | Executa migrações em desenvolvimento |
-| `pnpm db:generate` | Gera cliente Prisma |
-| `pnpm db:studio` | Abre Prisma Studio (interface visual) |
-| `pnpm db:reset` | Reseta banco e executa migrações |
+| Script | Description |
+|--------|-------------|
+| `pnpm db:up` | Start PostgreSQL container |
+| `pnpm db:down` | Stop database container |
+| `pnpm db:logs` | View database logs |
+| `pnpm db:health` | Check container status |
+| `pnpm db:rebuild` | Rebuild database container |
+| `pnpm db:migrate:dev` | Run migrations in development |
+| `pnpm db:generate` | Generate Prisma client |
+| `pnpm db:studio` | Open Prisma Studio (visual interface) |
+| `pnpm db:reset` | Reset database and run migrations |
 
-### 🔍 Qualidade de Código
+### 🔍 Code Quality
 
-| Script | Descrição |
-|--------|-----------|
-| `pnpm lint` | Executa ESLint e corrige problemas |
-| `pnpm format` | Formata código com Prettier |
+| Script | Description |
+|--------|-------------|
+| `pnpm lint` | Run ESLint and fix issues |
+| `pnpm format` | Format code with Prettier |
 
-## 🔗 Endpoints da API
+## 🔗 API Endpoints
 
 ### ✅ Health Check
-- `GET /health` - Status da API
+- `GET /health` - API status
 
-### 🔐 Autenticação
-- `POST /auth/sign-up` - Registro de usuário
-- `POST /auth/sign-in` - Login de usuário
+### 🔐 Authentication
+- `POST /auth/sign-up` - User registration
+- `POST /auth/sign-in` - User login
 
-### 👥 Contas/Usuários
-- `GET /accounts` - Listar contas (admin)
-- `POST /accounts` - Criar conta (admin)
-- `PATCH /accounts/:id/role` - Atualizar role (admin)
-- `PATCH /accounts/:id/status` - Ativar/desativar conta (admin)
-- `DELETE /accounts/:id` - Deletar conta (admin)
+### 👥 Accounts/Users
+- `GET /accounts` - List accounts (admin)
+- `POST /accounts` - Create account (admin)
+- `PATCH /accounts/:id/role` - Update role (admin)
+- `PATCH /accounts/:id/status` - Activate/deactivate account (admin)
+- `DELETE /accounts/:id` - Delete account (admin)
 
-### 📂 Categorias
-- `GET /categories` - Listar categorias
-- `POST /categories` - Criar categoria
-- `PATCH /categories/:id` - Atualizar categoria
-- `PATCH /categories/:id/status` - Ativar/desativar categoria
-- `DELETE /categories/:id` - Deletar categoria
+### 📂 Categories
+- `GET /categories` - List categories
+- `POST /categories` - Create category
+- `PATCH /categories/:id` - Update category
+- `PATCH /categories/:id/status` - Activate/deactivate category
+- `DELETE /categories/:id` - Delete category
 
-### 💬 Frases
-- `GET /sentences` - Listar frases
-- `POST /sentences` - Criar frase
-- `PATCH /sentences/:id` - Atualizar frase
-- `PATCH /sentences/:id/status` - Ativar/desativar frase
-- `PATCH /sentences/category` - Atualizar categoria de múltiplas frases
-- `DELETE /sentences/:id` - Deletar frase
-- `DELETE /sentences` - Deletar múltiplas frases
+### 💬 Sentences
+- `GET /sentences` - List sentences
+- `POST /sentences` - Create sentence
+- `PATCH /sentences/:id` - Update sentence
+- `PATCH /sentences/:id/status` - Activate/deactivate sentence
+- `PATCH /sentences/category` - Update category of multiple sentences
+- `DELETE /sentences/:id` - Delete sentence
+- `DELETE /sentences` - Delete multiple sentences
 
-## 📚 Documentação da API
+## 📚 API Documentation
 
-A documentação completa da API está disponível via Swagger:
+Complete API documentation is available via Swagger:
 
-- **Desenvolvimento**: `http://localhost:3000/api-docs`
+- **Development**: `http://localhost:3000/api-docs`
 
-A documentação inclui:
-- Esquemas de request/response
-- Códigos de status HTTP
-- Exemplos de uso
-- Autenticação necessária para cada endpoint
+The documentation includes:
+- Request/response schemas
+- HTTP status codes
+- Usage examples
+- Required authentication for each endpoint
 
-## 🏗️ Detalhes da Arquitetura
+## 🏗️ Architecture Details
 
-### Camadas da Aplicação
+### Application Layers
 
-#### 1. **Domain Layer (Domínio)**
-- **Entities**: Objetos de negócio com regras e validações
-- **Value Objects**: Objetos imutáveis (ex: Email, Password)
-- **Domain Services**: Lógica de domínio complexa
-- **Repository Interfaces**: Contratos para persistência
+#### 1. **Domain Layer**
+- **Entities**: Business objects with rules and validations
+- **Value Objects**: Immutable objects (e.g., Email, Password)
+- **Domain Services**: Complex domain logic
+- **Repository Interfaces**: Persistence contracts
 
-#### 2. **Application Layer (Aplicação)**
-- **Use Cases**: Orquestração de operações de negócio
-- **DTOs**: Objetos de transferência de dados
-- **Application Services**: Coordenação entre use cases
+#### 2. **Application Layer**
+- **Use Cases**: Business operation orchestration
+- **DTOs**: Data transfer objects
+- **Application Services**: Coordination between use cases
 
-#### 3. **Infrastructure Layer (Infraestrutura)**
-- **Repository Implementations**: Implementações concretas (Prisma)
-- **External Services**: APIs externas, email, etc.
-- **Database Configuration**: Configuração do Prisma
+#### 3. **Infrastructure Layer**
+- **Repository Implementations**: Concrete implementations (Prisma)
+- **External Services**: External APIs, email, etc.
+- **Database Configuration**: Prisma configuration
 
-#### 4. **Presentation Layer (Apresentação)**
-- **Controllers**: Manipulação de requests HTTP
-- **Middlewares**: Autenticação, autorização, validação
-- **Route Adapters**: Adaptação entre Express e controllers
+#### 4. **Presentation Layer**
+- **Controllers**: HTTP request handling
+- **Middlewares**: Authentication, authorization, validation
+- **Route Adapters**: Adaptation between Express and controllers
 
-### Sistema de Injeção de Dependência
+### Dependency Injection System
 
-O projeto implementa um sistema customizado de DI com decorators:
+The project implements a custom DI system with decorators:
 
 ```typescript
-// Registro de dependências
+// Dependency registration
 container.register('AccountRepository', PrismaAccountRepository);
 container.register('HashProvider', BcryptHashProvider);
 
-// Injeção em controllers
+// Injection in controllers
 @Injectable()
 export class CreateAccountController {
   constructor(
@@ -304,9 +304,9 @@ export class CreateAccountController {
 }
 ```
 
-### Validação de Dados
+### Data Validation
 
-Utiliza Zod para validação robusta:
+Uses Zod for robust validation:
 
 ```typescript
 const signInBody = z.object({
@@ -316,30 +316,30 @@ const signInBody = z.object({
 
 @Schema({ body: signInBody })
 export class SignInController extends Controller {
-  // Validação automática do request body
+  // Automatic request body validation
 }
 ```
 
-### Tratamento de Erros
+### Error Handling
 
-Sistema centralizado de tratamento de erros:
+Centralized error handling system:
 
 ```typescript
-// Erros customizados
+// Custom errors
 export class NotFoundHttpError extends HttpError {
   constructor(message = 'Resource not found') {
     super(message, StatusCode.NOT_FOUND);
   }
 }
 
-// Middleware global de erros
+// Global error middleware
 app.use(errorMiddlewareAdapter(makeHandleApplicationErrorMiddleware()));
 ```
 
-## 🐳 Suporte ao Docker
+## 🐳 Docker Support
 
-### Desenvolvimento
-O projeto inclui um `docker-compose.yml` configurado para PostgreSQL:
+### Development
+The project includes a `docker-compose.yml` configured for PostgreSQL:
 
 ```yaml
 services:
@@ -354,8 +354,8 @@ services:
       POSTGRES_DB: comulibras-db
 ```
 
-### Produção
-Para deploy em produção, você pode estender a configuração adicionando:
+### Production
+For production deployment, you can extend the configuration by adding:
 
 ```yaml
 services:
@@ -369,82 +369,82 @@ services:
       DATABASE_URL: postgresql://user:pass@db:5432/dbname
 ```
 
-## 🔧 Personalização e Extensão
+## 🔧 Customization and Extension
 
-### Adicionando Novos Módulos
+### Adding New Modules
 
-1. **Crie a estrutura do domínio**:
+1. **Create the domain structure**:
 ```
-src/application/domain/novo-modulo/
-├── docs/           # Documentação Swagger
-├── entities/       # Entidades de domínio
-├── mappers/        # Mapeadores
-├── repositories/   # Repositórios
-└── use-cases/      # Casos de uso
+src/application/domain/new-module/
+├── docs/           # Swagger documentation
+├── entities/       # Domain entities
+├── mappers/        # Mappers
+├── repositories/   # Repositories
+└── use-cases/      # Use cases
 ```
 
-2. **Registre as dependências**:
+2. **Register dependencies**:
 ```typescript
 // src/application/kernel/di/container/repositories.ts
-container.register('NovoModuloRepository', PrismaNovoModuloRepository);
+container.register('NewModuleRepository', PrismaNewModuleRepository);
 ```
 
-3. **Adicione as rotas**:
+3. **Add routes**:
 ```typescript
-// src/main/express/routes/novo-modulo-router.ts
-export const novoModuloRouter = Router();
-novoModuloRouter.get('/', routeAdapter(makeListNovoModuloController()));
+// src/main/express/routes/new-module-router.ts
+export const newModuleRouter = Router();
+newModuleRouter.get('/', routeAdapter(makeListNewModuleController()));
 ```
 
-### Configurações Personalizadas
+### Custom Configurations
 
-Edite o arquivo `src/application/config/env.ts`:
+Edit the file `src/application/config/env.ts`:
 
 ```typescript
 export const env = {
   port: process.env.PORT || 3000,
   jwtSecret: process.env.JWT_SECRET!,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
-  // Adicione suas configurações aqui
+  // Add your configurations here
 };
 ```
 
-## 🧪 Testes (Em desenvolvimento)
+## 🧪 Testing (In development)
 
 ```bash
-# Executar testes (quando implementados)
+# Run tests (when implemented)
 pnpm test
 
-# Testes com coverage
+# Tests with coverage
 pnpm test:coverage
 
-# Testes em modo watch
+# Tests in watch mode
 pnpm test:watch
 ```
 
-## 🚀 Deploy
+## 🚀 Deployment
 
-### Preparação para Produção
+### Production Preparation
 
-1. **Configure variáveis de ambiente**:
+1. **Configure environment variables**:
 ```env
 NODE_ENV=production
-DATABASE_URL=sua-url-de-producao
-JWT_SECRET=sua-chave-super-segura
+DATABASE_URL=your-production-url
+JWT_SECRET=your-super-secure-key
 PORT=3000
 ```
 
-2. **Execute o build**:
+2. **Run the build**:
 ```bash
 pnpm build:prod
 ```
 
-3. **Inicie a aplicação**:
+3. **Start the application**:
 ```bash
 pnpm start:prod
 ```
 
-### Deploy com Docker
+### Deploy with Docker
 
 ```dockerfile
 FROM node:20-alpine
@@ -456,30 +456,30 @@ EXPOSE 3000
 CMD ["npm", "run", "start:prod"]
 ```
 
-## 🤝 Contribuição
+## 🤝 Contributing
 
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📄 Licença
+## 📄 License
 
-Este projeto está licenciado sob a Licença ISC - veja o arquivo `LICENSE` para detalhes.
+This project is licensed under the ISC License - see the `LICENSE` file for details.
 
-## 👥 Equipe
+## 👥 Team
 
 - **Backend Development**: Amauri Lima
 - **Database Design**: Amauri Lima
 - **Architecture**: Amauri Lima
 
-## 📞 Suporte
+## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/seu-usuario/comulibras-backend/issues)
+- **Issues**: [GitHub Issues](https://github.com/your-username/comulibras-backend/issues)
 - **Email**: amauri.plimaj@gmail.com
-- **Documentação**: `http://localhost:3000/api-docs`
+- **Documentation**: `http://localhost:3000/api-docs`
 
 ---
 
-Desenvolvido com ❤️ para a comunidade surda brasileira 🤟
+Developed with ❤️ for the Brazilian deaf community 🤟

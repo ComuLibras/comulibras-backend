@@ -1,275 +1,485 @@
-# Node.js TypeScript Backend Template
+# ComuLibras Backend
 
-A modern, production-ready backend template built with Node.js, TypeScript, Express, and PostgreSQL.
+Backend da plataforma ComuLibras - Sistema de comunicação e aprendizado de Libras (Língua Brasileira de Sinais).
 
-## 📋 About This Template
+## 📋 Sobre o Projeto
 
-This template provides a solid foundation for building scalable backend applications following clean architecture principles. It includes authentication, database integration, API documentation, and development tooling out of the box.
+O ComuLibras Backend é uma API RESTful moderna construída com Node.js e TypeScript, seguindo os princípios da Clean Architecture. O sistema oferece funcionalidades para gerenciamento de usuários, categorias e frases em Libras, com autenticação JWT e documentação automática via Swagger.
 
-## 🚀 Technologies
+## 🚀 Tecnologias Utilizadas
 
-- **Node.js** (v20+)
-- **TypeScript** - Static typing
-- **SWC** - Fast TypeScript/JavaScript compiler
-- **Express.js** - Web framework
-- **PostgreSQL** - Relational database
-- **Prisma** - Database ORM
-- **Docker** - Containerization
-- **Swagger** - API documentation
-- **JWT** - Authentication
-- **Zod** - Schema validation
-- **ESLint** - Code linting
-- **Prettier** - Code formatting
+- **Node.js** (v20+) - Runtime JavaScript
+- **TypeScript** - Tipagem estática
+- **SWC** - Compilador rápido para TypeScript/JavaScript
+- **Express.js** - Framework web
+- **PostgreSQL** - Banco de dados relacional
+- **Prisma** - ORM moderno para TypeScript
+- **Docker** - Containerização
+- **Swagger** - Documentação automática da API
+- **JWT** - Autenticação baseada em tokens
+- **Zod** - Validação de schemas
+- **Bcrypt** - Hash de senhas
+- **ESLint** - Linting de código
+- **Prettier** - Formatação de código
 
-## 📁 Project Structure
+## 📁 Arquitetura do Projeto
+
+O projeto segue os princípios da **Clean Architecture** organizando o código em camadas bem definidas:
 
 ```
-├── src/
-│   ├── application/         # Application logic
-│   │   ├── config/         # Configuration
-│   │   ├── domain/         # Domain modules
-│   │   │   ├── auth/       # Authentication module
-│   │   │   └── accounts/   # Accounts module
-│   │   ├── kernel/         # Core framework (DI, decorators)
-│   │   └── shared/         # Shared resources
-│   ├── main/               # Main configuration
-│   │   └── express/        # Express setup
-│   └── @types/             # Type definitions
-├── prisma/                 # Database schemas and migrations
-│   └── schema/             # Prisma schemas
-├── docker-compose.yml      # Development database
-└── package.json            # Scripts and dependencies
+src/
+├── @types/                    # Definições de tipos personalizados
+├── application/               # Camada de aplicação
+│   ├── config/               # Configurações da aplicação
+│   ├── domain/               # Camada de domínio
+│   │   ├── accounts/         # Módulo de contas/usuários
+│   │   │   ├── docs/         # Documentação Swagger
+│   │   │   ├── entities/     # Entidades de domínio
+│   │   │   ├── mappers/      # Mapeadores de dados
+│   │   │   ├── repositories/ # Interfaces e implementações de repositórios
+│   │   │   └── use-cases/    # Casos de uso
+│   │   ├── auth/             # Módulo de autenticação
+│   │   ├── categories/       # Módulo de categorias
+│   │   └── sentences/        # Módulo de frases
+│   ├── kernel/               # Núcleo do framework
+│   │   ├── decorators/       # Decorators personalizados
+│   │   └── di/               # Injeção de dependência
+│   └── shared/               # Recursos compartilhados
+│       ├── clients/          # Clientes externos (Prisma)
+│       ├── entities/         # Entidades base
+│       ├── http/             # Utilitários HTTP
+│       └── providers/        # Provedores de serviços
+├── main/                     # Camada principal
+│   └── express/              # Configuração do Express
+│       ├── adapters/         # Adaptadores
+│       ├── routes/           # Rotas da aplicação
+│       └── swagger.ts        # Configuração do Swagger
+└── index.ts                  # Ponto de entrada
 ```
 
-## 🛠️ Prerequisites
+### Padrões de Arquitetura Implementados
 
-- **Node.js** v20 or higher
-- **PNPM** (package manager)
-- **Docker** and **Docker Compose** (for database)
+#### 1. **Clean Architecture**
+- **Entities**: Objetos de domínio com regras de negócio
+- **Use Cases**: Lógica de aplicação específica
+- **Interface Adapters**: Controllers, mappers e gateways
+- **Frameworks & Drivers**: Express, Prisma, PostgreSQL
 
-## ⚙️ Getting Started
+#### 2. **Dependency Injection (DI)**
+Sistema customizado com decorators para inversão de controle:
 
-### 1. Use this template
+```typescript
+@Injectable()
+export class SignInController extends Controller {
+  constructor(
+    @Inject('SignInService') private readonly signInService: SignInService,
+  ) {
+    super();
+  }
+}
+```
 
-Click "Use this template" on GitHub or clone the repository:
+#### 3. **Repository Pattern**
+Abstração da camada de dados:
+
+```typescript
+export interface AccountRepository {
+  findByEmail(email: string): Promise<Account | null>;
+  create(account: Account): Promise<Account>;
+  // ...
+}
+```
+
+#### 4. **Factory Pattern**
+Para criação de middlewares e serviços:
+
+```typescript
+export const makeAuthenticationMiddleware = (): AuthenticationMiddleware => {
+  const tokenProvider = container.resolve<TokenProvider>('JwtTokenProvider');
+  return new AuthenticationMiddleware(tokenProvider);
+};
+```
+
+## 🛠️ Pré-requisitos
+
+Antes de começar, certifique-se de ter instalado:
+
+- **Node.js** v20.0.0 ou superior
+- **PNPM** (gerenciador de pacotes)
+- **Docker** e **Docker Compose**
+- **Git**
+
+### Verificando as versões:
 
 ```bash
-git clone <your-repo-url>
-cd your-comulibras
+node --version  # >= v20.0.0
+pnpm --version  # >= 8.0.0
+docker --version
+docker-compose --version
 ```
 
-### 2. Install dependencies
+## ⚙️ Instalação e Configuração
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/seu-usuario/comulibras-backend.git
+cd comulibras-backend
+```
+
+### 2. Instale as dependências
 
 ```bash
 pnpm install
 ```
 
-### 3. Set up environment variables
+### 3. Configure as variáveis de ambiente
 
-Create a `.env` file in the root directory:
+Crie um arquivo `.env` na raiz do projeto:
 
 ```env
-# Database configuration
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/myapp"
+# Configuração do banco de dados
+DATABASE_URL="postgresql://comulibras-postgres:comulibras-postgres@localhost:5432/comulibras-db"
 
-# Server configuration
+# Configuração do servidor
 PORT=3000
 NODE_ENV=development
 
-# JWT secret (generate a secure secret)
-JWT_SECRET=your-super-secret-jwt-key-here
+# Chave secreta do JWT (gere uma chave segura)
+JWT_SECRET=sua-chave-secreta-super-segura-aqui-com-pelo-menos-256-bits
 ```
 
-### 4. Start the database
+> **Importante**: Para produção, gere uma chave JWT segura usando: `openssl rand -base64 64`
+
+### 4. Inicie o banco de dados
 
 ```bash
 pnpm db:up
 ```
 
-### 5. Run database migrations
+### 5. Execute as migrações do banco
 
 ```bash
 pnpm db:migrate:dev
 ```
 
-### 6. Generate Prisma client
+### 6. Gere o cliente Prisma
 
 ```bash
 pnpm db:generate
 ```
 
-### 7. Start development
+### 7. Inicie o servidor de desenvolvimento
 
 ```bash
 pnpm dev
 ```
 
-Your API will be available at `http://localhost:3000`
+🎉 **Pronto!** Sua API estará rodando em `http://localhost:3000`
 
-## 🔧 Development Workflow
+## 📦 Scripts Disponíveis
 
-### Quick Start
+### 🔧 Desenvolvimento
 
-```bash
-# Start database (run once)
-pnpm db:up
+| Script | Descrição |
+|--------|-----------|
+| `pnpm dev` | Inicia o servidor de desenvolvimento com hot reload |
+| `pnpm dev:clean` | Inicia apenas o build e servidor (sem gerar Prisma) |
+| `pnpm dev:db` | Gera Prisma client e inicia desenvolvimento |
 
-# Start development (SWC compilation + server with hot reload)
-pnpm dev
-```
+### 🚀 Produção
 
-## 📦 Available Scripts
+| Script | Descrição |
+|--------|-----------|
+| `pnpm build:prod` | Build para produção |
+| `pnpm start:prod` | Inicia servidor de produção |
+| `pnpm prod` | Build + start para produção |
 
-### Development
+### 🗄️ Banco de Dados
 
-| Script     | Description                                            |
-| ---------- | ------------------------------------------------------ |
-| `pnpm dev` | Start development (build + server) with hot reload    |
+| Script | Descrição |
+|--------|-----------|
+| `pnpm db:up` | Inicia container do PostgreSQL |
+| `pnpm db:down` | Para container do banco |
+| `pnpm db:logs` | Visualiza logs do banco |
+| `pnpm db:health` | Verifica status do container |
+| `pnpm db:rebuild` | Reconstrói container do banco |
+| `pnpm db:migrate:dev` | Executa migrações em desenvolvimento |
+| `pnpm db:generate` | Gera cliente Prisma |
+| `pnpm db:studio` | Abre Prisma Studio (interface visual) |
+| `pnpm db:reset` | Reseta banco e executa migrações |
 
-### Production
+### 🔍 Qualidade de Código
 
-| Script            | Description             |
-| ----------------- | ----------------------- |
-| `pnpm build:prod` | Build for production    |
-| `pnpm start:prod` | Start production server |
+| Script | Descrição |
+|--------|-----------|
+| `pnpm lint` | Executa ESLint e corrige problemas |
+| `pnpm format` | Formata código com Prettier |
 
-### Database
+## 🔗 Endpoints da API
 
-| Script                | Description                |
-| --------------------- | -------------------------- |
-| `pnpm db:up`          | Start database container   |
-| `pnpm db:down`        | Stop database container    |
-| `pnpm db:logs`        | View database logs         |
-| `pnpm db:health`      | Check container status     |
-| `pnpm db:rebuild`     | Rebuild database container |
-| `pnpm db:migrate:dev` | Run database migrations    |
-| `pnpm db:generate`    | Generate Prisma client     |
-| `pnpm db:studio`      | Open Prisma Studio         |
+### ✅ Health Check
+- `GET /health` - Status da API
 
-### Code Quality
+### 🔐 Autenticação
+- `POST /auth/sign-up` - Registro de usuário
+- `POST /auth/sign-in` - Login de usuário
 
-| Script        | Description               |
-| ------------- | ------------------------- |
-| `pnpm lint`   | Lint and fix code         |
-| `pnpm format` | Format code with Prettier |
+### 👥 Contas/Usuários
+- `GET /accounts` - Listar contas (admin)
+- `POST /accounts` - Criar conta (admin)
+- `PATCH /accounts/:id/role` - Atualizar role (admin)
+- `PATCH /accounts/:id/status` - Ativar/desativar conta (admin)
+- `DELETE /accounts/:id` - Deletar conta (admin)
 
-## 🔐 API Endpoints
+### 📂 Categorias
+- `GET /categories` - Listar categorias
+- `POST /categories` - Criar categoria
+- `PATCH /categories/:id` - Atualizar categoria
+- `PATCH /categories/:id/status` - Ativar/desativar categoria
+- `DELETE /categories/:id` - Deletar categoria
 
-### Health Check
+### 💬 Frases
+- `GET /sentences` - Listar frases
+- `POST /sentences` - Criar frase
+- `PATCH /sentences/:id` - Atualizar frase
+- `PATCH /sentences/:id/status` - Ativar/desativar frase
+- `PATCH /sentences/category` - Atualizar categoria de múltiplas frases
+- `DELETE /sentences/:id` - Deletar frase
+- `DELETE /sentences` - Deletar múltiplas frases
 
-- `GET /health` - API health status
+## 📚 Documentação da API
 
-### Authentication
+A documentação completa da API está disponível via Swagger:
 
-- `POST /auth/sign-up` - User registration
-- `POST /auth/sign-in` - User login
+- **Desenvolvimento**: `http://localhost:3000/api-docs`
 
-## 📚 API Documentation
+A documentação inclui:
+- Esquemas de request/response
+- Códigos de status HTTP
+- Exemplos de uso
+- Autenticação necessária para cada endpoint
 
-Swagger documentation is available at:
+## 🏗️ Detalhes da Arquitetura
 
-- **Development**: `http://localhost:3000/api-docs`
+### Camadas da Aplicação
 
-## 🏗️ Architecture
+#### 1. **Domain Layer (Domínio)**
+- **Entities**: Objetos de negócio com regras e validações
+- **Value Objects**: Objetos imutáveis (ex: Email, Password)
+- **Domain Services**: Lógica de domínio complexa
+- **Repository Interfaces**: Contratos para persistência
 
-This template follows **Clean Architecture** principles:
+#### 2. **Application Layer (Aplicação)**
+- **Use Cases**: Orquestração de operações de negócio
+- **DTOs**: Objetos de transferência de dados
+- **Application Services**: Coordenação entre use cases
 
-- **Domain Layer**: Business logic and entities
-- **Application Layer**: Use cases and application services
-- **Infrastructure Layer**: External services and frameworks
-- **Main Layer**: Dependency injection and app configuration
+#### 3. **Infrastructure Layer (Infraestrutura)**
+- **Repository Implementations**: Implementações concretas (Prisma)
+- **External Services**: APIs externas, email, etc.
+- **Database Configuration**: Configuração do Prisma
 
-### Key Features
+#### 4. **Presentation Layer (Apresentação)**
+- **Controllers**: Manipulação de requests HTTP
+- **Middlewares**: Autenticação, autorização, validação
+- **Route Adapters**: Adaptação entre Express e controllers
 
-- ✅ **Fast Compilation** - SWC for blazing fast TypeScript compilation
-- ✅ **Path Mappings** - Clean imports with `@/` aliases instead of long relative paths
-- ✅ **Dependency Injection** - Custom DI container with decorators
-- ✅ **Input Validation** - Zod schemas with automatic validation
-- ✅ **Error Handling** - Centralized error handling middleware
-- ✅ **Authentication** - JWT-based authentication system
-- ✅ **Database Migrations** - Version-controlled database changes
-- ✅ **API Documentation** - Auto-generated Swagger docs
-- ✅ **Code Quality** - ESLint + Prettier configuration
-- ✅ **Hot Reload** - Development server with automatic restarts
+### Sistema de Injeção de Dependência
 
-## 🐳 Docker Support
-
-The template includes a PostgreSQL database in Docker for development. For production deployment, you can extend the setup with application containers.
-
-## 🛠️ Customization
-
-### Adding New Modules
-
-1. Create a new folder in `src/application/domain/`
-2. Add your entities, use cases, and controllers
-3. Register routes in the router
-4. Update Swagger documentation
-
-### Environment Configuration
-
-Modify `src/application/config/env.ts` to add new environment variables.
-
-### Path Mappings
-
-The project now supports clean import paths using `@/` aliases:
+O projeto implementa um sistema customizado de DI com decorators:
 
 ```typescript
-// Instead of long relative imports:
-import { Injectable } from '../../../../kernel/decorators/injectable';
-import { Controller } from '../../../../shared/http/interfaces/controller';
+// Registro de dependências
+container.register('AccountRepository', PrismaAccountRepository);
+container.register('HashProvider', BcryptHashProvider);
 
-// Use clean aliases:
-import { Injectable } from '@kernel/decorators/injectable';
-import { Controller } from '@shared/http/interfaces/controller';
+// Injeção em controllers
+@Injectable()
+export class CreateAccountController {
+  constructor(
+    @Inject('AccountRepository') private accountRepo: AccountRepository,
+    @Inject('HashProvider') private hashProvider: HashProvider,
+  ) {}
+}
 ```
 
-Available path mappings:
-- `@/*` → `src/*`
-- `@kernel/*` → `src/application/kernel/*`
-- `@shared/*` → `src/application/shared/*`
-- `@domain/*` → `src/application/domain/*`
-- `@main/*` → `src/main/*`
-- `@types/*` → `src/@types/*`
-- `@prisma/*` → `prisma/*`
+### Validação de Dados
 
-### Database Schema
+Utiliza Zod para validação robusta:
 
-Update Prisma schemas in `prisma/schema/` and run migrations:
+```typescript
+const signInBody = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
 
-```bash
-pnpm db:migrate:dev
+@Schema({ body: signInBody })
+export class SignInController extends Controller {
+  // Validação automática do request body
+}
 ```
 
-## 🧪 Testing
+### Tratamento de Erros
+
+Sistema centralizado de tratamento de erros:
+
+```typescript
+// Erros customizados
+export class NotFoundHttpError extends HttpError {
+  constructor(message = 'Resource not found') {
+    super(message, StatusCode.NOT_FOUND);
+  }
+}
+
+// Middleware global de erros
+app.use(errorMiddlewareAdapter(makeHandleApplicationErrorMiddleware()));
+```
+
+## 🐳 Suporte ao Docker
+
+### Desenvolvimento
+O projeto inclui um `docker-compose.yml` configurado para PostgreSQL:
+
+```yaml
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: comulibras-db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: comulibras-postgres
+      POSTGRES_PASSWORD: comulibras-postgres
+      POSTGRES_DB: comulibras-db
+```
+
+### Produção
+Para deploy em produção, você pode estender a configuração adicionando:
+
+```yaml
+services:
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://user:pass@db:5432/dbname
+```
+
+## 🔧 Personalização e Extensão
+
+### Adicionando Novos Módulos
+
+1. **Crie a estrutura do domínio**:
+```
+src/application/domain/novo-modulo/
+├── docs/           # Documentação Swagger
+├── entities/       # Entidades de domínio
+├── mappers/        # Mapeadores
+├── repositories/   # Repositórios
+└── use-cases/      # Casos de uso
+```
+
+2. **Registre as dependências**:
+```typescript
+// src/application/kernel/di/container/repositories.ts
+container.register('NovoModuloRepository', PrismaNovoModuloRepository);
+```
+
+3. **Adicione as rotas**:
+```typescript
+// src/main/express/routes/novo-modulo-router.ts
+export const novoModuloRouter = Router();
+novoModuloRouter.get('/', routeAdapter(makeListNovoModuloController()));
+```
+
+### Configurações Personalizadas
+
+Edite o arquivo `src/application/config/env.ts`:
+
+```typescript
+export const env = {
+  port: process.env.PORT || 3000,
+  jwtSecret: process.env.JWT_SECRET!,
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
+  // Adicione suas configurações aqui
+};
+```
+
+## 🧪 Testes (Em desenvolvimento)
 
 ```bash
-# Run tests (implement your test suite)
+# Executar testes (quando implementados)
 pnpm test
+
+# Testes com coverage
+pnpm test:coverage
+
+# Testes em modo watch
+pnpm test:watch
 ```
 
-## 🚀 Deployment
+## 🚀 Deploy
 
-For production deployment:
+### Preparação para Produção
 
-1. Build the application: `pnpm build:prod`
-2. Set up your production database
-3. Run migrations: `pnpm db:migrate:deploy`
-4. Start the server: `pnpm start:prod`
+1. **Configure variáveis de ambiente**:
+```env
+NODE_ENV=production
+DATABASE_URL=sua-url-de-producao
+JWT_SECRET=sua-chave-super-segura
+PORT=3000
+```
 
-## 🤝 Contributing
+2. **Execute o build**:
+```bash
+pnpm build:prod
+```
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+3. **Inicie a aplicação**:
+```bash
+pnpm start:prod
+```
 
-## 📄 License
+### Deploy com Docker
 
-This template is available as open source under the [MIT License](LICENSE).
+```dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --only=production
+COPY dist ./dist
+EXPOSE 3000
+CMD ["npm", "run", "start:prod"]
+```
+
+## 🤝 Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está licenciado sob a Licença ISC - veja o arquivo `LICENSE` para detalhes.
+
+## 👥 Equipe
+
+- **Backend Development**: Amauri Lima
+- **Database Design**: Amauri Lima
+- **Architecture**: Amauri Lima
+
+## 📞 Suporte
+
+- **Issues**: [GitHub Issues](https://github.com/seu-usuario/comulibras-backend/issues)
+- **Email**: amauri.plimaj@gmail.com
+- **Documentação**: `http://localhost:3000/api-docs`
 
 ---
 
-**Happy coding! 🎉**
-
-For questions or issues, please create an issue in the repository.
+Desenvolvido com ❤️ para a comunidade surda brasileira 🤟

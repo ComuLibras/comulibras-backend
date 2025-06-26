@@ -1,5 +1,7 @@
 import { Inject } from '@kernel/decorators/inject';
-import { ITokenProvider } from '../../providers/token-provider/token-provider';
+
+import { ITokenProvider } from '@shared/providers/token-provider/token-provider';
+
 import { UnauthorizedHTTPError } from '../errors/unauthorized-http-error';
 import { IData, IMiddleware } from '../interfaces/middleware';
 

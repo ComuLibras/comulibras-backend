@@ -1,4 +1,5 @@
 import { Registry } from '../registry';
+
 import { registerProviders } from './providers';
 import { registerRepositories } from './repositories';
 

@@ -1,8 +1,10 @@
 import { generateSchema } from '@anatine/zod-openapi';
 import { Operation } from 'swagger-jsdoc';
 import { z } from 'zod';
+
+import { Roles } from '@domain/accounts/entities/role';
+
 import { Tags } from '@shared/docs/tags';
-import { Roles } from '../../accounts/entities/role';
 
 export const ACCOUNT_ALREADY_EXISTS_ERROR =
   'Já existe uma conta com este e-mail';

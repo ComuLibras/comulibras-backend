@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+
 import { IErrorMiddleware } from '@shared/http/interfaces/error-middleware';
 
 export function errorMiddlewareAdapter(middleware: IErrorMiddleware) {

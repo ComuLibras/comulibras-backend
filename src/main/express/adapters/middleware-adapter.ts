@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+
 import { IMiddleware } from '@shared/http/interfaces/middleware';
 
 export function middlewareAdapter(middleware: IMiddleware) {

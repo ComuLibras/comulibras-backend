@@ -1,4 +1,5 @@
 import { Roles } from '@domain/accounts/entities/role';
+
 import { ForbiddenHTTPError } from '../errors/forbidden-http-error';
 import { IData, IMiddleware } from '../interfaces/middleware';
 

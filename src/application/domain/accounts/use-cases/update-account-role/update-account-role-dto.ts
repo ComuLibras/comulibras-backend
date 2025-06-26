@@ -1,6 +1,7 @@
 import { generateSchema } from '@anatine/zod-openapi';
 import { z } from 'zod';
-import { Roles } from '../../entities/role';
+
+import { Roles } from '@domain/accounts/entities/role';
 
 export const updateAccountRoleBody = z.object({
   role: z.nativeEnum(Roles),

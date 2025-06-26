@@ -1,5 +1,7 @@
 import { Operation } from 'swagger-jsdoc';
+
 import { Tags } from '@shared/docs/tags';
+
 import { SENTENCE_NOT_FOUND_ERROR } from './constants';
 
 export const deleteSentenceSwagger: Operation = {

@@ -1,6 +1,7 @@
 import { generateSchema } from '@anatine/zod-openapi';
 import { z } from 'zod';
-import { Roles } from '../../entities/role';
+
+import { Roles } from '@domain/accounts/entities/role';
 
 export const createAccountBody = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),

@@ -11,7 +11,6 @@ export class HandleApplicationErrorMiddleware implements IErrorMiddleware {
   ): Http.Response<{
     messages: ({ field: string; message: string } | string)[];
   }> {
-    console.log(error, 'error');
     if (error instanceof ZodError) {
       return {
         statusCode: StatusCode.BAD_REQUEST,

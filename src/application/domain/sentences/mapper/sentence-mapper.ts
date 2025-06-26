@@ -1,6 +1,7 @@
 import { generateSchema } from '@anatine/zod-openapi';
+import { Prisma, Sentence as RawSentence } from '@prisma/client';
 import z from 'zod';
-import { Prisma, Sentence as RawSentence } from '@prisma/generated/prisma';
+
 import { Sentence } from '../entities/sentence';
 
 export const sentenceHttpSchema = z.object({

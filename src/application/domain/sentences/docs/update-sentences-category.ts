@@ -1,4 +1,5 @@
 import { Operation } from 'swagger-jsdoc';
+
 import { Tags } from '@shared/docs/tags';
 
 export const updateSentencesCategorySwagger: Operation = {

@@ -1,10 +1,13 @@
+import { CATEGORY_ALREADY_EXISTS_ERROR } from '@domain/categories/docs/create-category-swagger';
+import { Category } from '@domain/categories/entities/category';
+import { ICategoryRepository } from '@domain/categories/repositories/category-repository';
+
 import { Inject } from '@kernel/decorators/inject';
 import { Injectable } from '@kernel/decorators/injectable';
+
 import { ConflictHTTPError } from '@shared/http/errors/conflict-http-error';
 import { IService } from '@shared/http/interfaces/service';
-import { CATEGORY_ALREADY_EXISTS_ERROR } from '../../docs/create-category-swagger';
-import { Category } from '../../entities/category';
-import { ICategoryRepository } from '../../repositories/category-repository';
+
 import { CreateCategoryBody } from './create-category-dto';
 
 @Injectable()

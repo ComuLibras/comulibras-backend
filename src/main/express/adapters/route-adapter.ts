@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+
 import { Controller } from '@shared/http/interfaces/controller';
 
 export function routeAdapter(controller: Controller) {

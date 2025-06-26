@@ -1,6 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
 import { env } from '@/application/config/env';
+
 import {
     IDecodedAccount,
     ITokenOptions,

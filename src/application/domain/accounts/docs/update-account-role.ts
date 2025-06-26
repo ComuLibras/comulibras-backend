@@ -1,5 +1,7 @@
 import { Operation } from 'swagger-jsdoc';
+
 import { Tags } from '@shared/docs/tags';
+
 import { ACCOUNT_NOT_FOUND_ERROR } from './constants';
 
 export const updateAccountRoleSwagger: Operation = {

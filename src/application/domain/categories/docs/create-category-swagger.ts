@@ -1,4 +1,5 @@
 import { Operation } from 'swagger-jsdoc';
+
 import { Tags } from '@shared/docs/tags';
 
 export const CATEGORY_ALREADY_EXISTS_ERROR = 'Categoria já existe';

@@ -18,6 +18,7 @@
       "@kernel/*": ["src/application/kernel/*"],
       "@shared/*": ["src/application/shared/*"],
       "@domain/*": ["src/application/domain/*"],
+      "@config/*": ["src/application/config/*"],
       "@main/*": ["src/main/*"],
       "@types/*": ["src/@types/*"],
       "@prisma/*": ["prisma/*"]

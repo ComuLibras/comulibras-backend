@@ -1,5 +1,7 @@
 import { PathItem } from 'swagger-jsdoc';
+
 import { addDefaultResponsesSwagger } from '@shared/docs/add-default-responses-swagger';
+
 import { createAccountSwagger } from './create-account';
 import { deleteAccountSwagger } from './delete-account';
 import { getAccountsSwagger } from './get-accounts';

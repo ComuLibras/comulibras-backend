@@ -1,4 +1,5 @@
 import { StatusCode } from '../status-code';
+
 import { type ErrorMessage, HttpError } from './http-error';
 
 export const INTERNAL_SERVER_HTTP_ERROR_DEFAULT_MESSAGE =

@@ -1,6 +1,6 @@
 import { generateSchema } from '@anatine/zod-openapi';
 import z from 'zod';
-import { Prisma, Category as RawCategory } from '../../../../../prisma/generated/prisma';
+import { Prisma, Category as RawCategory } from '@prisma/generated/prisma';
 import { Category } from '../entities/category';
 
 export const categoryHttpSchema = z.object({

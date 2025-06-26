@@ -1,4 +1,4 @@
-import { prismaClient } from '../../../shared/clients/prisma-client';
+import { prismaClient } from '@shared/clients/prisma-client';
 import { Category } from '../entities/category';
 import { CategoryMapper } from '../mappers/category-mapper';
 import { ICategoryRepository } from './category-repository';

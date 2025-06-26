@@ -1,5 +1,5 @@
 import { PathItem } from 'swagger-jsdoc';
-import { addDefaultResponsesSwagger } from '../../../shared/docs/add-default-responses-swagger';
+import { addDefaultResponsesSwagger } from '@shared/docs/add-default-responses-swagger';
 import { createSentenceSwagger } from './create-sentence-swagger';
 import { deleteSentenceSwagger } from './delete-sentence-swagger';
 import { deleteSentencesSwagger } from './delete-sentences-swagger';

@@ -1,9 +1,9 @@
-import { HttpResponse } from '../../../../kernel/decorators/http-response';
-import { Inject } from '../../../../kernel/decorators/inject';
-import { Injectable } from '../../../../kernel/decorators/injectable';
-import { Schema } from '../../../../kernel/decorators/schema';
-import { Controller } from '../../../../shared/http/interfaces/controller';
-import { StatusCode } from '../../../../shared/http/status-code';
+import { HttpResponse } from '@kernel/decorators/http-response';
+import { Inject } from '@kernel/decorators/inject';
+import { Injectable } from '@kernel/decorators/injectable';
+import { Schema } from '@kernel/decorators/schema';
+import { Controller } from '@shared/http/interfaces/controller';
+import { StatusCode } from '@shared/http/status-code';
 import { CategoryHttpSchema, CategoryMapper } from '../../mappers/category-mapper';
 import { CreateCategoryBody, createCategoryBody } from './create-category-dto';
 import { CreateCategoryService } from './create-category-service';

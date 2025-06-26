@@ -1,5 +1,5 @@
 import { PathItem } from 'swagger-jsdoc';
-import { addDefaultResponsesSwagger } from '../../../shared/docs/add-default-responses-swagger';
+import { addDefaultResponsesSwagger } from '@shared/docs/add-default-responses-swagger';
 import { signInSwagger } from './sign-in-swagger';
 import { signUpSwagger } from './sign-up-swagger';
 

@@ -1,13 +1,13 @@
-import { Inject } from '../../../../kernel/decorators/inject';
-import { Injectable } from '../../../../kernel/decorators/injectable';
-import { UnauthorizedHTTPError } from '../../../../shared/http/errors/unauthorized-http-error';
-import { IService } from '../../../../shared/http/interfaces/service';
-import { IHashProvider } from '../../../../shared/providers/hash-provider/hash-provider';
-import { ITokenProvider } from '../../../../shared/providers/token-provider/token-provider';
-import { IAccountRepository } from '../../../accounts/repositories/account-repository';
+import { Inject } from '@kernel/decorators/inject';
+import { Injectable } from '@kernel/decorators/injectable';
+import { UnauthorizedHTTPError } from '@shared/http/errors/unauthorized-http-error';
+import { IService } from '@shared/http/interfaces/service';
+import { IHashProvider } from '@shared/providers/hash-provider/hash-provider';
+import { ITokenProvider } from '@shared/providers/token-provider/token-provider';
+import { IAccountRepository } from '@domain/accounts/repositories/account-repository';
 import {
-  INVALID_CREDENTIALS_ERROR,
-  SignInSchema,
+    INVALID_CREDENTIALS_ERROR,
+    SignInSchema,
 } from '../../docs/sign-in-swagger';
 import { SignInBody } from './sign-in-dto';
 

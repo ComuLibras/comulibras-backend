@@ -1,4 +1,4 @@
-import { Entity, IEntityProps } from '../../../shared/entities/entity';
+import { Entity, IEntityProps } from '@shared/entities/entity';
 import { Roles } from './role';
 
 interface IAccountProps extends IEntityProps {

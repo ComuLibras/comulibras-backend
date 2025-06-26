@@ -1,7 +1,7 @@
-import { Inject } from '../../../../kernel/decorators/inject';
-import { Injectable } from '../../../../kernel/decorators/injectable';
-import { ConflictHTTPError } from '../../../../shared/http/errors/conflict-http-error';
-import { IService } from '../../../../shared/http/interfaces/service';
+import { Inject } from '@kernel/decorators/inject';
+import { Injectable } from '@kernel/decorators/injectable';
+import { ConflictHTTPError } from '@shared/http/errors/conflict-http-error';
+import { IService } from '@shared/http/interfaces/service';
 import { CATEGORY_ALREADY_EXISTS_ERROR } from '../../docs/create-category-swagger';
 import { Category } from '../../entities/category';
 import { ICategoryRepository } from '../../repositories/category-repository';

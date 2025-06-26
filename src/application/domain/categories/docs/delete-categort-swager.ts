@@ -1,5 +1,5 @@
 import { Operation } from 'swagger-jsdoc';
-import { Tags } from '../../../shared/docs/tags';
+import { Tags } from '@shared/docs/tags';
 import { CATEGORY_NOT_FOUND_ERROR } from './contants';
 
 export const deleteCategorySwagger: Operation = {

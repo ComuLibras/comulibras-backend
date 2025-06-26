@@ -1,4 +1,4 @@
-import { prismaClient } from '../../../shared/clients/prisma-client';
+import { prismaClient } from '@shared/clients/prisma-client';
 import { Sentence } from '../entities/sentence';
 import { SentenceMapper } from '../mapper/sentence-mapper';
 import { ISentenceRepository } from './sentence-repository';

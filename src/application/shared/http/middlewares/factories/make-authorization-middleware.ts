@@ -1,4 +1,4 @@
-import { Roles } from '../../../../domain/accounts/entities/role';
+import { Roles } from '@domain/accounts/entities/role';
 import { AuthorizationMiddleware } from '../authorization-middleware';
 
 export function makeAuthorizationMiddleware(

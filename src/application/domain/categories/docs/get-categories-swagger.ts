@@ -1,5 +1,5 @@
 import { Operation } from 'swagger-jsdoc';
-import { Tags } from '../../../shared/docs/tags';
+import { Tags } from '@shared/docs/tags';
 
 export const getCategoriesSwagger: Operation = {
   tags: [Tags.CATEGORIES],

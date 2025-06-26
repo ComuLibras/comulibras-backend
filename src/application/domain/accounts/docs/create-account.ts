@@ -1,5 +1,5 @@
 import { Operation } from 'swagger-jsdoc';
-import { Tags } from '../../../shared/docs/tags';
+import { Tags } from '@shared/docs/tags';
 import { ACCOUNT_ALREADY_EXISTS_ERROR } from '../../auth/docs/sign-up-swagger';
 
 export const createAccountSwagger: Operation = {

@@ -1,6 +1,6 @@
 declare namespace Express {
   type Roles =
-    import("../../src/application/domain/accounts/entities/role").Roles;
+    import("@domain/accounts/entities/role").Roles;
   interface Request {
     metadata?: {
       account?: {

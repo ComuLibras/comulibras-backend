@@ -1,7 +1,7 @@
 import { generateSchema } from '@anatine/zod-openapi';
 import { Operation } from 'swagger-jsdoc';
 import { z } from 'zod';
-import { Tags } from '../../../shared/docs/tags';
+import { Tags } from '@shared/docs/tags';
 import { Roles } from '../../accounts/entities/role';
 
 export const INVALID_CREDENTIALS_ERROR = 'Credenciais inválidas';

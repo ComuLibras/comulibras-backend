@@ -1,5 +1,5 @@
 import { Operation } from 'swagger-jsdoc';
-import { Tags } from '../../../shared/docs/tags';
+import { Tags } from '@shared/docs/tags';
 import { SENTENCE_NOT_FOUND_ERROR } from './constants';
 
 export const SENTENCE_ALREADY_EXISTS_ERROR = 'Já existe uma frase com o mesmo conteúdo';

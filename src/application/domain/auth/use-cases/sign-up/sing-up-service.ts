@@ -1,12 +1,12 @@
-import { Inject } from '../../../../kernel/decorators/inject';
-import { Injectable } from '../../../../kernel/decorators/injectable';
-import { ConflictHTTPError } from '../../../../shared/http/errors/conflict-http-error';
-import { IService } from '../../../../shared/http/interfaces/service';
-import { IHashProvider } from '../../../../shared/providers/hash-provider/hash-provider';
-import { ITokenProvider } from '../../../../shared/providers/token-provider/token-provider';
-import { Account } from '../../../accounts/entities/account';
-import { Roles } from '../../../accounts/entities/role';
-import { IAccountRepository } from '../../../accounts/repositories/account-repository';
+import { Inject } from '@kernel/decorators/inject';
+import { Injectable } from '@kernel/decorators/injectable';
+import { ConflictHTTPError } from '@shared/http/errors/conflict-http-error';
+import { IService } from '@shared/http/interfaces/service';
+import { IHashProvider } from '@shared/providers/hash-provider/hash-provider';
+import { ITokenProvider } from '@shared/providers/token-provider/token-provider';
+import { Account } from '@domain/accounts/entities/account';
+import { Roles } from '@domain/accounts/entities/role';
+import { IAccountRepository } from '@domain/accounts/repositories/account-repository';
 import {
   ACCOUNT_ALREADY_EXISTS_ERROR,
   SignUpSchema,
@@ -42,6 +42,8 @@ export class SignUpService
       email,
       password: hashedPassword,
       role: Roles.USER,
+      isActive: true,
+      isPasswordCreated: true,
     });
 
     await this.accountRepo.createAccount(account);

@@ -1,6 +1,6 @@
 declare namespace Http {
-  type Roles = import("../application/domain/accounts/entities/role").Roles;
-  type StatusCode = import("../application/shared/http/status-code").StatusCode;
+  type Roles = import("@domain/accounts/entities/role").Roles;
+  type StatusCode = import("@shared/http/status-code").StatusCode;
 
   type Request<
     TBody = Record<string, unknown>,

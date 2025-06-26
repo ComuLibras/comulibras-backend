@@ -1,10 +1,10 @@
-import { prismaClient } from '../../../shared/clients/prisma-client';
+import { prismaClient } from '@shared/clients/prisma-client';
 import { Account } from '../entities/account';
 import { AccountMapper } from '../mappers/account-mapper';
 import {
-  IAccountRepository,
-  IAccountsParams,
-  IGetAccountsResponse,
+    IAccountRepository,
+    IAccountsParams,
+    IGetAccountsResponse,
 } from './account-repository';
 
 export class PrismaAccountRepository implements IAccountRepository {

@@ -14,7 +14,6 @@
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
       "@kernel/*": ["src/application/kernel/*"],
       "@shared/*": ["src/application/shared/*"],
       "@domain/*": ["src/application/domain/*"],

@@ -16,4 +16,5 @@ export interface IAccountRepository {
   getAccountById(accountId: string): Promise<Account | null>;
   updateAccount(account: Account): Promise<void>;
   deleteAccount(accountId: string): Promise<void>;
+  getAccounts(params: IAccountsParams): Promise<IGetAccountsResponse>;
 }

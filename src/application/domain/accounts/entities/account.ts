@@ -1,4 +1,8 @@
+import { Prisma } from '@prisma/client';
+
 import { Entity, IEntityProps } from '@shared/entities/entity';
+
+import { AccountHttpSchema } from '../mappers/account-mapper';
 
 import { Roles } from './role';
 
@@ -19,27 +23,38 @@ export class Account extends Entity {
     this.props = props;
   }
 
-  public get name(): string {
-    return this.props.name;
+  public updateRole(role: Roles): void {
+    this.props.role = role;
   }
 
-  public get email(): string {
-    return this.props.email;
+  public toPrisma(): Prisma.AccountCreateInput {
+    const domain = this.props;
+
+    return {
+      id: domain.id,
+      name: domain.name,
+      email: domain.email,
+      role: domain.role,
+      password: domain.password,
+      isActive: domain.isActive,
+      isPasswordCreated: domain.isPasswordCreated,
+      createdAt: domain.createdAt,
+      updatedAt: domain.updatedAt,
+    };
   }
 
-  public get password(): string | null {
-    return this.props.password ?? null;
-  }
+  public toHttp(): AccountHttpSchema {
+    const domain = this.props;
 
-  public get role(): Roles {
-    return this.props.role;
-  }
-
-  public get isActive(): boolean {
-    return this.props.isActive;
-  }
-
-  public get isPasswordCreated(): boolean {
-    return this.props.isPasswordCreated;
+    return {
+      id: domain.id ?? '',
+      name: domain.name,
+      email: domain.email,
+      role: domain.role,
+      createdAt: domain.createdAt ?? new Date(),
+      updatedAt: domain.updatedAt ?? new Date(),
+      isActive: domain.isActive,
+      isPasswordCreated: domain.isPasswordCreated,
+    };
   }
 }

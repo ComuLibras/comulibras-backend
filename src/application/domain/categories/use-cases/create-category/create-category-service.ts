@@ -27,7 +27,7 @@ export class CreateCategoryService implements IService<CreateCategoryService.Inp
       name: input.name,
       color: input.color,
       icon: input.icon,
-      isActive: true,
+      isActive: input.isActive,
     });
 
     await this.categoryRepository.create(category);

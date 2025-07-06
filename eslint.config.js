@@ -7,8 +7,8 @@ import tseslint from 'typescript-eslint';
 
 export default defineConfig([
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-    ignores: ['**/prisma/generated/**', '**/*.d.ts', '**/dist/**'],
+    files: ['**/*.{ts,mts,cts}'],
+    ignores: ['**/prisma/generated/**', '**/*.d.ts', '**/dist/**', '**/*.js'],
     plugins: {
       js,
       import: importPlugin,
@@ -107,8 +107,8 @@ export default defineConfig([
     },
   },
   {
-    ignores: ['**/prisma/generated/**', '**/*.d.ts', 'dist/**'],
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    ignores: ['**/prisma/generated/**', '**/*.d.ts', 'dist/**', '**/*.js'],
+    files: ['**/*.{ts,mts,cts}'],
     languageOptions: { globals: globals.node },
     rules: {
       '@typescript-eslint/no-namespace': 'off',
@@ -116,6 +116,7 @@ export default defineConfig([
   },
   tseslint.configs.recommended.map((config) => ({
     ...config,
+    ignores: ['**/prisma/generated/**', '**/*.d.ts', 'dist/**', '**/*.js'],
     rules: {
       ...config.rules,
       '@typescript-eslint/no-namespace': 'off',

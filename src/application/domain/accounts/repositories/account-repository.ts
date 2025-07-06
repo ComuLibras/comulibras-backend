@@ -15,4 +15,5 @@ export interface IAccountRepository {
   getAccountByEmail(email: string): Promise<Account | null>;
   getAccountById(accountId: string): Promise<Account | null>;
   updateAccount(account: Account): Promise<void>;
+  deleteAccount(accountId: string): Promise<void>;
 }

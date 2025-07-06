@@ -25,7 +25,7 @@ export class PrismaAccountRepository implements IAccountRepository {
     return account ? AccountMapper.toDomain(account) : null;
   }
 
-  async removeAccount(accountId: string): Promise<void> {
+  async deleteAccount(accountId: string): Promise<void> {
     await prismaClient.account.delete({
       where: { id: accountId },
     });

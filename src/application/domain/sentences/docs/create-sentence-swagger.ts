@@ -2,7 +2,7 @@ import { Operation } from 'swagger-jsdoc';
 
 import { Tags } from '@shared/docs/tags';
 
-export const SENTENCE_ALREADY_EXISTS_ERROR = 'Frase já existe';
+export const SENTENCE_ALREADY_EXISTS_ERROR = 'Frase já existe para a categoria informada';
 
 export const createSentenceSwagger: Operation = {
   tags: [Tags.SENTENCES],

@@ -1,5 +1,5 @@
 import { getHttpResponse } from '@kernel/decorators/http-response';
-import { getSchema,Schemas } from '@kernel/decorators/schema';
+import { getSchema, Schemas } from '@kernel/decorators/schema';
 
 export abstract class Controller<TBody = unknown> {
   protected abstract handle(

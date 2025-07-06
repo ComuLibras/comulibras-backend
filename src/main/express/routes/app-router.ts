@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { accountsRouter } from './account-router';
 import { authRouter } from './auth-router';
 import { categoriesRouter } from './categories-router';
+import { sentencesRouter } from './sentences-router';
 
 export const appRouter = Router();
 
@@ -17,3 +18,4 @@ appRouter.get('/health', (req, res) => {
 appRouter.use('/auth', authRouter);
 appRouter.use('/accounts', accountsRouter);
 appRouter.use('/categories', categoriesRouter);
+appRouter.use('/sentences', sentencesRouter);

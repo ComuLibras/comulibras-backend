@@ -28,6 +28,14 @@ export class Category extends Entity {
     this.props.sentenceCount = (this.props.sentenceCount ?? 0) - 1;
   }
 
+  public update(props: Partial<ICategoryProps>) {
+    this.props.name = props.name ?? this.props.name;
+    this.props.color = props.color ?? this.props.color;
+    this.props.icon = props.icon ?? this.props.icon;
+    this.props.isActive = props.isActive ?? this.props.isActive;
+    this.onUpdated();
+  }
+
   public toPrisma(): Prisma.CategoryCreateInput {
     const domain = this.props;
 

@@ -27,6 +27,10 @@ export class Account extends Entity {
     this.props.role = role;
   }
 
+  public updateStatus(isActive: boolean): void {
+    this.props.isActive = isActive;
+  }
+
   public toPrisma(): Prisma.AccountCreateInput {
     const domain = this.props;
 

@@ -1,5 +1,5 @@
 import { generateSchema } from '@anatine/zod-openapi';
-import { Category as RawCategory,Prisma } from '@prisma/client';
+import { Category as RawCategory, Prisma } from '@prisma/client';
 import z from 'zod';
 
 import { Category } from '../entities/category';
@@ -34,28 +34,10 @@ export class CategoryMapper {
   }
 
   static toPersistence(domain: Category): Prisma.CategoryCreateInput {
-    return {
-      id: domain.id,
-      name: domain.name,
-      sentenceCount: domain.sentenceCount,
-      color: domain.color,
-      icon: domain.icon,
-      isActive: domain.isActive,
-      createdAt: domain.createdAt,
-      updatedAt: domain.updatedAt,
-    };
+    return domain.toPrisma();
   }
 
   static toHttp(domain: Category): CategoryHttpSchema {
-    return {
-      id: domain.id,
-      name: domain.name,
-      sentenceCount: domain.sentenceCount,
-      color: domain.color,
-      icon: domain.icon,
-      isActive: domain.isActive,
-      createdAt: domain.createdAt,
-      updatedAt: domain.updatedAt,
-    };
+    return domain.toHttp();
   }
 }

@@ -7,15 +7,7 @@ import { Roles } from '@domain/accounts/entities/role';
 
 export class AccountMapper {
   static toPersistence(domain: Account): Prisma.AccountCreateInput {
-    return {
-      id: domain.id,
-      name: domain.name,
-      email: domain.email,
-      role: domain.role,
-      password: domain.password,
-      createdAt: domain.createdAt,
-      updatedAt: domain.updatedAt,
-    };
+    return domain.toPrisma();
   }
 
   static toDomain(data: RawAccount): Account {
@@ -33,16 +25,7 @@ export class AccountMapper {
   }
 
   static toHttp(domain: Account): AccountHttpSchema {
-    return {
-      id: domain.id,
-      name: domain.name,
-      email: domain.email,
-      role: domain.role,
-      createdAt: domain.createdAt,
-      updatedAt: domain.updatedAt,
-      isActive: domain.isActive,
-      isPasswordCreated: domain.isPasswordCreated,
-    };
+    return domain.toHttp();
   }
 }
 

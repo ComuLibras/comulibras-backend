@@ -1,12 +1,21 @@
 import { prismaClient } from '@shared/clients/prisma-client';
 
 import { Sentence } from '../entities/sentence';
-import { SentenceMapper } from '../mapper/sentence-mapper';
+import { SentenceMapper } from '../mappers/sentence-mapper';
 
 import { ISentenceRepository } from './sentence-repository';
 
 export class PrismaSentenceRepository implements ISentenceRepository {
   constructor(private readonly prisma = prismaClient) {}
+
+  async findByContent(content: string, categoryId: string): Promise<Sentence | null> {
+    const sentence = await this.prisma.sentence.findUnique({
+      where: {
+        sentences_content_category_id_unique: { content, categoryId },
+      },
+    });
+    return sentence ? SentenceMapper.toDomain(sentence) : null;
+  }
 
   async create(sentence: Sentence): Promise<void> {
     await this.prisma.sentence.create({

@@ -12,6 +12,7 @@ model Sentence {
   updatedAt             DateTime               @default(now()) @updatedAt @map("updated_at")
   userFavoriteSentences UserFavoriteSentence[]
 
+  @@unique([content, categoryId], name: "sentences_content_category_id_unique")
   @@index(categoryId, name: "sentences_category_id_idx")
   @@map("sentences")
 }

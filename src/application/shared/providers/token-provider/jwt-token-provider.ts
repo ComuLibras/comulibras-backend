@@ -1,11 +1,11 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
-import { env } from '@/application/config/env';
+import { env } from '@config/env';
 
 import {
-    IDecodedAccount,
-    ITokenOptions,
-    ITokenProvider,
+  IDecodedAccount,
+  ITokenOptions,
+  ITokenProvider,
 } from './token-provider';
 
 export class JWTTokenProvider implements ITokenProvider {

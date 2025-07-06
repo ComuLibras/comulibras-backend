@@ -5,8 +5,8 @@ model Sentence {
   video_url String  @map("video_url")
   isActive  Boolean @default(true) @map("is_active")
 
-  categoryId String   @map("category_id") @db.Uuid
-  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String?   @map("category_id") @db.Uuid
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
   createdAt             DateTime               @default(now()) @map("created_at")
   updatedAt             DateTime               @default(now()) @updatedAt @map("updated_at")
@@ -25,8 +25,8 @@ model UserFavoriteSentence {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
-  account  Account  @relation(fields: [accountId], references: [id])
-  sentence Sentence @relation(fields: [sentenceId], references: [id])
+  account  Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  sentence Sentence @relation(fields: [sentenceId], references: [id], onDelete: Cascade)
 
   @@index([accountId], name: "user_favorite_sentences_account_id_idx")
   @@map("user_favorite_sentences")

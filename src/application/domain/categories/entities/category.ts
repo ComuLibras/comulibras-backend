@@ -1,4 +1,8 @@
+import { Prisma } from '@prisma/client';
+
 import { Entity, IEntityProps } from '@shared/entities/entity';
+
+import { CategoryHttpSchema } from '../mappers/category-mapper';
 
 interface ICategoryProps extends IEntityProps {
   name: string;
@@ -16,23 +20,41 @@ export class Category extends Entity {
     this.props = props;
   }
 
-  public get name(): string {
-    return this.props.name;
+  public increaseSentenceCount() {
+    this.props.sentenceCount = (this.props.sentenceCount ?? 0) + 1;
   }
 
-  public get sentenceCount(): number {
-    return this.props.sentenceCount ?? 0;
+  public decreaseSentenceCount() {
+    this.props.sentenceCount = (this.props.sentenceCount ?? 0) - 1;
   }
 
-  public get color(): string {
-    return this.props.color;
+  public toPrisma(): Prisma.CategoryCreateInput {
+    const domain = this.props;
+
+    return {
+      id: domain.id,
+      name: domain.name,
+      sentenceCount: domain.sentenceCount,
+      color: domain.color,
+      icon: domain.icon,
+      isActive: domain.isActive,
+      createdAt: domain.createdAt,
+      updatedAt: domain.updatedAt,
+    };
   }
 
-  public get icon(): string {
-    return this.props.icon;
-  }
+  public toHttp(): CategoryHttpSchema {
+    const domain = this.props;
 
-  public get isActive(): boolean {
-    return this.props.isActive;
+    return {
+      id: domain.id ?? '',
+      name: domain.name,
+      sentenceCount: domain.sentenceCount ?? 0,
+      color: domain.color,
+      icon: domain.icon,
+      isActive: domain.isActive,
+      createdAt: domain.createdAt ?? new Date(),
+      updatedAt: domain.updatedAt ?? new Date(),
+    };
   }
 }

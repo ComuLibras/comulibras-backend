@@ -18,7 +18,7 @@ export class CreateAccountService implements IService<CreateAccountService.Input
   ) {}
 
   async execute(input: CreateAccountService.Input): Promise<CreateAccountService.Output> {
-    const accountAlreadyExists = await this.accountRepo.getAccountByEmail(input.email);
+    const accountAlreadyExists = await this.accountRepo.findByEmail(input.email);
 
     if (accountAlreadyExists) {
       throw new ConflictHTTPError(ACCOUNT_ALREADY_EXISTS_ERROR);
@@ -32,7 +32,7 @@ export class CreateAccountService implements IService<CreateAccountService.Input
       isPasswordCreated: false,
     });
 
-    await this.accountRepo.createAccount(account);
+    await this.accountRepo.create(account);
 
     return account;
   }

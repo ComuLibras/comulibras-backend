@@ -26,7 +26,7 @@ export class SignInService
     email,
     password,
   }: SignInService.Input): Promise<SignInService.Output> {
-    const account = await this.accountRepo.getAccountByEmail(email);
+    const account = await this.accountRepo.findByEmail(email);
 
     if (!account || !account.password) {
       throw new UnauthorizedHTTPError(INVALID_CREDENTIALS_ERROR);

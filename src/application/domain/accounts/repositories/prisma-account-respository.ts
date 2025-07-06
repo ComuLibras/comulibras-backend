@@ -10,14 +10,14 @@ import {
 } from './account-repository';
 
 export class PrismaAccountRepository implements IAccountRepository {
-  async updateAccount(account: Account): Promise<void> {
+  async update(account: Account): Promise<void> {
     await prismaClient.account.update({
       where: { id: account.id },
       data: AccountMapper.toPersistence(account),
     });
   }
 
-  async getAccountById(accountId: string): Promise<Account | null> {
+  async findById(accountId: string): Promise<Account | null> {
     const account = await prismaClient.account.findUnique({
       where: { id: accountId },
     });
@@ -25,19 +25,19 @@ export class PrismaAccountRepository implements IAccountRepository {
     return account ? AccountMapper.toDomain(account) : null;
   }
 
-  async deleteAccount(accountId: string): Promise<void> {
+  async delete(accountId: string): Promise<void> {
     await prismaClient.account.delete({
       where: { id: accountId },
     });
   }
 
-  async createAccount(account: Account): Promise<void> {
+  async create(account: Account): Promise<void> {
     await prismaClient.account.create({
       data: AccountMapper.toPersistence(account),
     });
   }
 
-  async getAccounts({
+  async findAll({
     page = 1,
     perPage = 10,
   }: IAccountsParams): Promise<IGetAccountsResponse> {
@@ -53,7 +53,7 @@ export class PrismaAccountRepository implements IAccountRepository {
     };
   }
 
-  async getAccountByEmail(email: string): Promise<Account | null> {
+  async findByEmail(email: string): Promise<Account | null> {
     const account = await prismaClient.account.findUnique({
       where: { email },
     });

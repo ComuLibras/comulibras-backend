@@ -18,7 +18,7 @@ export class UpdateAccountStatusService implements IService<UpdateAccountStatusS
   ) {}
 
   async execute(input: UpdateAccountStatusService.Input): Promise<UpdateAccountStatusService.Output> {
-    const account = await this.accountRepo.getAccountById(input.accountId);
+    const account = await this.accountRepo.findById(input.accountId);
 
     if (!account) {
       throw new NotFoundHTTPError(ACCOUNT_NOT_FOUND_ERROR);
@@ -26,7 +26,7 @@ export class UpdateAccountStatusService implements IService<UpdateAccountStatusS
 
     account.updateStatus(input.isActive);
 
-    await this.accountRepo.updateAccount(account);
+    await this.accountRepo.update(account);
 
     return account;
   }

@@ -17,13 +17,13 @@ export class DeleteAccountService implements IService<DeleteAccountService.Input
   ) {}
 
   async execute(input: DeleteAccountService.Input): Promise<DeleteAccountService.Output> {
-    const accountFound = await this.accountRepo.getAccountById(input.accountId);
+    const accountFound = await this.accountRepo.findById(input.accountId);
 
     if (!accountFound) {
       throw new NotFoundHTTPError(ACCOUNT_NOT_FOUND_ERROR);
     }
 
-    await this.accountRepo.deleteAccount(input.accountId);
+    await this.accountRepo.delete(input.accountId);
   }
 }
 

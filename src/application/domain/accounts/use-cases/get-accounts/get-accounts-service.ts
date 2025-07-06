@@ -15,7 +15,7 @@ export class GetAccountsService implements IService<GetAccountsService.Input, Ge
   ) {}
 
   async execute(input: GetAccountsService.Input): Promise<GetAccountsService.Output> {
-    const accountResponse = await this.accountRepo.getAccounts(input);
+    const accountResponse = await this.accountRepo.findAll(input);
 
     return accountResponse;
   }

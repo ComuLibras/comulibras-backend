@@ -2,8 +2,8 @@ import { Account } from '@domain/accounts/entities/account';
 import { Roles } from '@domain/accounts/entities/role';
 import { IAccountRepository } from '@domain/accounts/repositories/account-repository';
 import {
-  ACCOUNT_ALREADY_EXISTS_ERROR,
-  SignUpSchema,
+    ACCOUNT_ALREADY_EXISTS_ERROR,
+    SignUpSchema,
 } from '@domain/auth/docs/sign-up-swagger';
 
 import { Inject } from '@kernel/decorators/inject';
@@ -32,7 +32,7 @@ export class SignUpService
     email,
     password,
   }: SignUpService.Input): Promise<SignUpService.Output> {
-    const accountFound = await this.accountRepo.getAccountByEmail(email);
+    const accountFound = await this.accountRepo.findByEmail(email);
 
     if (accountFound) {
       throw new ConflictHTTPError(ACCOUNT_ALREADY_EXISTS_ERROR);
@@ -49,7 +49,7 @@ export class SignUpService
       isPasswordCreated: true,
     });
 
-    await this.accountRepo.createAccount(account);
+    await this.accountRepo.create(account);
 
     const accessToken = this.tokenProvider.generateToken({
       sub: account.id,

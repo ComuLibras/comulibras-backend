@@ -11,10 +11,10 @@ export interface IGetAccountsResponse {
 }
 
 export interface IAccountRepository {
-  createAccount(account: Account): Promise<void>;
-  getAccountByEmail(email: string): Promise<Account | null>;
-  getAccountById(accountId: string): Promise<Account | null>;
-  updateAccount(account: Account): Promise<void>;
-  deleteAccount(accountId: string): Promise<void>;
-  getAccounts(params: IAccountsParams): Promise<IGetAccountsResponse>;
+  create(account: Account): Promise<void>;
+  findByEmail(email: string): Promise<Account | null>;
+  findById(accountId: string): Promise<Account | null>;
+  update(account: Account): Promise<void>;
+  delete(accountId: string): Promise<void>;
+  findAll(params: IAccountsParams): Promise<IGetAccountsResponse>;
 }

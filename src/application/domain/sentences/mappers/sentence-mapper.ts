@@ -8,7 +8,7 @@ export const sentenceHttpSchema = z.object({
   id: z.string().uuid(),
   content: z.string(),
   videoUrl: z.string().url(),
-  categoryId: z.string().uuid(),
+  categoryId: z.string().uuid().nullable(),
   isActive: z.boolean(),
   createdAt: z.date(),
   updatedAt: z.date(),
@@ -32,30 +32,10 @@ export class SentenceMapper {
   }
 
   static toPersistence(domain: Sentence): Prisma.SentenceCreateInput {
-    return {
-      id: domain.id,
-      content: domain.content,
-      video_url: domain.videoUrl,
-      category: {
-        connect: {
-          id: domain.categoryId,
-        },
-      },
-      isActive: domain.isActive,
-      createdAt: domain.createdAt,
-      updatedAt: domain.updatedAt,
-    };
+    return domain.toPrisma();
   }
 
-  static toHttp(domain: Sentence) {
-    return {
-      id: domain.id,
-      content: domain.content,
-      videoUrl: domain.videoUrl,
-      categoryId: domain.categoryId,
-      isActive: domain.isActive,
-      createdAt: domain.createdAt,
-      updatedAt: domain.updatedAt,
-    };
+  static toHttp(domain: Sentence): SentenceHttpSchema {
+    return domain.toHttp();
   }
 }

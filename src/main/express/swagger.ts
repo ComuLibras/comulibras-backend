@@ -23,7 +23,7 @@ import { createCategoryOpenAPIBody } from '@domain/categories/use-cases/create-c
 import { updateCategoryOpenAPIBody } from '@domain/categories/use-cases/update-category/update-category-dto';
 import { updateCategoryStatusOpenAPIBody } from '@domain/categories/use-cases/update-category-status/update-category-status-dto';
 import { sentencesPath, sentencesPathWithId } from '@domain/sentences/docs/sentences-path';
-import { sentenceHttpSchemaOpenAPI } from '@domain/sentences/mapper/sentence-mapper';
+import { sentenceHttpSchemaOpenAPI } from '@domain/sentences/mappers/sentence-mapper';
 import { createSentenceOpenAPIBody } from '@domain/sentences/use-cases/create-sentence/create-sentence-dto';
 import { deleteSentencesOpenAPIBody } from '@domain/sentences/use-cases/delete-sentences/delete-sentences-dto';
 import { updateSentenceOpenAPIBody } from '@domain/sentences/use-cases/update-sentence/update-sentence-dto';

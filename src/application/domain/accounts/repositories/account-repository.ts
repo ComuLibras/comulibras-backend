@@ -13,4 +13,6 @@ export interface IGetAccountsResponse {
 export interface IAccountRepository {
   createAccount(account: Account): Promise<void>;
   getAccountByEmail(email: string): Promise<Account | null>;
+  getAccountById(accountId: string): Promise<Account | null>;
+  updateAccount(account: Account): Promise<void>;
 }

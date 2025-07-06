@@ -32,7 +32,6 @@ export class Category extends Entity {
     this.props.name = props.name ?? this.props.name;
     this.props.color = props.color ?? this.props.color;
     this.props.icon = props.icon ?? this.props.icon;
-    this.props.isActive = props.isActive ?? this.props.isActive;
     this.onUpdated();
   }
 

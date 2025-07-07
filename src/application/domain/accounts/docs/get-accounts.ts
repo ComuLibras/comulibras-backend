@@ -27,6 +27,36 @@ export const getAccountsSwagger: Operation = {
         default: 10,
       },
     },
+    {
+      name: 'orderBy',
+      in: 'query',
+      description: 'Campo para ordenação',
+      required: false,
+      schema: {
+        type: 'string',
+        enum: ['name', 'email', 'role', 'isPasswordCreated', 'isActive'],
+      },
+    },
+    {
+      name: 'orderDirection',
+      in: 'query',
+      description: 'Direção da ordenação',
+      required: false,
+      schema: {
+        type: 'string',
+        enum: ['asc', 'desc'],
+        default: 'asc',
+      },
+    },
+    {
+      name: 'isActive',
+      in: 'query',
+      description: 'Filtrar por status ativo (true = apenas ativas, false = apenas inativas, omitir = todas)',
+      required: false,
+      schema: {
+        type: 'boolean',
+      },
+    },
   ],
   responses: {
     '200': {

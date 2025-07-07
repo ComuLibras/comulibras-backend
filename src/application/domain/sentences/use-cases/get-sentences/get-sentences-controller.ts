@@ -1,3 +1,4 @@
+
 import { Roles } from '@prisma/client';
 
 import { SentenceHttpSchema, SentenceMapper } from '@domain/sentences/mappers/sentence-mapper';
@@ -33,7 +34,7 @@ export class GetSentencesController extends Controller<GetSentencesResponse> {
     const sentences = await this.getSentencesService.execute({
       ...request.query,
       account: request.account,
-      onlyActive: request.account?.role === Roles.USER || !request.account,
+      isActive: !request.account || request.account?.role === Roles.USER ? true : request.query.isActive,
     });
 
     return {

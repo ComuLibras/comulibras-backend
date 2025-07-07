@@ -40,17 +40,42 @@ export class PrismaAccountRepository implements IAccountRepository {
   async findAll({
     page = 1,
     perPage = 10,
+    orderBy,
+    orderDirection = 'asc',
+    isActive,
   }: IAccountsParams): Promise<IGetAccountsResponse> {
-    const totalAccounts = await prismaClient.account.count();
-    const accounts = await prismaClient.account.findMany({
-      take: perPage,
-      skip: page ? (page - 1) * perPage : 0,
-    });
+    const whereClause = isActive !== undefined ? { isActive } : {};
+
+    const orderByField = orderBy ? this.mapOrderByField(orderBy) : 'name';
+
+    const [totalAccounts, accounts] = await Promise.all([
+      prismaClient.account.count({ where: whereClause }),
+      prismaClient.account.findMany({
+        take: perPage,
+        skip: page ? (page - 1) * perPage : 0,
+        where: whereClause,
+        orderBy: {
+          [orderByField]: orderDirection,
+        },
+      }),
+    ]);
 
     return {
       accounts: accounts.map(AccountMapper.toDomain),
       totalAccounts,
     };
+  }
+
+  private mapOrderByField(orderBy: string): string {
+    const fieldMap: Record<string, string> = {
+      name: 'name',
+      email: 'email',
+      role: 'role',
+      isPasswordCreated: 'isPasswordCreated',
+      isActive: 'isActive',
+    };
+
+    return fieldMap[orderBy] || 'name';
   }
 
   async findByEmail(email: string): Promise<Account | null> {

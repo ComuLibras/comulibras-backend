@@ -26,6 +26,6 @@ export class GetSentencesService implements IService<GetSentencesService.Input, 
 }
 
 export namespace GetSentencesService {
-  export type Input = GetSentencesQuery & { account?: Http.Account; onlyActive: boolean };
+  export type Input = GetSentencesQuery & { account?: Http.Account };
   export type Output = IGetSentencesResponse;
 }

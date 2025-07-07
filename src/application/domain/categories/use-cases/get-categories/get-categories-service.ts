@@ -1,4 +1,3 @@
-
 import { Category } from '@domain/categories/entities/category';
 import { ICategoryRepository } from '@domain/categories/repositories/category-repository';
 
@@ -24,6 +23,6 @@ export class GetCategoriesService implements IService<GetCategoriesService.Input
 }
 
 export namespace GetCategoriesService {
-  export type Input = GetCategoriesQuery & { account?: Http.Account; onlyActive: boolean };
+  export type Input = GetCategoriesQuery & { account?: Http.Account };
   export type Output = Category[];
 }

@@ -10,22 +10,27 @@ export const getSentencesSwagger: Operation = {
     {
       name: 'page',
       in: 'query',
+      description: 'Página atual',
       required: false,
       schema: {
         type: 'number',
+        default: 1,
       },
     },
     {
       name: 'perPage',
       in: 'query',
+      description: 'Número de items por página',
       required: false,
       schema: {
         type: 'number',
+        default: 10,
       },
     },
     {
       name: 'categoryId',
       in: 'query',
+      description: 'ID da categoria para filtrar',
       required: false,
       schema: {
         type: 'string',
@@ -35,9 +40,40 @@ export const getSentencesSwagger: Operation = {
     {
       name: 'search',
       in: 'query',
+      description: 'Buscar por conteúdo da frase',
       required: false,
       schema: {
         type: 'string',
+      },
+    },
+    {
+      name: 'orderBy',
+      in: 'query',
+      description: 'Campo para ordenação',
+      required: false,
+      schema: {
+        type: 'string',
+        enum: ['content', 'categoryName', 'isActive'],
+      },
+    },
+    {
+      name: 'orderDirection',
+      in: 'query',
+      description: 'Direção da ordenação',
+      required: false,
+      schema: {
+        type: 'string',
+        enum: ['asc', 'desc'],
+        default: 'asc',
+      },
+    },
+    {
+      name: 'isActive',
+      in: 'query',
+      description: 'Filtrar por status ativo (true = apenas ativas, false = apenas inativas, omitir = todas)',
+      required: false,
+      schema: {
+        type: 'boolean',
       },
     },
   ],

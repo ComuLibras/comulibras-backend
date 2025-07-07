@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 
 import { prismaClient } from '@shared/clients/prisma-client';
 
@@ -42,23 +43,43 @@ export class PrismaCategoryRepository implements ICategoryRepository {
   }
 
   async findAll(input: GetCategoriesService.Input): Promise<Category[]> {
-    const { search, account } = input;
+    const { search, account, orderBy, orderDirection = 'asc', isActive } = input;
+
+    const whereClause = {
+      name: {
+        contains: search,
+        mode: 'insensitive' as const,
+      },
+      ...(isActive !== undefined && { isActive }),
+    };
+
+    const orderByClause = orderBy ? this.getOrderByClause(orderBy, orderDirection) : { name: orderDirection };
 
     const categories = await this.prisma.category.findMany({
       include: {
         ...this.include,
         ...(account ? this.includeFavorites(account.id) : {}),
       },
-      where: {
-        name: {
-          contains: search,
-          mode: 'insensitive',
-        },
-        isActive: input.onlyActive ? true : undefined,
-      },
+      where: whereClause,
+      orderBy: orderByClause,
     });
 
     return categories.map(CategoryMapper.toDomain);
+  }
+
+  private getOrderByClause(orderBy: string, orderDirection: string): Prisma.CategoryOrderByWithRelationInput {
+    const direction = orderDirection as Prisma.SortOrder;
+
+    switch (orderBy) {
+      case 'name':
+        return { name: direction };
+      case 'count':
+        return { sentences: { _count: direction } };
+      case 'isActive':
+        return { isActive: direction };
+      default:
+        return { name: direction };
+    }
   }
 
   async findById(id: string): Promise<Category | null> {

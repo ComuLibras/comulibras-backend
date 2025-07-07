@@ -71,19 +71,25 @@ export class PrismaSentenceRepository implements ISentenceRepository {
   }
 
   async findAll(input: GetSentencesService.Input): Promise<IGetSentencesResponse> {
-    const where: Prisma.SentenceWhereInput = {
-      content: { contains: input.search, mode: 'insensitive' },
-      categoryId: input.categoryId,
-      isActive: input.onlyActive ? true : undefined,
+    const { search, categoryId, page, perPage, orderBy, orderDirection = 'asc', isActive } = input;
+
+    const whereClause: Prisma.SentenceWhereInput = {
+      content: { contains: search, mode: 'insensitive' },
+      categoryId: categoryId,
+      ...(isActive !== undefined && { isActive }),
     };
 
+    const orderByClause = orderBy ? this.getOrderByClause(orderBy, orderDirection) : { content: orderDirection as Prisma.SortOrder };
+
     const [totalSentences, sentences] = await Promise.all([
-      this.prisma.sentence.count({ where }),
+      this.prisma.sentence.count({ where: whereClause }),
       this.prisma.sentence.findMany({
-        skip: input.page ? (input.page - 1) * input.perPage : 0,
-        take: input.perPage,
-        where,
+        skip: page ? (page - 1) * perPage : 0,
+        take: perPage,
+        where: whereClause,
+        orderBy: orderByClause,
         include: {
+          category: true,
           userFavoriteSentences: {
             where: {
               accountId: input.account?.id,
@@ -100,6 +106,21 @@ export class PrismaSentenceRepository implements ISentenceRepository {
       sentences: sentences.map(SentenceMapper.toDomain),
       totalSentences,
     };
+  }
+
+  private getOrderByClause(orderBy: string, orderDirection: string): Prisma.SentenceOrderByWithRelationInput {
+    const direction = orderDirection as Prisma.SortOrder;
+
+    switch (orderBy) {
+      case 'content':
+        return { content: direction };
+      case 'categoryName':
+        return { category: { name: direction } };
+      case 'isActive':
+        return { isActive: direction };
+      default:
+        return { content: direction };
+    }
   }
 
   async findById(id: string): Promise<Sentence | null> {

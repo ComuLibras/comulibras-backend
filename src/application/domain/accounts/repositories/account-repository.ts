@@ -1,8 +1,12 @@
 import { Account } from '../entities/account';
+import { AccountOrderBy, OrderDirection } from '../use-cases/get-accounts/get-accounts-dto';
 
 export interface IAccountsParams {
   page?: number;
   perPage?: number;
+  orderBy?: AccountOrderBy;
+  orderDirection?: OrderDirection;
+  isActive?: boolean;
 }
 
 export interface IGetAccountsResponse {

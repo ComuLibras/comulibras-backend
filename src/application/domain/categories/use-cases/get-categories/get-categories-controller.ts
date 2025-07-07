@@ -1,4 +1,3 @@
-
 import { Roles } from '@domain/accounts/entities/role';
 import { CategoryHttpSchema, CategoryMapper } from '@domain/categories/mappers/category-mapper';
 
@@ -27,8 +26,8 @@ export class GetCategoriesController extends Controller<CategoryHttpSchema[]> {
   protected override async handle(request: Http.Request<never, GetCategoriesQuery>): Controller.HandleResponse<CategoryHttpSchema[]> {
     const categories = await this.getCategoriesService.execute({
       account: request.account,
-      onlyActive: request.account?.role === Roles.USER || !request.account,
       ...request.query,
+      isActive: !request.account || request.account?.role === Roles.USER ? true : request.query.isActive,
     });
 
     return categories.map(CategoryMapper.toHttp);

@@ -29,6 +29,7 @@ export class Category extends Entity {
 
   public updateStatus(isActive: boolean) {
     this.props.isActive = isActive;
+    this.onUpdated();
   }
 
   public toPrisma(): Prisma.CategoryCreateInput {

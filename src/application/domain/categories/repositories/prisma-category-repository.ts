@@ -1,8 +1,11 @@
 
+import { Prisma } from '@prisma/client';
+
 import { prismaClient } from '@shared/clients/prisma-client';
 
 import { Category } from '../entities/category';
 import { CategoryMapper } from '../mappers/category-mapper';
+import { GetCategoriesService } from '../use-cases/get-categories/get-categories-service';
 
 import { ICategoryRepository } from './category-repository';
 
@@ -22,9 +25,20 @@ export class PrismaCategoryRepository implements ICategoryRepository {
     });
   }
 
-  async findAll(): Promise<Category[]> {
+  async findAll(input: GetCategoriesService.Input): Promise<Category[]> {
+    const { search, includeFavorites, account } = input;
+
     const categories = await this.prisma.category.findMany({
-      include: this.include,
+      include: {
+        ...this.include,
+        ...(includeFavorites && account ? this.includeFavorites(account.id) : {}),
+      },
+      where: {
+        name: {
+          contains: search,
+          mode: 'insensitive',
+        },
+      },
     });
     return categories.map(CategoryMapper.toDomain);
   }
@@ -49,11 +63,24 @@ export class PrismaCategoryRepository implements ICategoryRepository {
     });
   }
 
-  private include = {
+  private include: Prisma.CategoryInclude = {
     _count: {
       select: {
         sentences: true,
       },
     },
   };
+
+  private includeFavorites(accountId: string): Prisma.CategoryInclude {
+    return {
+      userFavoriteCategories: {
+        where: {
+          accountId,
+        },
+        select: {
+          id: true,
+        },
+      },
+    };
+  }
 }

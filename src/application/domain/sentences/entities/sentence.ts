@@ -31,6 +31,11 @@ export class Sentence extends Entity {
     this.onUpdated();
   }
 
+  public updateCategory(categoryId: string) {
+    this.props.categoryId = categoryId;
+    this.onUpdated();
+  }
+
   toPrisma(): Prisma.SentenceCreateInput {
     const domain = this.props;
 

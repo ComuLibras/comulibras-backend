@@ -8,6 +8,14 @@ import { ISentenceRepository } from './sentence-repository';
 export class PrismaSentenceRepository implements ISentenceRepository {
   constructor(private readonly prisma = prismaClient) {}
 
+  async deleteMany(ids: string[]): Promise<void> {
+    await this.prisma.sentence.deleteMany({
+      where: {
+        id: { in: ids },
+      },
+    });
+  }
+
   async findByContent(content: string, categoryId: string): Promise<Sentence | null> {
     const sentence = await this.prisma.sentence.findUnique({
       where: {

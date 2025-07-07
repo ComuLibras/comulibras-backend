@@ -7,4 +7,5 @@ export interface ISentenceRepository {
   findByContent(content: string, categoryId: string): Promise<Sentence | null>;
   update(sentence: Sentence): Promise<void>;
   delete(id: string): Promise<void>;
+  deleteMany(ids: string[]): Promise<void>;
 }

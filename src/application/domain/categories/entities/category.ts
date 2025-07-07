@@ -10,6 +10,7 @@ interface ICategoryProps extends IEntityProps {
   color: string;
   icon: string;
   isActive: boolean;
+  isFavorite?: boolean;
 }
 
 export class Category extends Entity {
@@ -58,6 +59,7 @@ export class Category extends Entity {
       isActive: domain.isActive,
       createdAt: domain.createdAt ?? new Date(),
       updatedAt: domain.updatedAt ?? new Date(),
+      isFavorite: domain.isFavorite,
     };
   }
 }

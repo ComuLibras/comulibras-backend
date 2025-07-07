@@ -8,7 +8,6 @@ export const deleteSentenceSwagger: Operation = {
   tags: [Tags.SENTENCES],
   summary: 'Deletar frase',
   description: 'Deleta uma frase',
-  security: [],
   parameters: [
     {
       name: 'sentenceId',

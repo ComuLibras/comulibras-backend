@@ -8,7 +8,6 @@ export const updateSentenceStatusSwagger: Operation = {
   tags: [Tags.SENTENCES],
   summary: 'Atualizar status da frase',
   description: 'Atualiza o status de uma frase',
-  security: [],
   parameters: [
     {
       name: 'sentenceId',

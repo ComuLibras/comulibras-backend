@@ -6,7 +6,6 @@ export const getSentencesSwagger: Operation = {
   tags: [Tags.SENTENCES],
   summary: 'Listar frases',
   description: 'Lista todas as frases',
-  security: [],
   parameters: [
     {
       name: 'page',

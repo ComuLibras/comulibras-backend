@@ -28,13 +28,13 @@ export class SignInService
   }: SignInService.Input): Promise<SignInService.Output> {
     const account = await this.accountRepo.findByEmail(email);
 
-    if (!account || !account.password) {
+    if (!account || !account.props.password) {
       throw new UnauthorizedHTTPError(INVALID_CREDENTIALS_ERROR);
     }
 
     const isPasswordValid = await this.hashProvider.compare(
       password,
-      account.password,
+      account.props.password,
     );
 
     if (!isPasswordValid) {
@@ -43,13 +43,13 @@ export class SignInService
 
     const accessToken = this.tokenProvider.generateToken({
       sub: account.id,
-      role: account.role,
+      role: account.props.role,
       expiresIn: '1d',
     });
 
     return {
       accessToken,
-      role: account.role,
+      role: account.props.role,
     };
   }
 }

@@ -8,7 +8,6 @@ export const createCategorySwagger: Operation = {
   tags: [Tags.CATEGORIES],
   summary: 'Criar categoria',
   description: 'Cria uma nova categoria',
-  security: [],
   requestBody: {
     required: true,
     content: {

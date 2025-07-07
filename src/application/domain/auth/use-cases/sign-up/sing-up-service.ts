@@ -2,8 +2,8 @@ import { Account } from '@domain/accounts/entities/account';
 import { Roles } from '@domain/accounts/entities/role';
 import { IAccountRepository } from '@domain/accounts/repositories/account-repository';
 import {
-    ACCOUNT_ALREADY_EXISTS_ERROR,
-    SignUpSchema,
+  ACCOUNT_ALREADY_EXISTS_ERROR,
+  SignUpSchema,
 } from '@domain/auth/docs/sign-up-swagger';
 
 import { Inject } from '@kernel/decorators/inject';
@@ -53,13 +53,13 @@ export class SignUpService
 
     const accessToken = this.tokenProvider.generateToken({
       sub: account.id,
-      role: account.role,
+      role: account.props.role,
       expiresIn: '1d',
     });
 
     return {
       accessToken,
-      role: account.role,
+      role: account.props.role,
     };
   }
 }

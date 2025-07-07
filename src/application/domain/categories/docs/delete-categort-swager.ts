@@ -8,7 +8,6 @@ export const deleteCategorySwagger: Operation = {
   tags: [Tags.CATEGORIES],
   summary: 'Deletar categoria',
   description: 'Deleta uma categoria',
-  security: [],
   parameters: [
     {
       name: 'categoryId',

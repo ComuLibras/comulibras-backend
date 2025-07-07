@@ -13,6 +13,7 @@ export const categoryHttpSchema = z.object({
   isActive: z.boolean(),
   createdAt: z.date(),
   updatedAt: z.date(),
+  isFavorite: z.boolean().optional(),
 });
 
 export type CategoryHttpSchema = z.infer<typeof categoryHttpSchema>;
@@ -20,7 +21,8 @@ export type CategoryHttpSchema = z.infer<typeof categoryHttpSchema>;
 export const categoryHttpSchemaOpenAPI = generateSchema(categoryHttpSchema);
 
 export class CategoryMapper {
-  static toDomain(raw: RawCategory & { _count?: { sentences: number } }): Category {
+  static toDomain(raw: RawCategory & { _count?: { sentences: number }, userFavoriteCategories?: { id: string }[] }): Category {
+    console.log(raw);
     return new Category({
       id: raw.id,
       name: raw.name,
@@ -30,6 +32,7 @@ export class CategoryMapper {
       isActive: raw.isActive,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
+      isFavorite: raw.userFavoriteCategories?.some((favorite) => favorite.id === raw.id) ?? false,
     });
   }
 

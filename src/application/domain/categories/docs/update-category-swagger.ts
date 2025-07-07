@@ -10,7 +10,6 @@ export const updateCategorySwagger: Operation = {
   tags: [Tags.CATEGORIES],
   summary: 'Atualizar categoria',
   description: 'Atualiza uma categoria',
-  security: [],
   parameters: [
     {
       name: 'categoryId',

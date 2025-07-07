@@ -8,7 +8,6 @@ export const updateAccountStatusSwagger: Operation = {
   tags: [Tags.ACCOUNTS],
   summary: 'Atualizar status da conta',
   description: 'Atualiza o status de uma conta',
-  security: [],
   parameters: [
     {
       name: 'accountId',

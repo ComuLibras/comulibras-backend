@@ -8,7 +8,6 @@ export const updateAccountRoleSwagger: Operation = {
   tags: [Tags.ACCOUNTS],
   summary: 'Atualizar papel da conta',
   description: 'Atualiza o papel de uma conta',
-  security: [],
   parameters: [
     {
       name: 'accountId',

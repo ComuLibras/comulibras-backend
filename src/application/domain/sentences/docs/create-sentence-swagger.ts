@@ -8,7 +8,6 @@ export const createSentenceSwagger: Operation = {
   tags: [Tags.SENTENCES],
   summary: 'Criar frase',
   description: 'Cria uma frase',
-  security: [],
   requestBody: {
     required: true,
     content: {

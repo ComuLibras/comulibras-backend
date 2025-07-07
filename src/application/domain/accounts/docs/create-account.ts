@@ -8,7 +8,6 @@ export const createAccountSwagger: Operation = {
   tags: [Tags.ACCOUNTS],
   summary: 'Criar conta',
   description: 'Cria uma nova conta',
-  security: [],
   requestBody: {
     required: true,
     content: {

@@ -6,7 +6,6 @@ export const deleteSentencesSwagger: Operation = {
   tags: [Tags.SENTENCES],
   summary: 'Deletar frases',
   description: 'Deleta uma ou mais frases',
-  security: [],
   requestBody: {
     required: true,
     content: {

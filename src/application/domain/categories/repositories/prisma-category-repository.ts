@@ -1,6 +1,4 @@
 
-import { Prisma } from '@prisma/client';
-
 import { prismaClient } from '@shared/clients/prisma-client';
 
 import { Category } from '../entities/category';
@@ -63,7 +61,7 @@ export class PrismaCategoryRepository implements ICategoryRepository {
     });
   }
 
-  private include: Prisma.CategoryInclude = {
+  private include = {
     _count: {
       select: {
         sentences: true,
@@ -71,7 +69,7 @@ export class PrismaCategoryRepository implements ICategoryRepository {
     },
   };
 
-  private includeFavorites(accountId: string): Prisma.CategoryInclude {
+  private includeFavorites(accountId: string) {
     return {
       userFavoriteCategories: {
         where: {

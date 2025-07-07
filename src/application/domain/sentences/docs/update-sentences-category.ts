@@ -6,7 +6,6 @@ export const updateSentencesCategorySwagger: Operation = {
   tags: [Tags.SENTENCES],
   summary: 'Atualizar categoria das frases',
   description: 'Atualiza a categoria de uma ou mais frases',
-  security: [],
   requestBody: {
     required: true,
     content: {

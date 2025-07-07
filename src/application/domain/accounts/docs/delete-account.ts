@@ -8,7 +8,6 @@ export const deleteAccountSwagger: Operation = {
   tags: [Tags.ACCOUNTS],
   summary: 'Deletar conta',
   description: 'Deleta uma conta',
-  security: [],
   parameters: [
     {
       name: 'accountId',

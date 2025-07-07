@@ -16,7 +16,7 @@ export class AuthenticationMiddleware implements IMiddleware {
   async handle({ headers }: Http.Request): Promise<Http.Response | IData> {
     const { authorization } = headers;
 
-    if (!authorization) {
+    if (!authorization && !this.optional) {
       throw new UnauthorizedHTTPError(INVALID_TOKEN_ERROR);
     }
 

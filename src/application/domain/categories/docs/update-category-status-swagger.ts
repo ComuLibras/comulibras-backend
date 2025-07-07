@@ -8,7 +8,6 @@ export const updateCategoryStatusSwagger: Operation = {
   tags: [Tags.CATEGORIES],
   summary: 'Atualizar status da categoria',
   description: 'Atualiza o status de uma categoria',
-  security: [],
   requestBody: {
     required: true,
     content: {

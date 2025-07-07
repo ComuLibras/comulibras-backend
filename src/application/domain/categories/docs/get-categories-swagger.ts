@@ -6,7 +6,24 @@ export const getCategoriesSwagger: Operation = {
   tags: [Tags.CATEGORIES],
   summary: 'Listar categorias',
   description: 'Lista todas as categorias',
-  security: [],
+  parameters: [
+    {
+      name: 'includeFavorites',
+      in: 'query',
+      required: false,
+      schema: {
+        type: 'boolean',
+      },
+    },
+    {
+      name: 'search',
+      in: 'query',
+      required: false,
+      schema: {
+        type: 'string',
+      },
+    },
+  ],
   responses: {
     '200': {
       description: 'Categorias listadas com sucesso',

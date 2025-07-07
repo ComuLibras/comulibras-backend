@@ -10,7 +10,6 @@ export const updateSentenceSwagger: Operation = {
   tags: [Tags.SENTENCES],
   summary: 'Atualizar frase',
   description: 'Atualiza uma frase',
-  security: [],
   parameters: [
     {
       name: 'sentenceId',

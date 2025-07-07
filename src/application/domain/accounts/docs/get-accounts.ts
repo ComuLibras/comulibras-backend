@@ -6,7 +6,6 @@ export const getAccountsSwagger: Operation = {
   tags: [Tags.ACCOUNTS],
   summary: 'Listar contas',
   description: 'Lista todas as contas',
-  security: [],
   parameters: [
     {
       name: 'page',

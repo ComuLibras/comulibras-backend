@@ -18,7 +18,7 @@ export const sentencesPath: PathItem = {
 };
 
 export const sentencesPathWithId: PathItem = {
-  put: addDefaultResponsesSwagger(updateSentenceSwagger),
   delete: addDefaultResponsesSwagger(deleteSentenceSwagger),
   patch: addDefaultResponsesSwagger(updateSentenceStatusSwagger),
+  put: addDefaultResponsesSwagger(updateSentenceSwagger),
 };

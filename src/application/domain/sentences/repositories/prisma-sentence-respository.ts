@@ -8,6 +8,24 @@ import { ISentenceRepository } from './sentence-repository';
 export class PrismaSentenceRepository implements ISentenceRepository {
   constructor(private readonly prisma = prismaClient) {}
 
+  async updateManyCategoryId(sentencesIds: string[], categoryId: string): Promise<void> {
+    await this.prisma.sentence.updateMany({
+      where: {
+        id: { in: sentencesIds },
+      },
+      data: { categoryId },
+    });
+  }
+
+  async findByIds(ids: string[]): Promise<Sentence[]> {
+    const sentences = await this.prisma.sentence.findMany({
+      where: {
+        id: { in: ids },
+      },
+    });
+    return sentences.map(SentenceMapper.toDomain);
+  }
+
   async deleteMany(ids: string[]): Promise<void> {
     await this.prisma.sentence.deleteMany({
       where: {

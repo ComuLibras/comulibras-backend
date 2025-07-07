@@ -5,7 +5,6 @@ export const getSentencesQuery = z.object({
   search: z.string().optional(),
   page: z.coerce.number().default(1),
   perPage: z.coerce.number().default(10),
-  includeFavorites: z.coerce.boolean().default(false),
 });
 
 export type GetSentencesQuery = z.infer<typeof getSentencesQuery>;

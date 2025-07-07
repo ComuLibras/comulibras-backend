@@ -1,4 +1,3 @@
-
 import { Router } from 'express';
 
 import { Roles } from '@domain/accounts/entities/role';
@@ -6,6 +5,7 @@ import { CreateCategoryController } from '@domain/categories/use-cases/create-ca
 import { DeleteCategoryController } from '@domain/categories/use-cases/delete-category/delete-category-controller';
 import { GetCategoriesController } from '@domain/categories/use-cases/get-categories/get-categories-controller';
 import { UpdateCategoryController } from '@domain/categories/use-cases/update-category/update-category-controller';
+import { UpdateCategoryFavoriteController } from '@domain/categories/use-cases/update-category-favorite/update-category-favorite-controller';
 import { UpdateCategoryStatusController } from '@domain/categories/use-cases/update-category-status/update-category-status-controller';
 
 import { container } from '@kernel/di/container';
@@ -49,4 +49,9 @@ categoriesRouter.patch('/:categoryId',
   authenticationMiddleware,
   authorizationMiddleware,
   routeAdapter(container.resolve(UpdateCategoryStatusController)),
+);
+
+categoriesRouter.patch('/:categoryId/favorite',
+  authenticationMiddleware,
+  routeAdapter(container.resolve(UpdateCategoryFavoriteController)),
 );

@@ -10,6 +10,24 @@ import { ICategoryRepository } from './category-repository';
 export class PrismaCategoryRepository implements ICategoryRepository {
   constructor(private readonly prisma = prismaClient) {}
 
+  async favorite(categoryId: string, accountId: string): Promise<void> {
+    await this.prisma.userFavoriteCategory.create({
+      data: {
+        accountId,
+        categoryId,
+      },
+    });
+  }
+
+  async unfavorite(categoryId: string, accountId: string): Promise<void> {
+    await this.prisma.userFavoriteCategory.deleteMany({
+      where: {
+        accountId,
+        categoryId,
+      },
+    });
+  }
+
   async findByName(name: string): Promise<Category | null> {
     const category = await this.prisma.category.findUnique({
       where: { name },
@@ -24,12 +42,12 @@ export class PrismaCategoryRepository implements ICategoryRepository {
   }
 
   async findAll(input: GetCategoriesService.Input): Promise<Category[]> {
-    const { search, includeFavorites, account } = input;
+    const { search, account } = input;
 
     const categories = await this.prisma.category.findMany({
       include: {
         ...this.include,
-        ...(includeFavorites && account ? this.includeFavorites(account.id) : {}),
+        ...(account ? this.includeFavorites(account.id) : {}),
       },
       where: {
         name: {
@@ -39,6 +57,7 @@ export class PrismaCategoryRepository implements ICategoryRepository {
         isActive: input.onlyActive ? true : undefined,
       },
     });
+
     return categories.map(CategoryMapper.toDomain);
   }
 

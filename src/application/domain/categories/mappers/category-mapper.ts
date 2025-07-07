@@ -31,7 +31,7 @@ export class CategoryMapper {
       isActive: raw.isActive,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
-      isFavorite: raw.userFavoriteCategories?.some((favorite) => favorite.id === raw.id) ?? false,
+      isFavorite: (raw.userFavoriteCategories?.length ?? 0) > 0,
     });
   }
 

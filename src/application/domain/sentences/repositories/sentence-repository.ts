@@ -16,4 +16,6 @@ export interface ISentenceRepository {
   updateManyCategoryId(sentencesIds: string[], categoryId: string): Promise<void>;
   delete(id: string): Promise<void>;
   deleteMany(ids: string[]): Promise<void>;
+  favorite(sentenceId: string, accountId: string): Promise<void>;
+  unfavorite(sentenceId: string, accountId: string): Promise<void>;
 }

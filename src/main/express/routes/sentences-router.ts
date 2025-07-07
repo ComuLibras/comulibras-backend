@@ -6,6 +6,7 @@ import { DeleteSentenceController } from '@domain/sentences/use-cases/delete-sen
 import { DeleteSentencesController } from '@domain/sentences/use-cases/delete-sentences/delete-sentences-controller';
 import { GetSentencesController } from '@domain/sentences/use-cases/get-sentences/get-sentences-controller';
 import { UpdateSentenceController } from '@domain/sentences/use-cases/update-sentence/update-sentence-controller';
+import { UpdateSentenceFavoriteController } from '@domain/sentences/use-cases/update-sentence-favorite/update-sentence-favorite-controller';
 import { UpdateSentenceStatusController } from '@domain/sentences/use-cases/update-sentence-status/update-sentence-status-controller';
 import { UpdateSentencesCategoryController } from '@domain/sentences/use-cases/update-sentences-category/update-sentences-category-controller';
 
@@ -50,6 +51,11 @@ sentencesRouter.patch('/:sentenceId',
   authenticationMiddleware,
   authorizationMiddleware,
   routeAdapter(container.resolve(UpdateSentenceStatusController)),
+);
+
+sentencesRouter.patch('/:sentenceId/favorite',
+  authenticationMiddleware,
+  routeAdapter(container.resolve(UpdateSentenceFavoriteController)),
 );
 
 sentencesRouter.delete('/',

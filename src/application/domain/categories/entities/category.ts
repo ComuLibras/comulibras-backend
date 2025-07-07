@@ -33,6 +33,11 @@ export class Category extends Entity {
     this.onUpdated();
   }
 
+  public updateFavorite(isFavorite: boolean) {
+    this.props.isFavorite = isFavorite;
+    this.onUpdated();
+  }
+
   public toPrisma(): Prisma.CategoryCreateInput {
     const domain = this.props;
 

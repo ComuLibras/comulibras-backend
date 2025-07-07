@@ -40,14 +40,6 @@ export const getSentencesSwagger: Operation = {
         type: 'string',
       },
     },
-    {
-      name: 'includeFavorites',
-      in: 'query',
-      required: false,
-      schema: {
-        type: 'boolean',
-      },
-    },
   ],
   responses: {
     '200': {

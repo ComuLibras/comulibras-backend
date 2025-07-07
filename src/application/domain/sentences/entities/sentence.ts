@@ -32,6 +32,11 @@ export class Sentence extends Entity {
     this.onUpdated();
   }
 
+  public updateFavorite(isFavorite: boolean) {
+    this.props.isFavorite = isFavorite;
+    this.onUpdated();
+  }
+
   public updateCategory(categoryId: string) {
     this.props.categoryId = categoryId;
     this.onUpdated();

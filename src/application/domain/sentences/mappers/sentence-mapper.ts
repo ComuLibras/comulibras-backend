@@ -29,7 +29,7 @@ export class SentenceMapper {
       isActive: raw.isActive,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
-      isFavorite: raw.userFavoriteSentences?.some((favorite) => favorite.id === raw.id) ?? false,
+      isFavorite: (raw.userFavoriteSentences?.length ?? 0) > 0,
     });
   }
 

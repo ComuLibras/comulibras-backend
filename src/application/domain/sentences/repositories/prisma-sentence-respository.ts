@@ -11,6 +11,24 @@ import { IGetSentencesResponse, ISentenceRepository } from './sentence-repositor
 export class PrismaSentenceRepository implements ISentenceRepository {
   constructor(private readonly prisma = prismaClient) {}
 
+  async favorite(sentenceId: string, accountId: string): Promise<void> {
+    await this.prisma.userFavoriteSentence.create({
+      data: {
+        accountId,
+        sentenceId,
+      },
+    });
+  }
+
+  async unfavorite(sentenceId: string, accountId: string): Promise<void> {
+    await this.prisma.userFavoriteSentence.deleteMany({
+      where: {
+        accountId,
+        sentenceId,
+      },
+    });
+  }
+
   async updateManyCategoryId(sentencesIds: string[], categoryId: string): Promise<void> {
     await this.prisma.sentence.updateMany({
       where: {
@@ -59,8 +77,6 @@ export class PrismaSentenceRepository implements ISentenceRepository {
       isActive: input.onlyActive ? true : undefined,
     };
 
-    const includeFavorites = input.includeFavorites && input.account?.id;
-
     const [totalSentences, sentences] = await Promise.all([
       this.prisma.sentence.count({ where }),
       this.prisma.sentence.findMany({
@@ -68,16 +84,14 @@ export class PrismaSentenceRepository implements ISentenceRepository {
         take: input.perPage,
         where,
         include: {
-          ...(includeFavorites ? {
-            userFavoriteSentences: {
-              where: {
-                accountId: input.account?.id,
-              },
-              select: {
-                id: true,
-              },
+          userFavoriteSentences: {
+            where: {
+              accountId: input.account?.id,
             },
-          } : {}),
+            select: {
+              id: true,
+            },
+          },
         },
       }),
     ]);

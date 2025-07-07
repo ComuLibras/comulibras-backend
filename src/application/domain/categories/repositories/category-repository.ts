@@ -8,4 +8,6 @@ export interface ICategoryRepository {
   update(category: Category): Promise<void>;
   delete(id: string): Promise<void>;
   findByName(name: string): Promise<Category | null>;
+  favorite(categoryId: string, accountId: string): Promise<void>;
+  unfavorite(categoryId: string, accountId: string): Promise<void>;
 }

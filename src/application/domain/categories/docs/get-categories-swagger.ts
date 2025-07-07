@@ -8,14 +8,6 @@ export const getCategoriesSwagger: Operation = {
   description: 'Lista todas as categorias',
   parameters: [
     {
-      name: 'includeFavorites',
-      in: 'query',
-      required: false,
-      schema: {
-        type: 'boolean',
-      },
-    },
-    {
       name: 'search',
       in: 'query',
       required: false,

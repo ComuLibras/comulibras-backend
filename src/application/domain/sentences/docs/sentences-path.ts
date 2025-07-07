@@ -6,6 +6,7 @@ import { createSentenceSwagger } from './create-sentence-swagger';
 import { deleteSentenceSwagger } from './delete-sentence-swagger';
 import { deleteSentencesSwagger } from './delete-sentences-swagger';
 import { getSentencesSwagger } from './get-sentences-swagger';
+import { updateSentenceFavoriteSwagger } from './update-sentence-favorite-swagger';
 import { updateSentenceStatusSwagger } from './update-sentence-status';
 import { updateSentenceSwagger } from './update-sentence-swagger';
 import { updateSentencesCategorySwagger } from './update-sentences-category';
@@ -21,4 +22,8 @@ export const sentencesPathWithId: PathItem = {
   delete: addDefaultResponsesSwagger(deleteSentenceSwagger),
   patch: addDefaultResponsesSwagger(updateSentenceStatusSwagger),
   put: addDefaultResponsesSwagger(updateSentenceSwagger),
+};
+
+export const sentencesPathFavorite: PathItem = {
+  patch: addDefaultResponsesSwagger(updateSentenceFavoriteSwagger),
 };

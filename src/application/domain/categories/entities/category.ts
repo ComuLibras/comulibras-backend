@@ -6,7 +6,7 @@ import { CategoryHttpSchema } from '../mappers/category-mapper';
 
 interface ICategoryProps extends IEntityProps {
   name: string;
-  sentenceCount?: number;
+  sentenceCount: number;
   color: string;
   icon: string;
   isActive: boolean;
@@ -20,15 +20,7 @@ export class Category extends Entity {
     this.props = props;
   }
 
-  public increaseSentenceCount() {
-    this.props.sentenceCount = (this.props.sentenceCount ?? 0) + 1;
-  }
-
-  public decreaseSentenceCount() {
-    this.props.sentenceCount = (this.props.sentenceCount ?? 0) - 1;
-  }
-
-  public update(props: Partial<ICategoryProps>) {
+  public update(props: Pick<ICategoryProps, 'name' | 'color' | 'icon'>) {
     this.props.name = props.name ?? this.props.name;
     this.props.color = props.color ?? this.props.color;
     this.props.icon = props.icon ?? this.props.icon;
@@ -45,7 +37,6 @@ export class Category extends Entity {
     return {
       id: domain.id,
       name: domain.name,
-      sentenceCount: domain.sentenceCount,
       color: domain.color,
       icon: domain.icon,
       isActive: domain.isActive,
@@ -60,7 +51,7 @@ export class Category extends Entity {
     return {
       id: domain.id ?? '',
       name: domain.name,
-      sentenceCount: domain.sentenceCount ?? 0,
+      sentenceCount: domain.sentenceCount,
       color: domain.color,
       icon: domain.icon,
       isActive: domain.isActive,

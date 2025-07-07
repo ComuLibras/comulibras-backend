@@ -20,11 +20,11 @@ export type CategoryHttpSchema = z.infer<typeof categoryHttpSchema>;
 export const categoryHttpSchemaOpenAPI = generateSchema(categoryHttpSchema);
 
 export class CategoryMapper {
-  static toDomain(raw: RawCategory): Category {
+  static toDomain(raw: RawCategory & { _count?: { sentences: number } }): Category {
     return new Category({
       id: raw.id,
       name: raw.name,
-      sentenceCount: raw.sentenceCount,
+      sentenceCount: raw._count?.sentences ?? 0,
       color: raw.color,
       icon: raw.icon,
       isActive: raw.isActive,

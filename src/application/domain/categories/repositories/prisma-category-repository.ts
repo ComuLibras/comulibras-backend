@@ -1,3 +1,4 @@
+
 import { prismaClient } from '@shared/clients/prisma-client';
 
 import { Category } from '../entities/category';
@@ -22,7 +23,9 @@ export class PrismaCategoryRepository implements ICategoryRepository {
   }
 
   async findAll(): Promise<Category[]> {
-    const categories = await this.prisma.category.findMany();
+    const categories = await this.prisma.category.findMany({
+      include: this.include,
+    });
     return categories.map(CategoryMapper.toDomain);
   }
 
@@ -45,4 +48,12 @@ export class PrismaCategoryRepository implements ICategoryRepository {
       where: { id },
     });
   }
+
+  private include = {
+    _count: {
+      select: {
+        sentences: true,
+      },
+    },
+  };
 }

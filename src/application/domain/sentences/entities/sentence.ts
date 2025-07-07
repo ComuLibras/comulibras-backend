@@ -19,8 +19,16 @@ export class Sentence extends Entity {
     this.props = props;
   }
 
+  public update(props: Partial<ISentenceProps>) {
+    this.props.content = props.content ?? this.props.content;
+    this.props.videoUrl = props.videoUrl ?? this.props.videoUrl;
+    this.props.categoryId = props.categoryId ?? this.props.categoryId;
+    this.onUpdated();
+  }
+
   public updateStatus(isActive: boolean) {
     this.props.isActive = isActive;
+    this.onUpdated();
   }
 
   toPrisma(): Prisma.SentenceCreateInput {

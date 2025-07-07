@@ -45,7 +45,7 @@ categoriesRouter.delete('/:categoryId',
   routeAdapter(container.resolve(DeleteCategoryController)),
 );
 
-categoriesRouter.patch('/:categoryId',
+categoriesRouter.patch('/:categoryId/status',
   authenticationMiddleware,
   authorizationMiddleware,
   routeAdapter(container.resolve(UpdateCategoryStatusController)),

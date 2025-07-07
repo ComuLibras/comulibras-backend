@@ -17,7 +17,7 @@ export const getSentencesSwagger: Operation = {
       },
     },
     {
-      name: 'limit',
+      name: 'perPage',
       in: 'query',
       required: false,
       schema: {

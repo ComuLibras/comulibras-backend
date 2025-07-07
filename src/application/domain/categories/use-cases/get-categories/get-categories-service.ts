@@ -7,6 +7,8 @@ import { Injectable } from '@kernel/decorators/injectable';
 
 import { IService } from '@shared/http/interfaces/service';
 
+import { GetCategoriesQuery } from './get-categories-dto';
+
 @Injectable()
 export class GetCategoriesService implements IService<GetCategoriesService.Input, GetCategoriesService.Output> {
   constructor(
@@ -14,14 +16,14 @@ export class GetCategoriesService implements IService<GetCategoriesService.Input
     private readonly categoryRepo: ICategoryRepository,
   ) {}
 
-  async execute(): Promise<GetCategoriesService.Output> {
-    const categoriesResponse = await this.categoryRepo.findAll();
+  async execute(input: GetCategoriesService.Input): Promise<GetCategoriesService.Output> {
+    const categoriesResponse = await this.categoryRepo.findAll(input);
 
     return categoriesResponse;
   }
 }
 
 export namespace GetCategoriesService {
-  export type Input = never;
+  export type Input = GetCategoriesQuery & { account?: Http.Account };
   export type Output = Category[];
 }

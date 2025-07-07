@@ -1,9 +1,12 @@
+import { Prisma } from '@prisma/client';
+
 import { prismaClient } from '@shared/clients/prisma-client';
 
 import { Sentence } from '../entities/sentence';
 import { SentenceMapper } from '../mappers/sentence-mapper';
+import { GetSentencesQuery } from '../use-cases/get-sentences/get-sentences-dto';
 
-import { ISentenceRepository } from './sentence-repository';
+import { IGetSentencesResponse, ISentenceRepository } from './sentence-repository';
 
 export class PrismaSentenceRepository implements ISentenceRepository {
   constructor(private readonly prisma = prismaClient) {}
@@ -49,9 +52,25 @@ export class PrismaSentenceRepository implements ISentenceRepository {
     });
   }
 
-  async findAll(): Promise<Sentence[]> {
-    const sentences = await this.prisma.sentence.findMany();
-    return sentences.map(SentenceMapper.toDomain);
+  async findAll(input: GetSentencesQuery): Promise<IGetSentencesResponse> {
+    const where: Prisma.SentenceWhereInput = {
+      content: { contains: input.search, mode: 'insensitive' },
+      categoryId: input.categoryId,
+    };
+
+    const [totalSentences, sentences] = await Promise.all([
+      this.prisma.sentence.count({ where }),
+      this.prisma.sentence.findMany({
+        skip: input.page ? (input.page - 1) * input.perPage : 0,
+        take: input.perPage,
+        where,
+      }),
+    ]);
+
+    return {
+      sentences: sentences.map(SentenceMapper.toDomain),
+      totalSentences,
+    };
   }
 
   async findById(id: string): Promise<Sentence | null> {

@@ -19,6 +19,10 @@ export class Sentence extends Entity {
     this.props = props;
   }
 
+  public updateStatus(isActive: boolean) {
+    this.props.isActive = isActive;
+  }
+
   toPrisma(): Prisma.SentenceCreateInput {
     const domain = this.props;
 

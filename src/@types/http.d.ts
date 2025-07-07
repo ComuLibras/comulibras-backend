@@ -1,6 +1,10 @@
 declare namespace Http {
   type Roles = import("@domain/accounts/entities/role").Roles;
   type StatusCode = import("@shared/http/status-code").StatusCode;
+  type Account = {
+    id: string;
+    role: Roles;
+  }
 
   type Request<
     TBody = Record<string, unknown>,
@@ -12,10 +16,7 @@ declare namespace Http {
     query: TQuery;
     params: TParams;
     headers: THeaders;
-    account?: {
-      id: string;
-      role: Roles;
-    };
+    account?: Account;
   };
 
   type Response<TBody = Record<string, unknown>> = {

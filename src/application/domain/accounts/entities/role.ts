@@ -1,4 +1,5 @@
 export enum Roles {
   ADMIN = 'ADMIN',
+  SENTENCES_MANAGER = 'SENTENCES_MANAGER',
   USER = 'USER',
 }

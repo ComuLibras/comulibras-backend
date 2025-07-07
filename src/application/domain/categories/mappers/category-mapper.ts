@@ -22,7 +22,6 @@ export const categoryHttpSchemaOpenAPI = generateSchema(categoryHttpSchema);
 
 export class CategoryMapper {
   static toDomain(raw: RawCategory & { _count?: { sentences: number }, userFavoriteCategories?: { id: string }[] }): Category {
-    console.log(raw);
     return new Category({
       id: raw.id,
       name: raw.name,

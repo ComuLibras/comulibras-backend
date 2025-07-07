@@ -4,7 +4,7 @@ import { prismaClient } from '@shared/clients/prisma-client';
 
 import { Sentence } from '../entities/sentence';
 import { SentenceMapper } from '../mappers/sentence-mapper';
-import { GetSentencesQuery } from '../use-cases/get-sentences/get-sentences-dto';
+import { type GetSentencesService } from '../use-cases/get-sentences/get-sentences-service';
 
 import { IGetSentencesResponse, ISentenceRepository } from './sentence-repository';
 
@@ -52,11 +52,14 @@ export class PrismaSentenceRepository implements ISentenceRepository {
     });
   }
 
-  async findAll(input: GetSentencesQuery): Promise<IGetSentencesResponse> {
+  async findAll(input: GetSentencesService.Input): Promise<IGetSentencesResponse> {
     const where: Prisma.SentenceWhereInput = {
       content: { contains: input.search, mode: 'insensitive' },
       categoryId: input.categoryId,
+      isActive: input.onlyActive ? true : undefined,
     };
+
+    const includeFavorites = input.includeFavorites && input.account?.id;
 
     const [totalSentences, sentences] = await Promise.all([
       this.prisma.sentence.count({ where }),
@@ -64,6 +67,18 @@ export class PrismaSentenceRepository implements ISentenceRepository {
         skip: input.page ? (input.page - 1) * input.perPage : 0,
         take: input.perPage,
         where,
+        include: {
+          ...(includeFavorites ? {
+            userFavoriteSentences: {
+              where: {
+                accountId: input.account?.id,
+              },
+              select: {
+                id: true,
+              },
+            },
+          } : {}),
+        },
       }),
     ]);
 

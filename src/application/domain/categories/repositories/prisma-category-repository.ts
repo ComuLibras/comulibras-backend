@@ -36,6 +36,7 @@ export class PrismaCategoryRepository implements ICategoryRepository {
           contains: search,
           mode: 'insensitive',
         },
+        isActive: input.onlyActive ? true : undefined,
       },
     });
     return categories.map(CategoryMapper.toDomain);

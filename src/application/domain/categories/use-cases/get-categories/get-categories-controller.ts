@@ -1,4 +1,5 @@
 
+import { Roles } from '@domain/accounts/entities/role';
 import { CategoryHttpSchema, CategoryMapper } from '@domain/categories/mappers/category-mapper';
 
 import { HttpResponse } from '@kernel/decorators/http-response';
@@ -26,6 +27,7 @@ export class GetCategoriesController extends Controller<CategoryHttpSchema[]> {
   protected override async handle(request: Http.Request<never, GetCategoriesQuery>): Controller.HandleResponse<CategoryHttpSchema[]> {
     const categories = await this.getCategoriesService.execute({
       account: request.account,
+      onlyActive: request.account?.role === Roles.USER || !request.account,
       ...request.query,
     });
 

@@ -1,3 +1,5 @@
+import { Roles } from '@prisma/client';
+
 import { SentenceHttpSchema, SentenceMapper } from '@domain/sentences/mappers/sentence-mapper';
 
 import { HttpResponse } from '@kernel/decorators/http-response';
@@ -28,7 +30,12 @@ export class GetSentencesController extends Controller<GetSentencesResponse> {
   }
 
   protected override async handle(request: Http.Request<never, GetSentencesQuery>): Controller.HandleResponse<GetSentencesResponse> {
-    const sentences = await this.getSentencesService.execute(request.query);
+    const sentences = await this.getSentencesService.execute({
+      ...request.query,
+      account: request.account,
+      onlyActive: request.account?.role === Roles.USER || !request.account,
+    });
+
     return {
       sentences: sentences.sentences.map(SentenceMapper.toHttp),
       totalSentences: sentences.totalSentences,

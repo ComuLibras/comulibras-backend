@@ -12,6 +12,7 @@ export const sentenceHttpSchema = z.object({
   isActive: z.boolean(),
   createdAt: z.date(),
   updatedAt: z.date(),
+  isFavorite: z.boolean().optional(),
 });
 
 export type SentenceHttpSchema = z.infer<typeof sentenceHttpSchema>;
@@ -19,7 +20,7 @@ export type SentenceHttpSchema = z.infer<typeof sentenceHttpSchema>;
 export const sentenceHttpSchemaOpenAPI = generateSchema(sentenceHttpSchema);
 
 export class SentenceMapper {
-  static toDomain(raw: RawSentence): Sentence {
+  static toDomain(raw: RawSentence & { userFavoriteSentences?: { id: string }[] }): Sentence {
     return new Sentence({
       id: raw.id,
       content: raw.content,
@@ -28,6 +29,7 @@ export class SentenceMapper {
       isActive: raw.isActive,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
+      isFavorite: raw.userFavoriteSentences?.some((favorite) => favorite.id === raw.id) ?? false,
     });
   }
 

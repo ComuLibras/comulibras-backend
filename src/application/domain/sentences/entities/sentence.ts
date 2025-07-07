@@ -9,6 +9,7 @@ interface ISentenceProps extends IEntityProps {
   videoUrl: string;
   categoryId?: string | null;
   isActive: boolean;
+  isFavorite?: boolean;
 }
 
 export class Sentence extends Entity {
@@ -65,6 +66,7 @@ export class Sentence extends Entity {
       isActive: domain.isActive,
       createdAt: domain.createdAt ?? new Date(),
       updatedAt: domain.updatedAt ?? new Date(),
+      isFavorite: domain.isFavorite,
     };
   }
 }

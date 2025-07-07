@@ -15,6 +15,7 @@ export class GetSentencesService implements IService<GetSentencesService.Input, 
   ) {}
 
   async execute(input: GetSentencesService.Input): Promise<GetSentencesService.Output> {
+
     const { sentences, totalSentences } = await this.sentenceRepo.findAll(input);
 
     return {
@@ -25,6 +26,6 @@ export class GetSentencesService implements IService<GetSentencesService.Input, 
 }
 
 export namespace GetSentencesService {
-  export type Input = GetSentencesQuery;
+  export type Input = GetSentencesQuery & { account?: Http.Account; onlyActive: boolean };
   export type Output = IGetSentencesResponse;
 }

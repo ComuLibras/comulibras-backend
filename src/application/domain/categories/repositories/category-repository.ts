@@ -1,9 +1,9 @@
 import { Category } from '../entities/category';
-import { GetCategoriesQuery } from '../use-cases/get-categories/get-categories-dto';
+import { type GetCategoriesService } from '../use-cases/get-categories/get-categories-service';
 
 export interface ICategoryRepository {
   create(category: Category): Promise<void>;
-  findAll(input: GetCategoriesQuery): Promise<Category[]>;
+  findAll(input: GetCategoriesService.Input): Promise<Category[]>;
   findById(id: string): Promise<Category | null>;
   update(category: Category): Promise<void>;
   delete(id: string): Promise<void>;

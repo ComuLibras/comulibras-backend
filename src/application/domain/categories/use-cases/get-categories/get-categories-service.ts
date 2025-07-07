@@ -24,6 +24,6 @@ export class GetCategoriesService implements IService<GetCategoriesService.Input
 }
 
 export namespace GetCategoriesService {
-  export type Input = GetCategoriesQuery & { account?: Http.Account };
+  export type Input = GetCategoriesQuery & { account?: Http.Account; onlyActive: boolean };
   export type Output = Category[];
 }

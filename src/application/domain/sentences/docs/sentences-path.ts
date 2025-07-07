@@ -20,8 +20,11 @@ export const sentencesPath: PathItem = {
 
 export const sentencesPathWithId: PathItem = {
   delete: addDefaultResponsesSwagger(deleteSentenceSwagger),
-  patch: addDefaultResponsesSwagger(updateSentenceStatusSwagger),
   put: addDefaultResponsesSwagger(updateSentenceSwagger),
+};
+
+export const sentencesPathStatus: PathItem = {
+  patch: addDefaultResponsesSwagger(updateSentenceStatusSwagger),
 };
 
 export const sentencesPathFavorite: PathItem = {

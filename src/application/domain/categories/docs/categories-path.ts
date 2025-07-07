@@ -15,9 +15,12 @@ export const categoriesPathCreate: PathItem = {
 };
 
 export const categoriesPathWithId: PathItem = {
-  patch: addDefaultResponsesSwagger(updateCategoryStatusSwagger),
   put: addDefaultResponsesSwagger(updateCategorySwagger),
   delete: addDefaultResponsesSwagger(deleteCategorySwagger),
+};
+
+export const categoriesPathStatus: PathItem = {
+  patch: addDefaultResponsesSwagger(updateCategoryStatusSwagger),
 };
 
 export const categoriesPathFavorite: PathItem = {

@@ -17,13 +17,13 @@ import { signInHttpSchema } from '@domain/auth/docs/sign-in-swagger';
 import { signUpHttpSchema } from '@domain/auth/docs/sign-up-swagger';
 import { signInOpenAPIBody } from '@domain/auth/use-cases/sign-in/sign-in-dto';
 import { signUpOpenAPIBody } from '@domain/auth/use-cases/sign-up/sign-up-dto';
-import { categoriesPathCreate, categoriesPathFavorite, categoriesPathWithId } from '@domain/categories/docs/categories-path';
+import { categoriesPathCreate, categoriesPathFavorite, categoriesPathStatus, categoriesPathWithId } from '@domain/categories/docs/categories-path';
 import { categoryHttpSchemaOpenAPI } from '@domain/categories/mappers/category-mapper';
 import { createCategoryOpenAPIBody } from '@domain/categories/use-cases/create-category/create-category-dto';
 import { updateCategoryOpenAPIBody } from '@domain/categories/use-cases/update-category/update-category-dto';
 import { updateCategoryFavoriteOpenAPIBody } from '@domain/categories/use-cases/update-category-favorite/update-category-favorite-dto';
 import { updateCategoryStatusOpenAPIBody } from '@domain/categories/use-cases/update-category-status/update-category-status-dto';
-import { sentencesPath, sentencesPathFavorite, sentencesPathWithId } from '@domain/sentences/docs/sentences-path';
+import { sentencesPath, sentencesPathFavorite, sentencesPathStatus, sentencesPathWithId } from '@domain/sentences/docs/sentences-path';
 import { sentenceHttpSchemaOpenAPI } from '@domain/sentences/mappers/sentence-mapper';
 import { createSentenceOpenAPIBody } from '@domain/sentences/use-cases/create-sentence/create-sentence-dto';
 import { deleteSentencesOpenAPIBody } from '@domain/sentences/use-cases/delete-sentences/delete-sentences-dto';
@@ -166,9 +166,11 @@ const options: swaggerJsdoc.Options = {
       '/auth/sign-in': authPathSignIn,
       '/categories': categoriesPathCreate,
       '/categories/{categoryId}': categoriesPathWithId,
+      '/categories/{categoryId}/status': categoriesPathStatus,
       '/categories/{categoryId}/favorite': categoriesPathFavorite,
       '/sentences': sentencesPath,
       '/sentences/{sentenceId}': sentencesPathWithId,
+      '/sentences/{sentenceId}/status': sentencesPathStatus,
       '/sentences/{sentenceId}/favorite': sentencesPathFavorite,
       '/accounts': accountsPath,
       '/accounts/{accountId}': accountsPathWithId,

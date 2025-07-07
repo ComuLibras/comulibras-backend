@@ -47,7 +47,7 @@ sentencesRouter.patch('/',
   routeAdapter(container.resolve(UpdateSentencesCategoryController)),
 );
 
-sentencesRouter.patch('/:sentenceId',
+sentencesRouter.patch('/:sentenceId/status',
   authenticationMiddleware,
   authorizationMiddleware,
   routeAdapter(container.resolve(UpdateSentenceStatusController)),

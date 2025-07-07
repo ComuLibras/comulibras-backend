@@ -7,7 +7,9 @@ export const ACCESS_FORBIDDEN_ERROR =
   'Acesso negado. Seu perfil não possui as permissões necessárias para esta ação.';
 
 export class AuthorizationMiddleware implements IMiddleware {
-  constructor(private readonly allowedRoles: Exclude<Roles, Roles.ADMIN>[]) {}
+  constructor(
+    private readonly allowedRoles: Exclude<Roles, Roles.ADMIN>[],
+  ) {}
 
   async handle({ account }: Http.Request): Promise<Http.Response | IData> {
     if (!account) {

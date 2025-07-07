@@ -4,9 +4,12 @@ import { ITokenProvider } from '@shared/providers/token-provider/token-provider'
 import { AuthenticationMiddleware } from '../authentication-middleware';
 
 export function makeAuthenticationMiddleware(
-  tokenProviderParam?: ITokenProvider,
+  options?: {
+    tokenProvider?: ITokenProvider;
+    optional?: boolean;
+  },
 ) {
-  const tokenProvider = tokenProviderParam ?? new JWTTokenProvider();
+  const { tokenProvider = new JWTTokenProvider(), optional = false } = options ?? {};
 
-  return new AuthenticationMiddleware(tokenProvider);
+  return new AuthenticationMiddleware(tokenProvider, optional);
 }

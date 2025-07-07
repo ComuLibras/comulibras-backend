@@ -12,8 +12,8 @@ import { routeAdapter } from '../adapters/route-adapter';
 
 export const accountsRouter = Router();
 
-accountsRouter.post('/',  routeAdapter(container.resolve(CreateAccountController)));
-accountsRouter.get('/',  routeAdapter(container.resolve(GetAccountsController)));
+accountsRouter.post('/', routeAdapter(container.resolve(CreateAccountController)));
+accountsRouter.get('/', routeAdapter(container.resolve(GetAccountsController)));
 accountsRouter.patch('/:accountId/role',  routeAdapter(container.resolve(UpdateAccountRoleController)));
 accountsRouter.patch('/:accountId/status',  routeAdapter(container.resolve(UpdateAccountStatusController)));
 accountsRouter.delete('/:accountId',  routeAdapter(container.resolve(DeleteAccountController)));

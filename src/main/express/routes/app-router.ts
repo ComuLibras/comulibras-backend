@@ -1,7 +1,5 @@
 import { Router } from 'express';
 
-import { Roles } from '@domain/accounts/entities/role';
-
 import { makeAuthenticationMiddleware } from '@shared/http/middlewares/factories/make-authentication-middleware';
 import { makeAuthorizationMiddleware } from '@shared/http/middlewares/factories/make-authorization-middleware';
 
@@ -22,22 +20,11 @@ appRouter.get('/health', (req, res) => {
   });
 });
 
-const authenticationMiddleware = middlewareAdapter(makeAuthenticationMiddleware());
-
 appRouter.use('/auth', authRouter);
 appRouter.use('/accounts',
-  authenticationMiddleware,
+  middlewareAdapter(makeAuthenticationMiddleware()),
   middlewareAdapter(makeAuthorizationMiddleware()),
   accountsRouter,
 );
-appRouter.use('/categories',
-  authenticationMiddleware,
-  middlewareAdapter(makeAuthorizationMiddleware([Roles.SENTENCES_MANAGER])),
-  categoriesRouter,
-);
-appRouter.use(
-  '/sentences',
-  authenticationMiddleware,
-  middlewareAdapter(makeAuthorizationMiddleware([Roles.SENTENCES_MANAGER])),
-  sentencesRouter,
-);
+appRouter.use('/categories', categoriesRouter);
+appRouter.use('/sentences', sentencesRouter);

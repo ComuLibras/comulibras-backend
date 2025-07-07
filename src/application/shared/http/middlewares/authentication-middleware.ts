@@ -10,6 +10,7 @@ export const INVALID_TOKEN_ERROR = 'Token de acesso inválido';
 export class AuthenticationMiddleware implements IMiddleware {
   constructor(
     @Inject('TokenProvider') private readonly tokenProvider: ITokenProvider,
+    private readonly optional: boolean,
   ) {}
 
   async handle({ headers }: Http.Request): Promise<Http.Response | IData> {
@@ -37,6 +38,14 @@ export class AuthenticationMiddleware implements IMiddleware {
         },
       };
     } catch {
+      if (this.optional) {
+        return {
+          data: {
+            account: null,
+          },
+        };
+      }
+
       throw new UnauthorizedHTTPError(INVALID_TOKEN_ERROR);
     }
   }

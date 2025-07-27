@@ -33,6 +33,7 @@ export class HandleApplicationErrorMiddleware implements IErrorMiddleware {
     }
 
     if (error instanceof Error) {
+      console.error(error);
       return {
         statusCode: StatusCode.INTERNAL_SERVER_ERROR,
         body: {

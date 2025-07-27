@@ -22,6 +22,8 @@ export class GetAccountsService implements IService<GetAccountsService.Input, Ge
 }
 
 export namespace GetAccountsService {
-  export type Input = GetAccountsQuery;
+  export type Input = GetAccountsQuery & {
+    accountId: string;
+  };
   export type Output = IGetAccountsResponse;
 }

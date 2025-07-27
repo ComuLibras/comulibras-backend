@@ -29,7 +29,10 @@ export class GetAccountsController extends Controller<GetAccountsResponse> {
   }
 
   protected override async handle(request: Http.Request<never, GetAccountsQuery>): Controller.HandleResponse<GetAccountsResponse> {
-    const account = await this.getAccountsService.execute(request.query);
+    const account = await this.getAccountsService.execute({
+      ...request.query,
+      accountId: request.account!.id,
+    });
 
     return {
       accounts: account.accounts.map(AccountMapper.toHttp),

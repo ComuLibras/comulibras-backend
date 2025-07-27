@@ -1,5 +1,6 @@
 import { Account } from '../entities/account';
 import { AccountOrderBy, OrderDirection } from '../use-cases/get-accounts/get-accounts-dto';
+import { GetAccountsService } from '../use-cases/get-accounts/get-accounts-service';
 
 export interface IAccountsParams {
   page?: number;
@@ -20,5 +21,5 @@ export interface IAccountRepository {
   findById(accountId: string): Promise<Account | null>;
   update(account: Account): Promise<void>;
   delete(accountId: string): Promise<void>;
-  findAll(params: IAccountsParams): Promise<IGetAccountsResponse>;
+  findAll(params: GetAccountsService.Input): Promise<IGetAccountsResponse>;
 }

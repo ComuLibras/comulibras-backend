@@ -2,11 +2,10 @@ import { prismaClient } from '@shared/clients/prisma-client';
 
 import { Account } from '../entities/account';
 import { AccountMapper } from '../mappers/account-mapper';
+import { GetAccountsService } from '../use-cases/get-accounts/get-accounts-service';
 
 import {
-  IAccountRepository,
-  IAccountsParams,
-  IGetAccountsResponse,
+  IAccountRepository, IGetAccountsResponse,
 } from './account-repository';
 
 export class PrismaAccountRepository implements IAccountRepository {
@@ -43,17 +42,18 @@ export class PrismaAccountRepository implements IAccountRepository {
     orderBy,
     orderDirection = 'asc',
     isActive,
-  }: IAccountsParams): Promise<IGetAccountsResponse> {
+    accountId,
+  }: GetAccountsService.Input): Promise<IGetAccountsResponse> {
     const whereClause = isActive !== undefined ? { isActive } : {};
 
     const orderByField = orderBy ? this.mapOrderByField(orderBy) : 'name';
 
     const [totalAccounts, accounts] = await Promise.all([
-      prismaClient.account.count({ where: whereClause }),
+      prismaClient.account.count({ where: { ...whereClause, id: { not: accountId } } }),
       prismaClient.account.findMany({
         take: perPage,
         skip: page ? (page - 1) * perPage : 0,
-        where: whereClause,
+        where: { ...whereClause, id: { not: accountId } },
         orderBy: {
           [orderByField]: orderDirection,
         },

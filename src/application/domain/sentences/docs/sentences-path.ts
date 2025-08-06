@@ -5,6 +5,7 @@ import { addDefaultResponsesSwagger } from '@shared/docs/add-default-responses-s
 import { createSentenceSwagger } from './create-sentence-swagger';
 import { deleteSentenceSwagger } from './delete-sentence-swagger';
 import { deleteSentencesSwagger } from './delete-sentences-swagger';
+import { getSentenceByIdSwagger } from './get-sentence-by-id-swagger';
 import { getSentencesSwagger } from './get-sentences-swagger';
 import { updateSentenceFavoriteSwagger } from './update-sentence-favorite-swagger';
 import { updateSentenceStatusSwagger } from './update-sentence-status';
@@ -19,6 +20,7 @@ export const sentencesPath: PathItem = {
 };
 
 export const sentencesPathWithId: PathItem = {
+  get: addDefaultResponsesSwagger(getSentenceByIdSwagger, { omitResponses: ['401', '403'] }),
   delete: addDefaultResponsesSwagger(deleteSentenceSwagger),
   put: addDefaultResponsesSwagger(updateSentenceSwagger),
 };

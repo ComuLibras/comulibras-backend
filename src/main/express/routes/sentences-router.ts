@@ -4,6 +4,7 @@ import { Roles } from '@domain/accounts/entities/role';
 import { CreateSentenceController } from '@domain/sentences/use-cases/create-sentence/create-sentence-controller';
 import { DeleteSentenceController } from '@domain/sentences/use-cases/delete-sentence/delete-sentence-controller';
 import { DeleteSentencesController } from '@domain/sentences/use-cases/delete-sentences/delete-sentences-controller';
+import { GetSentenceByIdController } from '@domain/sentences/use-cases/get-sentence-by-id/get-sentence-by-id-controller';
 import { GetSentencesController } from '@domain/sentences/use-cases/get-sentences/get-sentences-controller';
 import { UpdateSentenceController } from '@domain/sentences/use-cases/update-sentence/update-sentence-controller';
 import { UpdateSentenceFavoriteController } from '@domain/sentences/use-cases/update-sentence-favorite/update-sentence-favorite-controller';
@@ -27,6 +28,11 @@ export const sentencesRouter = Router();
 sentencesRouter.get('/',
   optionalAuthenticationMiddleware,
   routeAdapter(container.resolve(GetSentencesController)),
+);
+
+sentencesRouter.get('/:sentenceId',
+  optionalAuthenticationMiddleware,
+  routeAdapter(container.resolve(GetSentenceByIdController)),
 );
 
 sentencesRouter.post('/',

@@ -3,7 +3,7 @@ import { ISentenceRepository } from '@domain/sentences/repositories/sentence-rep
 import { Inject } from '@kernel/decorators/inject';
 import { Injectable } from '@kernel/decorators/injectable';
 
-import { NotFoundHttpError } from '@shared/http/errors/not-found-http-error';
+import { NotFoundHTTPError } from '@shared/http/errors/not-found-http-error';
 import { IService } from '@shared/http/interfaces/service';
 
 import { GetSentenceByIdParams } from './get-sentence-by-id-dto';
@@ -19,12 +19,11 @@ export class GetSentenceByIdService implements IService<GetSentenceByIdService.I
     const sentence = await this.sentenceRepo.findById(input.sentenceId);
 
     if (!sentence) {
-      throw new NotFoundHttpError('Sentence not found');
+      throw new NotFoundHTTPError('Sentence not found');
     }
 
-    // Se o usuário for comum (USER), só pode ver sentenças ativas
-    if (input.account?.role === 'USER' && !sentence.isActive) {
-      throw new NotFoundHttpError('Sentence not found');
+    if (input.account?.role === 'USER' && !sentence.props.isActive) {
+      throw new NotFoundHTTPError('Sentence not found');
     }
 
     return sentence;

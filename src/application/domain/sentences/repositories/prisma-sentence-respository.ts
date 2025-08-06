@@ -126,6 +126,9 @@ export class PrismaSentenceRepository implements ISentenceRepository {
   async findById(id: string): Promise<Sentence | null> {
     const sentence = await this.prisma.sentence.findUnique({
       where: { id },
+      include: {
+        category: true,
+      },
     });
     return sentence ? SentenceMapper.toDomain(sentence) : null;
   }

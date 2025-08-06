@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { Prisma, Roles as PrismaRoles } from '@prisma/client';
 
 import { Entity, IEntityProps } from '@shared/entities/entity';
 
@@ -38,7 +38,7 @@ export class Account extends Entity {
       id: domain.id,
       name: domain.name,
       email: domain.email,
-      role: domain.role,
+      role: domain.role as PrismaRoles,
       password: domain.password,
       isActive: domain.isActive,
       isPasswordCreated: domain.isPasswordCreated,

@@ -1,5 +1,7 @@
 import { Prisma } from '@prisma/client';
 
+import { Category } from '@domain/categories/entities/category';
+
 import { Entity, IEntityProps } from '@shared/entities/entity';
 
 import { SentenceHttpSchema } from '../mappers/sentence-mapper';
@@ -8,6 +10,7 @@ interface ISentenceProps extends IEntityProps {
   content: string;
   videoUrl: string;
   categoryId?: string | null;
+  category?: Category | null;
   isActive: boolean;
   isFavorite?: boolean;
 }
@@ -72,6 +75,7 @@ export class Sentence extends Entity {
       createdAt: domain.createdAt ?? new Date(),
       updatedAt: domain.updatedAt ?? new Date(),
       isFavorite: domain.isFavorite,
+      category: domain.category?.toHttp() ?? undefined,
     };
   }
 }

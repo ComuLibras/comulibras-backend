@@ -8,6 +8,7 @@ export const getCategoriesQuery = z.object({
   orderBy: categoryOrderByEnum.optional(),
   orderDirection: orderDirectionEnum.default('asc'),
   isActive: z.coerce.boolean().optional(),
+  isFavorite: z.coerce.boolean().optional(),
 });
 
 export type GetCategoriesQuery = z.infer<typeof getCategoriesQuery>;

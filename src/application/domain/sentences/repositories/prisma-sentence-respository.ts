@@ -71,12 +71,21 @@ export class PrismaSentenceRepository implements ISentenceRepository {
   }
 
   async findAll(input: GetSentencesService.Input): Promise<IGetSentencesResponse> {
-    const { search, categoryId, page, perPage, orderBy, orderDirection = 'asc', isActive } = input;
+    const { search, categoryId, page, perPage, orderBy, orderDirection = 'asc', isActive, isFavorite } = input;
 
     const whereClause: Prisma.SentenceWhereInput = {
       content: { contains: search, mode: 'insensitive' },
       categoryId: categoryId,
       ...(isActive !== undefined && { isActive }),
+      ...(isFavorite !== undefined && {
+        userFavoriteSentences: {
+          some: {
+            accountId: {
+              equals: input.account?.id,
+            },
+          },
+        },
+      }),
     };
 
     const orderByClause = orderBy ? this.getOrderByClause(orderBy, orderDirection) : { content: orderDirection as Prisma.SortOrder };
@@ -123,11 +132,20 @@ export class PrismaSentenceRepository implements ISentenceRepository {
     }
   }
 
-  async findById(id: string): Promise<Sentence | null> {
+  async findById(id: string, accountId?: string): Promise<Sentence | null> {
     const sentence = await this.prisma.sentence.findUnique({
       where: { id },
       include: {
         category: true,
+        ...(accountId && {
+          userFavoriteSentences: {
+          where: {
+            accountId: {
+              equals: accountId,
+            },
+            },
+          },
+        }),
       },
     });
     return sentence ? SentenceMapper.toDomain(sentence) : null;

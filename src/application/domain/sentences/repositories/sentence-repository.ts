@@ -9,7 +9,7 @@ export interface IGetSentencesResponse {
 export interface ISentenceRepository {
   create(sentence: Sentence): Promise<void>;
   findAll(input: GetSentencesService.Input): Promise<IGetSentencesResponse>;
-  findById(id: string): Promise<Sentence | null>;
+  findById(id: string, accountId?: string): Promise<Sentence | null>;
   findByIds(ids: string[]): Promise<Sentence[]>;
   findByContent(content: string, categoryId: string | null): Promise<Sentence | null>;
   update(sentence: Sentence): Promise<void>;

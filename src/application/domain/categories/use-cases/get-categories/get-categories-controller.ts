@@ -28,6 +28,7 @@ export class GetCategoriesController extends Controller<CategoryHttpSchema[]> {
       account: request.account,
       ...request.query,
       isActive: !request.account || request.account?.role === Roles.USER ? true : request.query.isActive,
+      isFavorite: !request.account ? undefined : request.query.isFavorite,
     });
 
     return categories.map(CategoryMapper.toHttp);

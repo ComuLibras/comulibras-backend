@@ -16,7 +16,7 @@ export class GetSentenceByIdService implements IService<GetSentenceByIdService.I
   ) {}
 
   async execute(input: GetSentenceByIdService.Input): Promise<GetSentenceByIdService.Output> {
-    const sentence = await this.sentenceRepo.findById(input.sentenceId);
+    const sentence = await this.sentenceRepo.findById(input.sentenceId, input.account?.id);
 
     if (!sentence) {
       throw new NotFoundHTTPError('Sentence not found');

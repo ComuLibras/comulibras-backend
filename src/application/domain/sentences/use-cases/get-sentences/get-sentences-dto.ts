@@ -11,6 +11,7 @@ export const getSentencesQuery = z.object({
   orderBy: sentenceOrderByEnum.optional(),
   orderDirection: orderDirectionEnum.default('asc'),
   isActive: z.coerce.boolean().optional(),
+  isFavorite: z.coerce.boolean().optional(),
 });
 
 export type GetSentencesQuery = z.infer<typeof getSentencesQuery>;

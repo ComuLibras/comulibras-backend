@@ -43,7 +43,7 @@ export class PrismaCategoryRepository implements ICategoryRepository {
   }
 
   async findAll(input: GetCategoriesService.Input): Promise<Category[]> {
-    const { search, account, orderBy, orderDirection = 'asc', isActive } = input;
+    const { search, account, orderBy, orderDirection = 'asc', isActive, isFavorite } = input;
 
     const whereClause = {
       name: {
@@ -51,6 +51,15 @@ export class PrismaCategoryRepository implements ICategoryRepository {
         mode: 'insensitive' as const,
       },
       ...(isActive !== undefined && { isActive }),
+      ...(isFavorite !== undefined && {
+        userFavoriteCategories: {
+          some: {
+            accountId: {
+              equals: account?.id,
+            },
+          },
+        },
+      }),
     };
 
     const orderByClause = orderBy ? this.getOrderByClause(orderBy, orderDirection) : { name: orderDirection };

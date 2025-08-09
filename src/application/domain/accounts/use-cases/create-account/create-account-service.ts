@@ -7,6 +7,7 @@ import { Injectable } from '@kernel/decorators/injectable';
 
 import { ConflictHTTPError } from '@shared/http/errors/conflict-http-error';
 import { IService } from '@shared/http/interfaces/service';
+import { IHashProvider } from '@shared/providers/hash-provider/hash-provider';
 
 import { CreateAccountBody } from './create-account-dto';
 
@@ -15,6 +16,9 @@ export class CreateAccountService implements IService<CreateAccountService.Input
   constructor(
     @Inject('AccountRepository')
     private readonly accountRepo: IAccountRepository,
+
+    @Inject('HashProvider')
+    private readonly hashProvider: IHashProvider,
   ) {}
 
   async execute(input: CreateAccountService.Input): Promise<CreateAccountService.Output> {
@@ -24,12 +28,15 @@ export class CreateAccountService implements IService<CreateAccountService.Input
       throw new ConflictHTTPError(ACCOUNT_ALREADY_EXISTS_ERROR);
     }
 
+    const hashedPassword = await this.hashProvider.encrypt(input.password);
+
     const account = new Account({
       name: input.name,
       email: input.email,
       role: input.role,
       isActive: true,
-      isPasswordCreated: false,
+      isPasswordCreated: true,
+      password: hashedPassword,
     });
 
     await this.accountRepo.create(account);

@@ -4,7 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 
 import { env } from '@config/env';
 
-import { accountsPath, accountsPathRole, accountsPathStatus, accountsPathWithId } from '@domain/accounts/docs/accounts-path';
+import { accountsPath, accountsPathMe, accountsPathRole, accountsPathStatus, accountsPathWithId } from '@domain/accounts/docs/accounts-path';
 import { accountHttpSchemaOpenAPI } from '@domain/accounts/mappers/account-mapper';
 import { createAccountOpenAPIBody } from '@domain/accounts/use-cases/create-account/create-account-dto';
 import { updateAccountRoleOpenAPIBody } from '@domain/accounts/use-cases/update-account-role/update-account-role-dto';
@@ -174,6 +174,7 @@ const options: swaggerJsdoc.Options = {
       '/sentences/{sentenceId}/favorite': sentencesPathFavorite,
       '/accounts': accountsPath,
       '/accounts/{accountId}': accountsPathWithId,
+      '/accounts/me': accountsPathMe,
       '/accounts/{accountId}/status': accountsPathStatus,
       '/accounts/{accountId}/role': accountsPathRole,
     },

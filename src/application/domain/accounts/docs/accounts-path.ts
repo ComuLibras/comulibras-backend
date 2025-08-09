@@ -5,6 +5,7 @@ import { addDefaultResponsesSwagger } from '@shared/docs/add-default-responses-s
 import { createAccountSwagger } from './create-account';
 import { deleteAccountSwagger } from './delete-account';
 import { getAccountsSwagger } from './get-accounts';
+import { getMeAccountSwagger } from './get-me-account';
 import { updateAccountRoleSwagger } from './update-account-role';
 import { updateAccountStatusSwagger } from './update-account-status';
 
@@ -23,4 +24,8 @@ export const accountsPathStatus: PathItem = {
 
 export const accountsPathRole: PathItem = {
   patch: addDefaultResponsesSwagger(updateAccountRoleSwagger),
+};
+
+export const accountsPathMe: PathItem = {
+  get: addDefaultResponsesSwagger(getMeAccountSwagger),
 };

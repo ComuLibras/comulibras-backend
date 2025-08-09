@@ -15,6 +15,8 @@ import { GetSentencesQuery, getSentencesQuery } from './get-sentences-dto';
 import { GetSentencesService } from './get-sentences-service';
 
 type GetSentencesResponse = {
+  categoryId: string | null;
+  categoryName: string;
   sentences: SentenceHttpSchema[];
   totalSentences: number;
 };
@@ -39,6 +41,8 @@ export class GetSentencesController extends Controller<GetSentencesResponse> {
     });
 
     return {
+      categoryId: sentences.categoryId,
+      categoryName: sentences.categoryName,
       sentences: sentences.sentences.map(SentenceMapper.toHttp),
       totalSentences: sentences.totalSentences,
     };

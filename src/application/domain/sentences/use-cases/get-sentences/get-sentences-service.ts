@@ -1,8 +1,10 @@
+import { ICategoryRepository } from '@domain/categories/repositories/category-repository';
 import { IGetSentencesResponse, ISentenceRepository } from '@domain/sentences/repositories/sentence-repository';
 
 import { Inject } from '@kernel/decorators/inject';
 import { Injectable } from '@kernel/decorators/injectable';
 
+import { NotFoundHTTPError } from '@shared/http/errors/not-found-http-error';
 import { IService } from '@shared/http/interfaces/service';
 
 import { GetSentencesQuery } from './get-sentences-dto';
@@ -12,20 +14,34 @@ export class GetSentencesService implements IService<GetSentencesService.Input, 
   constructor(
     @Inject('SentenceRepository')
     private readonly sentenceRepo: ISentenceRepository,
+
+    @Inject('CategoryRepository')
+    private readonly categoryRepo: ICategoryRepository,
   ) {}
 
   async execute(input: GetSentencesService.Input): Promise<GetSentencesService.Output> {
+    let categoryName = 'Sem categoria';
+
+    if (input.categoryId) {
+      const category = await this.categoryRepo.findById(input.categoryId);
+      categoryName = category?.props.name ?? 'Sem categoria';
+      if (!category) {
+        throw new NotFoundHTTPError('Categoria não encontrada');
+      }
+    }
 
     const { sentences, totalSentences } = await this.sentenceRepo.findAll(input);
 
     return {
       sentences: sentences,
       totalSentences,
+      categoryName,
+      categoryId: input.categoryId ?? null,
     };
   }
 }
 
 export namespace GetSentencesService {
   export type Input = GetSentencesQuery & { account?: Http.Account };
-  export type Output = IGetSentencesResponse;
+  export type Output = IGetSentencesResponse & { categoryName: string; categoryId: string | null };
 }

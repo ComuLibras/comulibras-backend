@@ -31,7 +31,8 @@
     "lint": "eslint . --fix --ignore-pattern **/generated/** --ignore-pattern **/dist/**",
     "format": "prettier --write .",
     "commitlint": "commitlint --edit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "seed": "tsx prisma/seed/seed.ts"
   },
   "keywords": [],
   "author": "",

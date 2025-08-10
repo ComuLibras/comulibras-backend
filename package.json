@@ -18,7 +18,7 @@
     "predev": "pnpm db:generate && pnpm build:prod",
     "dev:db": "pnpm db:generate && pnpm dev",
     "dev:clean": "concurrently \"pnpm build:dev:watch\" \"node --watch dist/src/index.js\" --names \"build,server\" --prefix-colors \"blue,green\"",
-    "prod": "pnpm build:prod && pnpm start:prod",
+    "prod": "pnpm db:generate && pnpm db:migrate:dev && pnpm db:seed && pnpm build:prod && pnpm start:prod",
     "build:dev:watch": "concurrently \"swc src -d dist --watch\" \"tsc-alias -w\" --names \"swc,alias\" --prefix-colors \"cyan,magenta\"",
     "build:prod": "swc src -d dist && tsc-alias",
     "start:prod": "node dist/src/index.js",

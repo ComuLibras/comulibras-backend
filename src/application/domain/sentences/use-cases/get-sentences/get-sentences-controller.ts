@@ -18,7 +18,6 @@ type GetSentencesResponse = {
   categoryId: string | null;
   categoryName: string;
   sentences: SentenceHttpSchema[];
-  totalSentences: number;
 };
 
 @Injectable()
@@ -44,7 +43,6 @@ export class GetSentencesController extends Controller<GetSentencesResponse> {
       categoryId: sentences.categoryId,
       categoryName: sentences.categoryName,
       sentences: sentences.sentences.map(SentenceMapper.toHttp),
-      totalSentences: sentences.totalSentences,
     };
   }
 }

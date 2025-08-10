@@ -30,11 +30,10 @@ export class GetSentencesService implements IService<GetSentencesService.Input, 
       }
     }
 
-    const { sentences, totalSentences } = await this.sentenceRepo.findAll(input);
+    const { sentences } = await this.sentenceRepo.findAll(input);
 
     return {
       sentences: sentences,
-      totalSentences,
       categoryName,
       categoryId: input.categoryId ?? null,
     };

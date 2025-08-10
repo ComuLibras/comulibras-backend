@@ -71,7 +71,7 @@ export class PrismaSentenceRepository implements ISentenceRepository {
   }
 
   async findAll(input: GetSentencesService.Input): Promise<IGetSentencesResponse> {
-    const { search, categoryId, page, perPage, orderBy, orderDirection = 'asc', isActive, isFavorite } = input;
+    const { search, categoryId, orderBy, orderDirection = 'asc', isActive, isFavorite } = input;
 
     const whereClause: Prisma.SentenceWhereInput = {
       content: { contains: search, mode: 'insensitive' },
@@ -90,11 +90,7 @@ export class PrismaSentenceRepository implements ISentenceRepository {
 
     const orderByClause = orderBy ? this.getOrderByClause(orderBy, orderDirection) : { content: orderDirection as Prisma.SortOrder };
 
-    const [totalSentences, sentences] = await Promise.all([
-      this.prisma.sentence.count({ where: whereClause }),
-      this.prisma.sentence.findMany({
-        skip: page ? (page - 1) * perPage : 0,
-        take: perPage,
+    const sentences = await this.prisma.sentence.findMany({
         where: whereClause,
         orderBy: orderByClause,
         include: {
@@ -108,12 +104,10 @@ export class PrismaSentenceRepository implements ISentenceRepository {
             },
           },
         },
-      }),
-    ]);
+      });
 
     return {
       sentences: sentences.map(SentenceMapper.toDomain),
-      totalSentences,
     };
   }
 

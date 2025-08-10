@@ -3,7 +3,6 @@ import { type GetSentencesService } from '../use-cases/get-sentences/get-sentenc
 
 export interface IGetSentencesResponse {
   sentences: Sentence[];
-  totalSentences: number;
 }
 
 export interface ISentenceRepository {

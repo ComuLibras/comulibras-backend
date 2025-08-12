@@ -28,7 +28,7 @@ export class SignInService
   }: SignInService.Input): Promise<SignInService.Output> {
     const account = await this.accountRepo.findByEmail(email);
 
-    if (!account || !account.props.password) {
+    if (!account || !account.props.password || !account.props.isActive) {
       throw new UnauthorizedHTTPError(INVALID_CREDENTIALS_ERROR);
     }
 

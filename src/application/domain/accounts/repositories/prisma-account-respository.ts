@@ -37,8 +37,6 @@ export class PrismaAccountRepository implements IAccountRepository {
   }
 
   async findAll({
-    page = 1,
-    perPage = 10,
     orderBy,
     orderDirection = 'asc',
     isActive,
@@ -51,9 +49,7 @@ export class PrismaAccountRepository implements IAccountRepository {
     const [totalAccounts, accounts] = await Promise.all([
       prismaClient.account.count({ where: { ...whereClause, id: { not: accountId } } }),
       prismaClient.account.findMany({
-        take: perPage,
-        skip: page ? (page - 1) * perPage : 0,
-        where: { ...whereClause, id: { not: accountId } },
+        where: { ...whereClause, id: { not: accountId }, role: { not: 'USER' } },
         orderBy: {
           [orderByField]: orderDirection,
         },
